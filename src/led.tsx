@@ -28,65 +28,7 @@ export const neonOn = (frame: number, start: number, seed: string) => {
 /** Brightness multiplier applied to a shot right after a cut ("lights coming on"). */
 export const lightsOnBrightness = (frame: number) => {
   const pattern = [0.25, 1.7, 0.35, 1.45, 0.7, 1.25, 1.08, 1.03];
-  return frame < pattern.length ? pattern[frame] : 1;
-};
-
-/* ---------------------------------------------------------------- */
-/* Transition 1: LED panel — a wall of LEDs lights up diagonally,   */
-/* fully covers the cut, then switches off in the same direction.   */
-/* ---------------------------------------------------------------- */
-export const LedGrid: React.FC<{ duration: number; seed: string }> = ({
-  duration,
-  seed,
-}) => {
-  const frame = useCurrentFrame();
-  const cols = 12;
-  const rows = 21;
-  const cw = 1080 / cols;
-  const ch = 1920 / rows;
-  const p = frame / duration; // 0..1
-  const cells: React.ReactNode[] = [];
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-      const d = (x / cols + (rows - y) / rows) / 2; // 0 bottom-left .. 1 top-right
-      const r = random(`${seed}-${x}-${y}`);
-      const onAt = d * 0.38 + r * 0.06;
-      const offAt = 0.52 + d * 0.38 + r * 0.06;
-      let o = 0;
-      if (p >= onAt && p < offAt) o = 1;
-      // little sparkle on edges
-      if (Math.abs(p - onAt) < 0.03 || Math.abs(p - offAt) < 0.03) o = 0.55;
-      if (o === 0) continue;
-      const col = r > 0.82 ? WHITE : r > 0.55 ? AMBER : ORANGE;
-      cells.push(
-        <div
-          key={`${x}-${y}`}
-          style={{
-            position: "absolute",
-            left: x * cw + 4,
-            top: y * ch + 4,
-            width: cw - 8,
-            height: ch - 8,
-            borderRadius: 10,
-            background: col,
-            opacity: o,
-            boxShadow: `0 0 18px ${col}, 0 0 40px ${ORANGE}`,
-          }}
-        />,
-      );
-    }
-  }
-  // dark gaps between leds while the wall is lit
-  const coverage = interpolate(p, [0.3, 0.45, 0.55, 0.7], [0, 0.85, 0.85, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-  return (
-    <AbsoluteFill>
-      <AbsoluteFill style={{ background: "#050302", opacity: coverage }} />
-      {cells}
-    </AbsoluteFill>
-  );
+  return frame >= 0 && frame < pattern.length ? pattern[frame] : 1;
 };
 
 /* ---------------------------------------------------------------- */
@@ -307,7 +249,7 @@ export const NeonFrame: React.FC<{ duration: number; seed: string }> = ({
   );
 };
 
-export type TransitionKind = "grid" | "sweep" | "sweepL" | "tubes" | "strobe" | "frame";
+export type TransitionKind = "sweep" | "sweepL" | "tubes" | "strobe" | "frame";
 
 export const LedTransition: React.FC<{ kind: TransitionKind; duration: number; seed: string }> = ({
   kind,
@@ -315,8 +257,6 @@ export const LedTransition: React.FC<{ kind: TransitionKind; duration: number; s
   seed,
 }) => {
   switch (kind) {
-    case "grid":
-      return <LedGrid duration={duration} seed={seed} />;
     case "sweep":
       return <LedSweep duration={duration} seed={seed} />;
     case "sweepL":
@@ -357,6 +297,143 @@ export const EdgeLeds: React.FC<{ beat?: number }> = ({ beat = 15 }) => {
     <AbsoluteFill style={{ pointerEvents: "none" }}>
       {bar("left")}
       {bar("right")}
+    </AbsoluteFill>
+  );
+};
+
+/* ---------------------------------------------------------------- */
+/* Entry "from afar": the next shot plays small, inside a black     */
+/* void, framed by chasing LED bulbs — then slams full screen.      */
+/* Wrap a scene's content with it.                                  */
+/* ---------------------------------------------------------------- */
+export const BOX_ENTRY_FRAMES = 20;
+
+export const LedBoxEntry: React.FC<{ seed: string; children: React.ReactNode }> = ({
+  seed,
+  children,
+}) => {
+  const frame = useCurrentFrame();
+  const SNAP_START = 12;
+  const SNAP_END = 17;
+  const tilt = (random(`${seed}-tilt`) - 0.5) * 8;
+  const offsetY = (random(`${seed}-y`) - 0.5) * 160;
+  const far = interpolate(frame, [0, SNAP_START], [0.36, 0.44], {
+    extrapolateRight: "clamp",
+  });
+  const snap = interpolate(frame, [SNAP_START, SNAP_END], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.in(Easing.exp),
+  });
+  const s = far + (1 - far) * snap;
+  const rot = tilt * (1 - snap);
+  const y = offsetY * (1 - snap);
+  const ledOn = neonOn(frame, 0, `${seed}-box`) * (1 - snap);
+  const flash = interpolate(frame, [SNAP_END - 1, SNAP_END, SNAP_END + 4], [0, 0.8, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const shakeOn = frame >= SNAP_END && frame < SNAP_END + 5;
+  const shx = shakeOn ? (random(`${seed}-sx-${frame}`) - 0.5) * 36 : 0;
+  const shy = shakeOn ? (random(`${seed}-sy-${frame}`) - 0.5) * 36 : 0;
+
+  if (frame > SNAP_END + 6) return <AbsoluteFill>{children}</AbsoluteFill>;
+
+  const W = 1080;
+  const H = 1920;
+  const pad = 26;
+  const bw = W * s + pad * 2;
+  const bh = H * s + pad * 2;
+  const perim = 2 * (bw + bh);
+  const chase = -frame * 9;
+  const c = random(`${seed}-c`) > 0.5 ? ORANGE : AMBER;
+
+  return (
+    <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
+      {/* light spill on the floor of the black void */}
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse 60% 22% at 50% ${62 + (offsetY / 1920) * 100}%, rgba(255,106,26,${0.35 * ledOn}), transparent 70%)`,
+        }}
+      />
+      <AbsoluteFill
+        style={{
+          transform: `translate(${shx}px, ${y + shy}px) rotate(${rot}deg)`,
+        }}
+      >
+        <AbsoluteFill
+          style={{
+            transform: `scale(${s})`,
+            overflow: "hidden",
+            boxShadow: `0 0 ${60 * ledOn}px rgba(255,106,26,${0.7 * ledOn})`,
+          }}
+        >
+          {children}
+        </AbsoluteFill>
+        <svg
+          width={W}
+          height={H}
+          style={{ position: "absolute", left: 0, top: 0, overflow: "visible", opacity: ledOn }}
+        >
+          <defs>
+            <filter id={`bx-${seed}`} x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="7" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          {/* thin neon tube */}
+          <rect
+            x={(W - bw) / 2 + 10}
+            y={(H - bh) / 2 + 10}
+            width={bw - 20}
+            height={bh - 20}
+            rx={22}
+            fill="none"
+            stroke={WHITE}
+            strokeWidth={3}
+            filter={`url(#bx-${seed})`}
+          />
+          {/* chasing LED bulbs */}
+          <rect
+            x={(W - bw) / 2}
+            y={(H - bh) / 2}
+            width={bw}
+            height={bh}
+            rx={30}
+            fill="none"
+            stroke={c}
+            strokeWidth={13}
+            strokeLinecap="round"
+            strokeDasharray={`0 ${perim / Math.round(perim / 34)}`}
+            strokeDashoffset={chase}
+            filter={`url(#bx-${seed})`}
+          />
+          <rect
+            x={(W - bw) / 2}
+            y={(H - bh) / 2}
+            width={bw}
+            height={bh}
+            rx={30}
+            fill="none"
+            stroke={WHITE}
+            strokeWidth={7}
+            strokeLinecap="round"
+            strokeDasharray={`0 ${(perim / Math.round(perim / 34)) * 4}`}
+            strokeDashoffset={chase}
+          />
+        </svg>
+      </AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(circle at 50% 50%, #fff 0%, ${AMBER} 45%, ${ORANGE} 80%)`,
+          opacity: flash,
+          mixBlendMode: "screen",
+        }}
+      />
     </AbsoluteFill>
   );
 };

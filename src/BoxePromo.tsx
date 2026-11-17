@@ -22,6 +22,8 @@ import {
   WHITE,
   lightsOnBrightness,
   neonOn,
+  LedBoxEntry,
+  BOX_ENTRY_FRAMES,
 } from "./led";
 
 const ANTON = "Anton";
@@ -33,6 +35,9 @@ loadFont({ family: ARCHIVO, url: staticFile("fonts/Archivo-500.woff2"), weight: 
 loadFont({ family: ARCHIVO, url: staticFile("fonts/Archivo-700.woff2"), weight: "700" });
 
 const FPS = 30;
+
+/** Frames before a scene is "really" on screen (LED box entry). Text & flicker wait for it. */
+const EntryDelay = React.createContext(0);
 const GRADE = "contrast(1.14) saturate(1.22)";
 
 /* ------------------------------------------------------------------ */
@@ -62,7 +67,7 @@ const ClipShot: React.FC<{ src: string; startSec: number; zoom?: [number, number
   startSec,
   zoom = [1.08, 1.16],
 }) => {
-  const frame = useCurrentFrame();
+  const frame = useCurrentFrame() - React.useContext(EntryDelay);
   const { durationInFrames } = useVideoConfig();
   const s = interpolate(frame, [0, durationInFrames], zoom);
   const b = lightsOnBrightness(frame);
@@ -90,7 +95,7 @@ const PhotoShot: React.FC<{
   from?: [number, number, number];
   to?: [number, number, number];
 }> = ({ src, from = [1.05, 0, 0], to = [1.2, -30, -40] }) => {
-  const frame = useCurrentFrame();
+  const frame = useCurrentFrame() - React.useContext(EntryDelay);
   const { durationInFrames } = useVideoConfig();
   const t = interpolate(frame, [0, durationInFrames], [0, 1], {
     easing: Easing.out(Easing.quad),
@@ -124,7 +129,7 @@ const PunchText: React.FC<{
   top?: number;
   size?: number;
 }> = ({ text, sub, color = WHITE, delay = 3, top = 1280, size = 190 }) => {
-  const frame = useCurrentFrame();
+  const frame = useCurrentFrame() - React.useContext(EntryDelay);
   const { fps } = useVideoConfig();
   const f = frame - delay;
   if (f < 0) return null;
@@ -185,7 +190,7 @@ const PunchText: React.FC<{
 
 /** Small neon tag line in the top area (e.g. "BOXE THAÏ"). */
 const NeonTag: React.FC<{ text: string; delay?: number }> = ({ text, delay = 2 }) => {
-  const frame = useCurrentFrame();
+  const frame = useCurrentFrame() - React.useContext(EntryDelay);
   const on = neonOn(frame, delay, `tag-${text}`);
   return (
     <div
@@ -255,29 +260,285 @@ const Tubes: React.FC<{ startDelay?: number; ys: number[]; seed: string }> = ({
   );
 };
 
+
+/* ------------------------------------------------------------------ */
+/* Entrance: arrive in front of the real club door, the LED frame     */
+/* lights up, the doors slide open and we rush inside.                */
+/* ------------------------------------------------------------------ */
+const ENTRANCE_DUR = 84;
+const IW = 2119;
+const IH = 1802;
+const DOOR = { x: 800, y: 765, w: 492, h: 600 };
+const DOOR_SPLIT = 1046;
+
+const Entrance: React.FC = () => {
+  const frame = useCurrentFrame();
+  const D = ENTRANCE_DUR;
+  const push = interpolate(frame, [0, 38], [1.0655, 1.3], {
+    extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.quad),
+  });
+  const rush = interpolate(frame, [38, D - 3], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.in(Easing.cubic),
+  });
+  const S = push + (3.9 - push) * rush;
+  const cy = interpolate(frame, [0, 38, D - 3], [900, 1010, DOOR.y + DOOR.h / 2], {
+    extrapolateRight: "clamp",
+  });
+  const cx = DOOR_SPLIT;
+  const open = interpolate(frame, [32, 54], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.inOut(Easing.cubic),
+  });
+  const draw = interpolate(frame, [8, 28], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const ledOn = neonOn(frame, 8, "door-led");
+  const b = lightsOnBrightness(frame - 2);
+  const fadeIn = interpolate(frame, [0, 4], [0, 1], { extrapolateRight: "clamp" });
+  const blur = interpolate(frame, [D - 16, D], [0, 5], { extrapolateLeft: "clamp" });
+  const flash = interpolate(frame, [D - 7, D - 1], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const uiOut = interpolate(frame, [40, 52], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const tagOn = neonOn(frame, 12, "addr");
+  const txt = spring({ frame: frame - 16, fps: FPS, config: { damping: 14, stiffness: 200 } });
+
+  const pad = 16;
+  const rw = DOOR.w + pad * 2;
+  const rh = DOOR.h + pad * 2;
+  const perim = 2 * (rw + rh);
+  const paneW = DOOR_SPLIT - DOOR.x;
+
+  const pane = (side: "l" | "r") => {
+    const left = side === "l" ? DOOR.x : DOOR_SPLIT;
+    const w = side === "l" ? paneW : DOOR.x + DOOR.w - DOOR_SPLIT;
+    return (
+      <div
+        style={{
+          position: "absolute",
+          left,
+          top: DOOR.y,
+          width: w,
+          height: DOOR.h,
+          overflow: "hidden",
+          transform: `translateX(${(side === "l" ? -1 : 1) * open * w * 0.98}px)`,
+          boxShadow: open > 0 ? "0 0 30px rgba(0,0,0,0.8)" : undefined,
+        }}
+      >
+        <Img
+          src={staticFile("entree.jpg")}
+          style={{ position: "absolute", left: -left, top: -DOOR.y, width: IW, height: IH }}
+        />
+      </div>
+    );
+  };
+
+  return (
+    <AbsoluteFill style={{ background: "#000", overflow: "hidden" }}>
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: IW,
+          height: IH,
+          transformOrigin: "0 0",
+          transform: `translate(${540 - cx * S}px, ${960 - cy * S}px) scale(${S})`,
+          filter: `brightness(${b * fadeIn}) blur(${blur}px) contrast(1.08) saturate(1.15)`,
+        }}
+      >
+        <Img src={staticFile("entree.jpg")} style={{ width: IW, height: IH, display: "block" }} />
+        {/* inside the club, seen through the door */}
+        <div
+          style={{
+            position: "absolute",
+            left: DOOR.x,
+            top: DOOR.y,
+            width: DOOR.w,
+            height: DOOR.h,
+            overflow: "hidden",
+            background: "#000",
+            opacity: open > 0 ? 1 : 0,
+          }}
+        >
+          <OffthreadVideo
+            src={staticFile("clips/clip1.mp4")}
+            muted
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              filter: `${GRADE} brightness(${0.8 + open * 0.4})`,
+            }}
+          />
+          <AbsoluteFill
+            style={{
+              background: `radial-gradient(ellipse at 50% 40%, rgba(255,180,90,${0.35 * (1 - rush)}), transparent 70%)`,
+            }}
+          />
+        </div>
+        {pane("l")}
+        {pane("r")}
+        {/* warm light spilling out of the open door onto the pavement */}
+        <div
+          style={{
+            position: "absolute",
+            left: DOOR.x - 300,
+            top: DOOR.y + DOOR.h - 40,
+            width: DOOR.w + 600,
+            height: 380,
+            background: `radial-gradient(ellipse at 50% 0%, rgba(255,140,50,${0.55 * open}), transparent 70%)`,
+            mixBlendMode: "screen",
+          }}
+        />
+        {/* LED frame around the real door */}
+        <svg
+          width={IW}
+          height={IH}
+          style={{ position: "absolute", left: 0, top: 0, overflow: "visible", opacity: ledOn }}
+        >
+          <defs>
+            <filter id="door-glow" x="-30%" y="-30%" width="160%" height="160%">
+              <feGaussianBlur stdDeviation="9" result="b" />
+              <feMerge>
+                <feMergeNode in="b" />
+                <feMergeNode in="b" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          <rect
+            x={DOOR.x - pad}
+            y={DOOR.y - pad}
+            width={rw}
+            height={rh}
+            rx={10}
+            fill="none"
+            stroke={ORANGE}
+            strokeWidth={10}
+            strokeDasharray={perim}
+            strokeDashoffset={perim * (1 - draw)}
+            filter="url(#door-glow)"
+          />
+          <rect
+            x={DOOR.x - pad - 18}
+            y={DOOR.y - pad - 18}
+            width={rw + 36}
+            height={rh + 36}
+            rx={14}
+            fill="none"
+            stroke={WHITE}
+            strokeWidth={9}
+            strokeLinecap="round"
+            strokeDasharray={`0 ${perim / Math.round(perim / 30)}`}
+            strokeDashoffset={-frame * 6}
+            opacity={draw}
+            filter="url(#door-glow)"
+          />
+        </svg>
+      </div>
+      {/* dark street mood + readable text */}
+      <AbsoluteFill
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 20%, transparent 42%), linear-gradient(to bottom, rgba(0,0,0,0.55), transparent 18%)",
+          opacity: interpolate(frame, [62, 78], [1, 0], { extrapolateLeft: "clamp", extrapolateRight: "clamp" }),
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: 120,
+          left: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "center",
+          opacity: tagOn * uiOut,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: ARCHIVO,
+            fontWeight: 700,
+            fontSize: 40,
+            letterSpacing: 8,
+            color: WHITE,
+            padding: "12px 34px",
+            border: `4px solid ${ORANGE}`,
+            borderRadius: 50,
+            background: "rgba(0,0,0,0.45)",
+            boxShadow: `0 0 18px ${ORANGE}, 0 0 50px ${ORANGE}`,
+          }}
+        >
+          39 AV. RIBOT · BRIVE
+        </div>
+      </div>
+      <div
+        style={{
+          position: "absolute",
+          top: 1560,
+          left: 0,
+          right: 0,
+          textAlign: "center",
+          fontFamily: ANTON,
+          fontSize: 150,
+          color: WHITE,
+          opacity: Math.min(1, txt * 1.4) * uiOut,
+          transform: `scale(${interpolate(txt, [0, 1], [1.8, 1])})`,
+          textShadow: `0 0 18px ${ORANGE}, 0 0 50px ${ORANGE}`,
+        }}
+      >
+        POUSSE LA PORTE.
+      </div>
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(circle, #fff 0%, ${AMBER} 55%, ${ORANGE} 100%)`,
+          opacity: flash,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 const Intro: React.FC = () => {
   const frame = useCurrentFrame();
-  const logoOn = neonOn(frame, 16, "logo");
+  const logoOn = neonOn(frame, 14, "logo");
   const logoScale = interpolate(frame, [16, 66], [0.92, 1.04]);
   const subOn = interpolate(frame, [34, 44], [0, 1], { extrapolateLeft: "clamp", extrapolateRight: "clamp" });
-  const bgOn = neonOn(frame, 6, "bg");
+  const settle = interpolate(frame, [0, 22], [0, 1], {
+    extrapolateRight: "clamp",
+    easing: Easing.out(Easing.cubic),
+  });
+  const flashOut = interpolate(frame, [0, 6], [1, 0], { extrapolateRight: "clamp" });
   return (
     <AbsoluteFill style={{ background: "#000" }}>
-      <AbsoluteFill style={{ opacity: 0.45 * bgOn }}>
+      <AbsoluteFill style={{ opacity: 1 - 0.55 * settle }}>
         <OffthreadVideo
           src={staticFile("clips/clip1.mp4")}
+          trimBefore={Math.round(ENTRANCE_DUR * 0.6)}
           muted
           style={{
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            filter: `${GRADE} blur(6px) brightness(0.55)`,
-            transform: "scale(1.15)",
+            filter: `${GRADE} blur(${6 * settle}px) brightness(${1.1 - 0.55 * settle})`,
+            transform: `scale(${1.5 - 0.35 * settle})`,
           }}
         />
       </AbsoluteFill>
+      <AbsoluteFill style={{ background: WHITE, opacity: flashOut }} />
       <Vignette strength={0.95} />
-      <Tubes ys={[470, 1390]} seed="intro" />
+      <Tubes ys={[470, 1390]} seed="intro" startDelay={8} />
       <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
         <Img
           src={staticFile("logo.png")}
@@ -595,7 +856,8 @@ const clip = (n: number, startSec: number, zoom?: [number, number]) => () => (
 );
 
 const SCENES: Scene[] = [
-  { dur: 66, render: () => <Intro /> },
+  { dur: ENTRANCE_DUR, render: () => <Entrance /> },
+  { dur: 62, render: () => <Intro /> },
   {
     dur: 54,
     edgeLeds: true,
@@ -711,23 +973,25 @@ const SCENES: Scene[] = [
   { dur: 126, render: () => <Outro /> },
 ];
 
-const TRANSITIONS: TransitionKind[] = [
-  "grid",
-  "sweep",
-  "tubes",
-  "strobe",
-  "sweepL",
-  "frame",
-  "grid",
-  "sweep",
-  "strobe",
-  "tubes",
-  "grid",
-  "frame",
-  "sweepL",
+type Cut = TransitionKind | "box" | "none";
+/** How each scene (from index 1) comes in. "box" = from afar in a black LED box, then slams in. */
+const CUTS: Cut[] = [
+  "none", // entrance -> inside (flash built into the entrance)
+  "box", // DISCIPLINE
+  "sweep", // RESPECT
+  "box", // DÉPASSEMENT DE SOI
+  "tubes", // BOXE ANGLAISE
+  "box", // BOXE THAÏ
+  "strobe", // MMA
+  "box", // PRÉPA PHYSIQUE
+  "sweepL", // TOUS NIVEAUX
+  "box", // COACHS
+  "frame", // ESPRIT CLUB
+  "box", // LA MONTAGNE
+  "tubes", // SHOP
+  "box", // OUTRO
 ];
 const TRANSITION_DUR: Record<TransitionKind, number> = {
-  grid: 20,
   sweep: 16,
   sweepL: 16,
   tubes: 18,
@@ -745,17 +1009,32 @@ export const TOTAL_FRAMES = SCENES.reduce((a, s) => a + s.dur, 0);
 export const BoxePromo: React.FC = () => {
   return (
     <AbsoluteFill style={{ background: "#000" }}>
-      {SCENES.map((s, i) => (
-        <Sequence key={`s${i}`} from={starts[i]} durationInFrames={s.dur} premountFor={30}>
-          {s.render()}
-          {s.edgeLeds ? <EdgeLeds /> : null}
-        </Sequence>
-      ))}
-      {starts.slice(1).map((cut, i) => {
-        const kind = TRANSITIONS[i % TRANSITIONS.length];
+      {SCENES.map((s, i) => {
+        const cut = i > 0 ? CUTS[i - 1] : "none";
+        const content = (
+          <>
+            {s.render()}
+            {s.edgeLeds ? <EdgeLeds /> : null}
+          </>
+        );
+        return (
+          <Sequence key={`s${i}`} from={starts[i]} durationInFrames={s.dur} premountFor={30}>
+            {cut === "box" ? (
+              <EntryDelay.Provider value={BOX_ENTRY_FRAMES - 3}>
+                <LedBoxEntry seed={`box${i}`}>{content}</LedBoxEntry>
+              </EntryDelay.Provider>
+            ) : (
+              content
+            )}
+          </Sequence>
+        );
+      })}
+      {starts.slice(1).map((start, i) => {
+        const kind = CUTS[i];
+        if (kind === "box" || kind === "none") return null;
         const d = TRANSITION_DUR[kind];
         return (
-          <Sequence key={`t${i}`} from={cut - Math.floor(d / 2)} durationInFrames={d}>
+          <Sequence key={`t${i}`} from={start - Math.floor(d / 2)} durationInFrames={d}>
             <LedTransition kind={kind} duration={d} seed={`t${i}`} />
           </Sequence>
         );
