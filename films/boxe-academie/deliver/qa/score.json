@@ -1,0 +1,515 @@
+{
+ "lufs": -14.0,
+ "true_peak_db": -2.27,
+ "sample_peak_db": -2.28,
+ "lra": 7.03,
+ "momentary_max": -10.12,
+ "momentary_max_t": 10.2,
+ "tail_50ms_db": -110.8,
+ "last_480_zero": true,
+ "seconds": 27.2,
+ "limiter_max_gr_db": 0.01,
+ "limiter_hot": [],
+ "payoff": {
+  "t": 10.0,
+  "momentary_max": -10.12,
+  "limiter_gr_db": 0.01,
+  "over_median_lu": 4.51
+ },
+ "hook": {
+  "opening_lufs_m": -14.23,
+  "median_lufs_m": -14.63,
+  "below_median_db": -0.4
+ },
+ "loudest_frac": 0.38,
+ "out": "public/audio/soundtrack.wav",
+ "bpm": 120.0,
+ "key": "A minor",
+ "bars": 14,
+ "events": {
+  "count": 32,
+  "by_kind": {
+   "pop": 15,
+   "tick": 11,
+   "drop": 1,
+   "whoosh": 2,
+   "hit": 1,
+   "bell": 1,
+   "click": 1
+  },
+  "skipped": [],
+  "masked": [
+   {
+    "f": 30.0,
+    "kind": "pop",
+    "id": "hook:hour3",
+    "band_hz": 1000,
+    "snr_db": 5.0
+   },
+   {
+    "f": 150.0,
+    "kind": "tick",
+    "id": "hook:keep1",
+    "band_hz": 2000,
+    "snr_db": 5.3
+   },
+   {
+    "f": 420.0,
+    "kind": "tick",
+    "id": "days:keep3",
+    "band_hz": 2000,
+    "snr_db": 0.4
+   },
+   {
+    "f": 540.0,
+    "kind": "tick",
+    "id": "days:keep4",
+    "band_hz": 2000,
+    "snr_db": -2.8
+   },
+   {
+    "f": 623.0,
+    "kind": "pop",
+    "id": "days:day3",
+    "band_hz": 1000,
+    "snr_db": 0.6
+   },
+   {
+    "f": 690.0,
+    "kind": "tick",
+    "id": "days:keep5",
+    "band_hz": 2000,
+    "snr_db": -4.0
+   },
+   {
+    "f": 720.0,
+    "kind": "pop",
+    "id": "days:ladder1",
+    "band_hz": 1000,
+    "snr_db": 5.2
+   },
+   {
+    "f": 750.0,
+    "kind": "pop",
+    "id": "days:ladder2",
+    "band_hz": 1000,
+    "snr_db": 2.9
+   },
+   {
+    "f": 780.0,
+    "kind": "pop",
+    "id": "days:ladder3",
+    "band_hz": 1000,
+    "snr_db": 3.4
+   },
+   {
+    "f": 900.0,
+    "kind": "tick",
+    "id": "days:keep6",
+    "band_hz": 2000,
+    "snr_db": -1.5
+   },
+   {
+    "f": 983.0,
+    "kind": "pop",
+    "id": "days:day5",
+    "band_hz": 2000,
+    "snr_db": 5.8
+   },
+   {
+    "f": 1020.0,
+    "kind": "tick",
+    "id": "days:keep7",
+    "band_hz": 2000,
+    "snr_db": -2.9
+   },
+   {
+    "f": 1140.0,
+    "kind": "tick",
+    "id": "days:keep8",
+    "band_hz": 2000,
+    "snr_db": 4.2
+   },
+   {
+    "f": 1290.0,
+    "kind": "tick",
+    "id": "days:keep9",
+    "band_hz": 2000,
+    "snr_db": 1.7
+   },
+   {
+    "f": 1320.0,
+    "kind": "hit",
+    "id": "end:promise",
+    "band_hz": 2000,
+    "snr_db": 3.8
+   },
+   {
+    "f": 1410.0,
+    "kind": "tick",
+    "id": "end:keep10",
+    "band_hz": 2000,
+    "snr_db": -4.4
+   },
+   {
+    "f": 1440.0,
+    "kind": "tick",
+    "id": "end:keep11",
+    "band_hz": 2000,
+    "snr_db": -2.8
+   },
+   {
+    "f": 1500.0,
+    "kind": "whoosh",
+    "id": "end:scatter",
+    "band_hz": 500,
+    "snr_db": 3.0
+   }
+  ],
+  "tuned": [
+   {
+    "f": 0.0,
+    "kind": "pop",
+    "id": "hook:hour1",
+    "note": "C6",
+    "in_key": true
+   },
+   {
+    "f": 15.0,
+    "kind": "pop",
+    "id": "hook:hour2",
+    "note": "D6",
+    "in_key": true
+   },
+   {
+    "f": 30.0,
+    "kind": "pop",
+    "id": "hook:hour3",
+    "note": "E6",
+    "in_key": true
+   },
+   {
+    "f": 45.0,
+    "kind": "pop",
+    "id": "hook:hour4",
+    "note": "G6",
+    "in_key": true
+   },
+   {
+    "f": 60.0,
+    "kind": "pop",
+    "id": "hook:hour5",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 150.0,
+    "kind": "tick",
+    "id": "hook:keep1",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 180.0,
+    "kind": "tick",
+    "id": "hook:keep2",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 240.0,
+    "kind": "drop",
+    "id": "week:grid",
+    "note": "F1",
+    "in_key": true
+   },
+   {
+    "f": 383.0,
+    "kind": "pop",
+    "id": "days:day1",
+    "note": "A5",
+    "in_key": true
+   },
+   {
+    "f": 420.0,
+    "kind": "tick",
+    "id": "days:keep3",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 503.0,
+    "kind": "pop",
+    "id": "days:day2",
+    "note": "B5",
+    "in_key": true
+   },
+   {
+    "f": 540.0,
+    "kind": "tick",
+    "id": "days:keep4",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 623.0,
+    "kind": "pop",
+    "id": "days:day3",
+    "note": "C6",
+    "in_key": true
+   },
+   {
+    "f": 690.0,
+    "kind": "tick",
+    "id": "days:keep5",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 720.0,
+    "kind": "pop",
+    "id": "days:ladder1",
+    "note": "D6",
+    "in_key": true
+   },
+   {
+    "f": 750.0,
+    "kind": "pop",
+    "id": "days:ladder2",
+    "note": "E6",
+    "in_key": true
+   },
+   {
+    "f": 780.0,
+    "kind": "pop",
+    "id": "days:ladder3",
+    "note": "F6",
+    "in_key": true
+   },
+   {
+    "f": 863.0,
+    "kind": "pop",
+    "id": "days:day4",
+    "note": "G6",
+    "in_key": true
+   },
+   {
+    "f": 900.0,
+    "kind": "tick",
+    "id": "days:keep6",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 983.0,
+    "kind": "pop",
+    "id": "days:day5",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1020.0,
+    "kind": "tick",
+    "id": "days:keep7",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1103.0,
+    "kind": "pop",
+    "id": "days:day6",
+    "note": "B6",
+    "in_key": true
+   },
+   {
+    "f": 1140.0,
+    "kind": "tick",
+    "id": "days:keep8",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1223.0,
+    "kind": "pop",
+    "id": "days:day7",
+    "note": "C7",
+    "in_key": true
+   },
+   {
+    "f": 1290.0,
+    "kind": "tick",
+    "id": "days:keep9",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1320.0,
+    "kind": "hit",
+    "id": "end:promise",
+    "note": "F1",
+    "in_key": true
+   },
+   {
+    "f": 1410.0,
+    "kind": "tick",
+    "id": "end:keep10",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1440.0,
+    "kind": "tick",
+    "id": "end:keep11",
+    "note": "A6",
+    "in_key": true
+   },
+   {
+    "f": 1486.0,
+    "kind": "bell",
+    "id": "end:underline",
+    "note": "A5",
+    "in_key": true
+   },
+   {
+    "f": 1529.0,
+    "kind": "click",
+    "id": "end:call",
+    "note": "C7",
+    "in_key": true
+   }
+  ]
+ },
+ "chords": [
+  {
+   "t": 0.0,
+   "chord": "Am"
+  },
+  {
+   "t": 4.0,
+   "chord": "Fmaj7"
+  },
+  {
+   "t": 6.0,
+   "chord": "C"
+  },
+  {
+   "t": 8.0,
+   "chord": "G"
+  },
+  {
+   "t": 10.0,
+   "chord": "Am"
+  },
+  {
+   "t": 12.0,
+   "chord": "Fmaj7"
+  },
+  {
+   "t": 14.0,
+   "chord": "C"
+  },
+  {
+   "t": 16.0,
+   "chord": "G"
+  },
+  {
+   "t": 18.0,
+   "chord": "Dm7"
+  },
+  {
+   "t": 20.0,
+   "chord": "Em7"
+  },
+  {
+   "t": 22.0,
+   "chord": "Fmaj7"
+  },
+  {
+   "t": 24.0,
+   "chord": "Am"
+  }
+ ],
+ "warnings": [
+  "click: 1 at -0.4 dB against the music, target -4.9382 (the levelling stops 12 dB from the static level): the music under them is unusually loud or quiet; check that section's level, or their weights"
+ ],
+ "fails": [],
+ "progress": {
+  "match": "day",
+  "events": 10,
+  "rungs": [
+   {
+    "f": 383,
+    "id": "days:day1",
+    "kind": "pop",
+    "note": "A5"
+   },
+   {
+    "f": 503,
+    "id": "days:day2",
+    "kind": "pop",
+    "note": "B5"
+   },
+   {
+    "f": 623,
+    "id": "days:day3",
+    "kind": "pop",
+    "note": "C6"
+   },
+   {
+    "f": 720,
+    "id": "days:ladder1",
+    "kind": "pop",
+    "note": "D6"
+   },
+   {
+    "f": 750,
+    "id": "days:ladder2",
+    "kind": "pop",
+    "note": "E6"
+   },
+   {
+    "f": 780,
+    "id": "days:ladder3",
+    "kind": "pop",
+    "note": "F6"
+   },
+   {
+    "f": 863,
+    "id": "days:day4",
+    "kind": "pop",
+    "note": "G6"
+   },
+   {
+    "f": 983,
+    "id": "days:day5",
+    "kind": "pop",
+    "note": "A6"
+   },
+   {
+    "f": 1103,
+    "id": "days:day6",
+    "kind": "pop",
+    "note": "B6"
+   },
+   {
+    "f": 1223,
+    "id": "days:day7",
+    "kind": "pop",
+    "note": "C7"
+   }
+  ],
+  "resolve": {
+   "t": 22.0,
+   "note": "A7"
+  }
+ },
+ "sfx_levels": {
+  "click": {
+   "count": 1,
+   "level_db": -12.0,
+   "vs_music_db": -0.4,
+   "target_db": -4.9
+  }
+ },
+ "pass": true
+}

@@ -1,0 +1,104 @@
+{
+ "file": "/home/user/Remotion-project/films/boxe-academie/out/film.mp4",
+ "pass": true,
+ "checks": [
+  {
+   "name": "size",
+   "ok": true,
+   "expected": "1920x1080",
+   "actual": "1920x1080"
+  },
+  {
+   "name": "fps",
+   "ok": true,
+   "expected": 60.0,
+   "actual": 60.0
+  },
+  {
+   "name": "frames",
+   "ok": true,
+   "expected": 1632,
+   "actual": 1632
+  },
+  {
+   "name": "duration",
+   "ok": true,
+   "expected": "27.200s +-0.018",
+   "actual": "27.200s"
+  },
+  {
+   "name": "vcodec",
+   "ok": true,
+   "expected": "h264",
+   "actual": "h264"
+  },
+  {
+   "name": "pix_fmt",
+   "ok": true,
+   "expected": "yuv420p",
+   "actual": "yuv420p"
+  },
+  {
+   "name": "bt709",
+   "ok": true,
+   "expected": "bt709/bt709/bt709/tv",
+   "actual": "bt709/bt709/bt709/tv"
+  },
+  {
+   "name": "audio",
+   "ok": true,
+   "expected": "present",
+   "actual": "present"
+  },
+  {
+   "name": "acodec",
+   "ok": true,
+   "expected": "aac",
+   "actual": "aac"
+  },
+  {
+   "name": "sample_rate",
+   "ok": true,
+   "expected": 48000,
+   "actual": 48000
+  },
+  {
+   "name": "channels",
+   "ok": true,
+   "expected": 2,
+   "actual": 2
+  },
+  {
+   "name": "audio_len",
+   "ok": true,
+   "expected": "27.200s +-0.073",
+   "actual": "27.200s"
+  }
+ ],
+ "facts": {
+  "width": 1920,
+  "height": 1080,
+  "fps": 60.0,
+  "frames": 1632,
+  "duration": 27.2,
+  "container_duration": 27.2,
+  "vcodec": "h264",
+  "profile": "High",
+  "pix_fmt": "yuv420p",
+  "color": {
+   "space": "bt709",
+   "primaries": "bt709",
+   "transfer": "bt709",
+   "range": "tv"
+  },
+  "size_mb": 11.701,
+  "bitrate_kbps": 3441,
+  "audio": {
+   "codec": "aac",
+   "sample_rate": 48000,
+   "channels": 2,
+   "duration": 27.2,
+   "bitrate_kbps": 318
+  }
+ }
+}

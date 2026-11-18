@@ -1,0 +1,68 @@
+{
+ "seed": 2910628843,
+ "format": "launch",
+ "energy": "high",
+ "category": null,
+ "picks": [
+  {
+   "id": "oh-live-grid-cold-open",
+   "name": "Four live cells from frame 2",
+   "category": "opening_hook",
+   "role": "signature"
+  },
+  {
+   "id": "tr-defocus-cut",
+   "name": "Defocus cut",
+   "category": "transition",
+   "role": "accent"
+  },
+  {
+   "id": "tr-subtract-reveal",
+   "name": "Reveal by subtraction",
+   "category": "transition",
+   "role": "workhorse"
+  },
+  {
+   "id": "ty-reading-order-exit",
+   "name": "Reading-order word exit",
+   "category": "typography_motion",
+   "role": "workhorse"
+  },
+  {
+   "id": "pd-fast-prompt-true-scale",
+   "name": "Fast prompt at true scale",
+   "category": "product_demo",
+   "role": "workhorse"
+  },
+  {
+   "id": "ui-push-aside-reflow",
+   "name": "Push-aside with bound layout",
+   "category": "ui_choreography",
+   "role": "workhorse"
+  },
+  {
+   "id": "le-mark-glint-turn",
+   "name": "Mark turns through a key light",
+   "category": "logo_and_end_card",
+   "role": "accent"
+  },
+  {
+   "id": "cam-push-dutch-roll",
+   "name": "Push-in with a roll swing",
+   "category": "camera",
+   "role": "accent"
+  },
+  {
+   "id": "dn-answer-card-bars",
+   "name": "Mini bar-chart answer card",
+   "category": "data_and_numbers",
+   "role": "workhorse"
+  },
+  {
+   "id": "mi-focus-ring-pop-or-trim",
+   "name": "Focus ring: pop on click, trim to point",
+   "category": "micro_interaction",
+   "role": "accent"
+  }
+ ]
+}

@@ -1,0 +1,850 @@
+{
+ "file": "out/film.mp4",
+ "audio_source": "out/film.mp4",
+ "sr": 48000,
+ "fps": 60.0,
+ "duration_s": 27.2,
+ "excerpt": false,
+ "cues": "out/cues.json",
+ "cue_schema": "events",
+ "fails": 0,
+ "warnings": 3,
+ "notes": [],
+ "flags": [
+  {
+   "check": "visual",
+   "severity": "warn",
+   "frame": 1322,
+   "note": "a loud sound (-4.1 dB from the loudest effect) lands on a still picture (MAD 3.66 from -3 to +6 f): give it a visible cause (a pulse, a landing, a push accent) or make it quieter",
+   "t": 22.033
+  },
+  {
+   "check": "head",
+   "severity": "warn",
+   "frame": 0,
+   "note": "the audio starts at level: first 5 ms peak -16.5 dBFS (> -40), sample 0 at -59.5 dBFS: a sound already in progress at frame 0 (a riser, pad or reverb begun before the film) cuts in mid-action; start from silence, or on the attack of a hit designed for frame 0",
+   "t": 0.0
+  },
+  {
+   "check": "masking",
+   "severity": "warn",
+   "frame": 150,
+   "note": "16 effects sit under the music in their own band (worst -12.1 dB at f690.0): +6 dB in band, duck the music 3 dB for 150 ms around key hits",
+   "t": 2.5
+  }
+ ],
+ "sync": {
+  "strict": true,
+  "groups": 30,
+  "events": 30,
+  "hit_rate": 1.0,
+  "major_hit_rate": 1.0,
+  "median_offset_f": 0.02,
+  "p90_abs_offset_f": 0.12,
+  "misses": [],
+  "rows": [
+   {
+    "f": 0.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.12,
+    "librosa_f": null,
+    "hf_f": 0.12,
+    "hf_ratio": 12.0
+   },
+   {
+    "f": 15.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.12,
+    "librosa_f": -0.28,
+    "hf_f": 0.12,
+    "hf_ratio": 11.4
+   },
+   {
+    "f": 30.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.08,
+    "librosa_f": 0.08,
+    "hf_f": 0.12,
+    "hf_ratio": 12.7
+   },
+   {
+    "f": 45.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.12,
+    "librosa_f": 0.12,
+    "hf_f": 0.12,
+    "hf_ratio": 14.2
+   },
+   {
+    "f": 60.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.12,
+    "librosa_f": -0.16,
+    "hf_f": 0.12,
+    "hf_ratio": 13.7
+   },
+   {
+    "f": 150.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.08,
+    "hf_f": 0.0,
+    "hf_ratio": 14.3
+   },
+   {
+    "f": 180.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 14.4
+   },
+   {
+    "f": 240.0,
+    "kinds": [
+     "drop"
+    ],
+    "n": 1,
+    "weight": 1.0,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": null,
+    "hf_ratio": 3.6
+   },
+   {
+    "f": 383.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.1,
+    "librosa_f": -0.28,
+    "hf_f": 0.1,
+    "hf_ratio": 9.8
+   },
+   {
+    "f": 420.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": -0.16,
+    "hf_f": 0.0,
+    "hf_ratio": 13.9
+   },
+   {
+    "f": 503.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 12.6
+   },
+   {
+    "f": 540.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 13.8
+   },
+   {
+    "f": 623.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 13.3
+   },
+   {
+    "f": 690.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.08,
+    "hf_f": 0.0,
+    "hf_ratio": 14.1
+   },
+   {
+    "f": 720.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 1.2,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.12,
+    "hf_ratio": 20.0
+   },
+   {
+    "f": 750.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 1.2,
+    "hit": true,
+    "offset_f": 0.08,
+    "librosa_f": 0.08,
+    "hf_f": 0.12,
+    "hf_ratio": 20.4
+   },
+   {
+    "f": 780.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 1.2,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.12,
+    "hf_ratio": 20.3
+   },
+   {
+    "f": 863.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 17.4
+   },
+   {
+    "f": 900.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 13.9
+   },
+   {
+    "f": 983.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 18.0
+   },
+   {
+    "f": 1020.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": -1.12,
+    "hf_f": 0.0,
+    "hf_ratio": 13.5
+   },
+   {
+    "f": 1103.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 18.6
+   },
+   {
+    "f": 1140.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 13.3
+   },
+   {
+    "f": 1223.0,
+    "kinds": [
+     "pop"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.04,
+    "librosa_f": 0.04,
+    "hf_f": 0.1,
+    "hf_ratio": 18.6
+   },
+   {
+    "f": 1290.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.08,
+    "hf_f": 0.0,
+    "hf_ratio": 14.1
+   },
+   {
+    "f": 1320.0,
+    "kinds": [
+     "hit"
+    ],
+    "n": 1,
+    "weight": 0.9,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 21.4
+   },
+   {
+    "f": 1410.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.08,
+    "hf_f": 0.0,
+    "hf_ratio": 12.2
+   },
+   {
+    "f": 1440.0,
+    "kinds": [
+     "tick"
+    ],
+    "n": 1,
+    "weight": 0.45,
+    "hit": true,
+    "offset_f": 0.0,
+    "librosa_f": 0.0,
+    "hf_f": 0.0,
+    "hf_ratio": 13.8
+   },
+   {
+    "f": 1486.0,
+    "kinds": [
+     "bell"
+    ],
+    "n": 1,
+    "weight": 0.7,
+    "hit": true,
+    "offset_f": 0.08,
+    "librosa_f": 0.08,
+    "hf_f": 0.14,
+    "hf_ratio": 5.9
+   },
+   {
+    "f": 1529.0,
+    "kinds": [
+     "click"
+    ],
+    "n": 1,
+    "weight": 0.8,
+    "hit": true,
+    "offset_f": 0.12,
+    "librosa_f": 0.12,
+    "hf_f": null,
+    "hf_ratio": 3.4
+   }
+  ],
+  "stray_sfx_onsets_f": []
+ },
+ "apex": {
+  "checked": 2,
+  "off": [],
+  "rows": [
+   {
+    "f": 330.0,
+    "kind": "whoosh",
+    "offset_f": -0.3,
+    "ok": true,
+    "shape": "apex"
+   },
+   {
+    "f": 1500.0,
+    "kind": "whoosh",
+    "offset_f": 0.6,
+    "ok": true,
+    "shape": "apex"
+   }
+  ]
+ },
+ "visual": {
+  "still_hits": [
+   {
+    "frame": 1322,
+    "level_db": -4.1,
+    "picture_mad": 3.66
+   }
+  ],
+  "late_sounds": [],
+  "checked": 31,
+  "clear_peaks": 6,
+  "aligned": 6,
+  "median_peak_offset_f": 4.0,
+  "misaligned": [],
+  "biggest_changes": [
+   {
+    "frame": 1484,
+    "prominence": 6.9
+   },
+   {
+    "frame": 1334,
+    "prominence": 5.77
+   },
+   {
+    "frame": 598,
+    "prominence": 5.62
+   }
+  ],
+  "peaks_without_event": []
+ },
+ "loudness": {
+  "integrated_lufs": -14.0,
+  "lra_lu": 7.1,
+  "true_peak_dbtp": -1.6,
+  "target": -14.0,
+  "target_from": "audio/score.json",
+  "accepted": [
+   -14.0
+  ],
+  "momentary_max_lufs": -10.1,
+  "momentary_max_t": 10.4,
+  "momentary_max_frame": 624
+ },
+ "clipping_samples": 0,
+ "clicks": [
+  {
+   "t": 2.0002,
+   "frame": 120,
+   "ch": 0,
+   "level": 0.23,
+   "concentration": 0.65,
+   "kind": "attack"
+  },
+  {
+   "t": 4.8752,
+   "frame": 292,
+   "ch": 0,
+   "level": 0.215,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 5.0002,
+   "frame": 300,
+   "ch": 0,
+   "level": 0.299,
+   "concentration": 0.65,
+   "kind": "attack"
+  },
+  {
+   "t": 5.028,
+   "frame": 301,
+   "ch": 0,
+   "level": 0.032,
+   "concentration": 0.38,
+   "kind": "attack"
+  },
+  {
+   "t": 6.0002,
+   "frame": 360,
+   "ch": 0,
+   "level": 0.392,
+   "concentration": 0.66,
+   "kind": "attack"
+  },
+  {
+   "t": 6.8752,
+   "frame": 412,
+   "ch": 0,
+   "level": 0.22,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 7.0002,
+   "frame": 420,
+   "ch": 0,
+   "level": 0.315,
+   "concentration": 0.69,
+   "kind": "attack"
+  },
+  {
+   "t": 7.019,
+   "frame": 421,
+   "ch": 0,
+   "level": 0.035,
+   "concentration": 0.62,
+   "kind": "attack"
+  },
+  {
+   "t": 8.0002,
+   "frame": 480,
+   "ch": 0,
+   "level": 0.399,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 8.8752,
+   "frame": 532,
+   "ch": 0,
+   "level": 0.221,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 9.0002,
+   "frame": 540,
+   "ch": 0,
+   "level": 0.304,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 9.019,
+   "frame": 541,
+   "ch": 0,
+   "level": 0.027,
+   "concentration": 0.56,
+   "kind": "attack"
+  },
+  {
+   "t": 10.5002,
+   "frame": 630,
+   "ch": 0,
+   "level": 0.327,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 11.5002,
+   "frame": 690,
+   "ch": 0,
+   "level": 0.373,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 12.5002,
+   "frame": 750,
+   "ch": 0,
+   "level": 0.324,
+   "concentration": 0.65,
+   "kind": "attack"
+  },
+  {
+   "t": 13.0002,
+   "frame": 780,
+   "ch": 0,
+   "level": 0.346,
+   "concentration": 0.7,
+   "kind": "attack"
+  },
+  {
+   "t": 13.5002,
+   "frame": 810,
+   "ch": 0,
+   "level": 0.361,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 14.0002,
+   "frame": 840,
+   "ch": 0,
+   "level": 0.429,
+   "concentration": 0.69,
+   "kind": "attack"
+  },
+  {
+   "t": 14.8752,
+   "frame": 892,
+   "ch": 0,
+   "level": 0.22,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 15.0002,
+   "frame": 900,
+   "ch": 0,
+   "level": 0.32,
+   "concentration": 0.68,
+   "kind": "attack"
+  },
+  {
+   "t": 15.028,
+   "frame": 901,
+   "ch": 0,
+   "level": 0.033,
+   "concentration": 0.4,
+   "kind": "attack"
+  },
+  {
+   "t": 16.0002,
+   "frame": 960,
+   "ch": 0,
+   "level": 0.384,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 16.8752,
+   "frame": 1012,
+   "ch": 0,
+   "level": 0.221,
+   "concentration": 0.67,
+   "kind": "attack"
+  },
+  {
+   "t": 17.0002,
+   "frame": 1020,
+   "ch": 0,
+   "level": 0.321,
+   "concentration": 0.69,
+   "kind": "attack"
+  },
+  {
+   "t": 22.5002,
+   "frame": 1350,
+   "ch": 0,
+   "level": 0.25,
+   "concentration": 0.63,
+   "kind": "attack"
+  },
+  {
+   "t": 23.0002,
+   "frame": 1380,
+   "ch": 0,
+   "level": 0.28,
+   "concentration": 0.68,
+   "kind": "attack"
+  }
+ ],
+ "tail": {
+  "rms50_dbfs": -111.1,
+  "peak10_dbfs": -187.7,
+  "last_half_vs_previous_db": -18.3
+ },
+ "head": {
+  "peak5_dbfs": -16.5,
+  "sample0_dbfs": -59.5
+ },
+ "masking": {
+  "checked": 30,
+  "below_target": 27,
+  "masked": 16,
+  "worst": [
+   {
+    "f": 690.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -12.1
+   },
+   {
+    "f": 1410.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -10.9
+   },
+   {
+    "f": 1440.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -10.1
+   },
+   {
+    "f": 1020.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -10.0
+   },
+   {
+    "f": 540.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -9.8
+   },
+   {
+    "f": 900.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -9.8
+   },
+   {
+    "f": 420.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "1000-4000",
+    "margin_db": -9.7
+   },
+   {
+    "f": 623.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -6.2
+   },
+   {
+    "f": 383.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "250-1000",
+    "margin_db": -6.0
+   },
+   {
+    "f": 750.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -5.4
+   },
+   {
+    "f": 503.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -4.8
+   },
+   {
+    "f": 780.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -1.4
+   },
+   {
+    "f": 720.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -1.2
+   },
+   {
+    "f": 983.0,
+    "kinds": [
+     "pop"
+    ],
+    "band": "1000-4000",
+    "margin_db": -0.6
+   },
+   {
+    "f": 1290.0,
+    "kinds": [
+     "tick"
+    ],
+    "band": "4000-12000",
+    "margin_db": -0.5
+   }
+  ]
+ },
+ "pass": true
+}

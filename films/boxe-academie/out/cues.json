@@ -1,0 +1,297 @@
+{
+ "fps": 60,
+ "bpm": 120,
+ "total": 1632,
+ "acts": {
+  "hook": {
+   "from": 0,
+   "dur": 240
+  },
+  "week": {
+   "from": 240,
+   "dur": 120
+  },
+  "days": {
+   "from": 360,
+   "dur": 960
+  },
+  "end": {
+   "from": 1320,
+   "dur": 312
+  }
+ },
+ "cue": {
+  "h1": 0,
+  "h2": 15,
+  "h3": 30,
+  "h4": 45,
+  "h5": 60,
+  "beat1": 150,
+  "beat2": 180,
+  "grid": 240,
+  "built": 270,
+  "push": 300,
+  "roll": 330,
+  "mon": 360,
+  "whipTue": 450,
+  "tue": 480,
+  "whipWed": 570,
+  "wed": 600,
+  "ladder": 720,
+  "whipThu": 810,
+  "thu": 840,
+  "whipFri": 930,
+  "fri": 960,
+  "whipSat": 1050,
+  "sat": 1080,
+  "whipSun": 1170,
+  "sun": 1200,
+  "sunTick": 1290,
+  "promise": 1320,
+  "lit": 1335,
+  "scatter": 1470,
+  "lockup": 1485,
+  "url": 1500,
+  "call": 1515,
+  "end": 1560,
+  "keep4": 420,
+  "keep5": 540,
+  "keep6": 690,
+  "keep8": 900,
+  "keep9": 1020,
+  "keep10": 1140,
+  "keep12": 1410,
+  "keep13": 1440
+ },
+ "events": [
+  {
+   "f": 0,
+   "kind": "pop",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hook:hour1"
+  },
+  {
+   "f": 15,
+   "kind": "pop",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hook:hour2"
+  },
+  {
+   "f": 30,
+   "kind": "pop",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hook:hour3"
+  },
+  {
+   "f": 45,
+   "kind": "pop",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hook:hour4"
+  },
+  {
+   "f": 60,
+   "kind": "pop",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hook:hour5"
+  },
+  {
+   "f": 150,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "hook:keep1"
+  },
+  {
+   "f": 180,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "hook:keep2"
+  },
+  {
+   "f": 240,
+   "kind": "drop",
+   "weight": 1,
+   "pan": 0,
+   "id": "week:grid"
+  },
+  {
+   "f": 330,
+   "kind": "whoosh",
+   "weight": 0.7,
+   "pan": 0,
+   "apexFrac": 0.5,
+   "dur": 60,
+   "id": "week:push"
+  },
+  {
+   "f": 383,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day1"
+  },
+  {
+   "f": 420,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep3"
+  },
+  {
+   "f": 503,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day2"
+  },
+  {
+   "f": 540,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep4"
+  },
+  {
+   "f": 623,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day3"
+  },
+  {
+   "f": 690,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep5"
+  },
+  {
+   "f": 720,
+   "kind": "pop",
+   "weight": 1.2,
+   "pan": 0,
+   "id": "days:ladder1"
+  },
+  {
+   "f": 750,
+   "kind": "pop",
+   "weight": 1.2,
+   "pan": 0,
+   "id": "days:ladder2"
+  },
+  {
+   "f": 780,
+   "kind": "pop",
+   "weight": 1.2,
+   "pan": 0,
+   "id": "days:ladder3"
+  },
+  {
+   "f": 863,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day4"
+  },
+  {
+   "f": 900,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep6"
+  },
+  {
+   "f": 983,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day5"
+  },
+  {
+   "f": 1020,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep7"
+  },
+  {
+   "f": 1103,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day6"
+  },
+  {
+   "f": 1140,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep8"
+  },
+  {
+   "f": 1223,
+   "kind": "pop",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "days:day7"
+  },
+  {
+   "f": 1290,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "days:keep9"
+  },
+  {
+   "f": 1320,
+   "kind": "hit",
+   "weight": 0.9,
+   "pan": 0,
+   "id": "end:promise"
+  },
+  {
+   "f": 1410,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "end:keep10"
+  },
+  {
+   "f": 1440,
+   "kind": "tick",
+   "weight": 0.45,
+   "pan": 0,
+   "id": "end:keep11"
+  },
+  {
+   "f": 1486,
+   "kind": "bell",
+   "weight": 0.7,
+   "pan": 0,
+   "id": "end:underline"
+  },
+  {
+   "f": 1500,
+   "kind": "whoosh",
+   "weight": 0.6,
+   "pan": 0,
+   "apexFrac": 0.95,
+   "dur": 30,
+   "id": "end:scatter"
+  },
+  {
+   "f": 1529,
+   "kind": "click",
+   "weight": 0.8,
+   "pan": 0,
+   "variant": "confirm",
+   "id": "end:call"
+  }
+ ]
+}
