@@ -1,0 +1,65 @@
+{
+ "fps": 60,
+ "bpm": 120,
+ "total": 510,
+ "acts": {
+  "tee": {
+   "from": 0,
+   "dur": 240
+  },
+  "hood": {
+   "from": 240,
+   "dur": 270
+  }
+ },
+ "cue": {
+  "open": 0,
+  "beam": 60,
+  "swing": 120,
+  "exit": 210,
+  "drop": 240,
+  "turn": 300,
+  "front": 360,
+  "hero": 420,
+  "end": 480
+ },
+ "events": [
+  {
+   "f": 60,
+   "kind": "tick",
+   "weight": 0.5,
+   "pan": 0,
+   "id": "tee:beam"
+  },
+  {
+   "f": 234,
+   "kind": "whoosh",
+   "weight": 1,
+   "pan": -0.6,
+   "apexFrac": 0.7,
+   "dur": 27,
+   "id": "tee:whip"
+  },
+  {
+   "f": 240,
+   "kind": "drop",
+   "weight": 1,
+   "pan": 0,
+   "id": "hood:drop"
+  },
+  {
+   "f": 360,
+   "kind": "snap",
+   "weight": 0.8,
+   "pan": 0,
+   "id": "hood:front"
+  },
+  {
+   "f": 420,
+   "kind": "hit",
+   "weight": 1.1,
+   "pan": 0,
+   "id": "hood:hero"
+  }
+ ]
+}
