@@ -6,7 +6,7 @@ import { Img, staticFile } from 'remotion';
 
 export const PRODUCTS = {
   tee: { src: 'products/tee.png', w: 1239, h: 1211 },
-  teeCoco: { src: 'products/tee-coco.png', w: 1047, h: 954 },
+  teeCoco: { src: 'products/tee-coco.png', w: 1060, h: 1053 }, // tee-shirt oversize Coconut Milk (full silhouette)
   teeNoir: { src: 'products/tee-noir.png', w: 1039, h: 1038 },
   bonnet: { src: 'products/bonnet.png', w: 1020, h: 1067 },
   sac: { src: 'products/sac.png', w: 1258, h: 1089 },
