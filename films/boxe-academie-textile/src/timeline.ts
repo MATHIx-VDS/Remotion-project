@@ -1,4 +1,4 @@
-// Time for the textile spot: 120 BPM, 60 fps, 4 bars + tail = 8.5 s. Node-safe.
+// Time for the textile spot: 120 BPM, 60 fps, 8 bars + tail = 16.5 s. Node-safe.
 export const FPS = 60;
 export const BPM = 120;
 export const W = 1080;
@@ -9,22 +9,28 @@ export const b = (bar: number, beat = 0, sub = 0) => Math.round(((bar - 1) * 4 +
 export const f60 = (frames: number) => Math.round((frames * FPS) / 60);
 export const TAIL = 30;
 
+// One product per shot, each arriving from the right on a downbeat at the previous one's exit speed.
 export const ACT = {
-  tee: { from: b(1), dur: b(3) - b(1) }, // the technical tee turns in the light, dolly in
-  hood: { from: b(3), dur: b(5) + TAIL - b(3) }, // the hoodie arrives on the drop, orbit to the front hero
+  tee: { from: b(1), dur: b(3) - b(1) }, // technical tee: opening, dolly in through the beam
+  coco: { from: b(3), dur: b(4) - b(3) }, // tee-shirt Coconut Milk
+  noir: { from: b(4), dur: b(5) - b(4) }, // tee-shirt noir
+  bonnet: { from: b(5), dur: b(6) - b(5) },
+  sac: { from: b(6), dur: b(7) - b(6) }, // sac de sport
+  hood: { from: b(7), dur: b(9) + TAIL - b(7) }, // the hoodie: orbit to the front, push onto the BA logo
 };
-export const TOTAL = b(5) + TAIL; // 510 f = 8.5 s
+export const TOTAL = b(9) + TAIL; // 990 f = 16.5 s
 
 export const CUE = {
-  open: b(1), // frame 0 is already moving: dolly and turn
-  beam: b(1, 2), // the spotlight finds the tee
-  swing: b(2), // the tee swings through its turn
-  exit: b(2, 3), // the tee whips out left (accelerating)
-  drop: b(3), // the hoodie arrives from the right on the drop
-  turn: b(3, 2),
-  front: b(4), // the hoodie faces front: orbit ends
-  hero: b(4, 2), // rim light flares, the push lands on the chest logo
-  end: b(5),
+  beam: b(1, 2), // the spotlight finds the first tee
+  coco: b(3),
+  noir: b(4),
+  bonnet: b(5),
+  sac: b(6),
+  drop: b(7), // the hoodie arrives on the drop
+  turn: b(7, 2),
+  front: b(8), // the hoodie faces front
+  hero: b(8, 2), // rim light flares, the push lands on the chest logo
+  end: b(9),
 };
 
 export type Copy = { id: string; text: string; in: number; resolved: number; out: number; kind?: 'copy' | 'ui' };

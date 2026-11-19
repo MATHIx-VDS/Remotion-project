@@ -1,27 +1,44 @@
 {
  "fps": 60,
  "bpm": 120,
- "total": 510,
+ "total": 990,
  "acts": {
   "tee": {
    "from": 0,
    "dur": 240
   },
-  "hood": {
+  "coco": {
    "from": 240,
+   "dur": 120
+  },
+  "noir": {
+   "from": 360,
+   "dur": 120
+  },
+  "bonnet": {
+   "from": 480,
+   "dur": 120
+  },
+  "sac": {
+   "from": 600,
+   "dur": 120
+  },
+  "hood": {
+   "from": 720,
    "dur": 270
   }
  },
  "cue": {
-  "open": 0,
   "beam": 60,
-  "swing": 120,
-  "exit": 210,
-  "drop": 240,
-  "turn": 300,
-  "front": 360,
-  "hero": 420,
-  "end": 480
+  "coco": 240,
+  "noir": 360,
+  "bonnet": 480,
+  "sac": 600,
+  "drop": 720,
+  "turn": 780,
+  "front": 840,
+  "hero": 900,
+  "end": 960
  },
  "events": [
   {
@@ -32,30 +49,58 @@
    "id": "tee:beam"
   },
   {
-   "f": 234,
+   "f": 240,
+   "kind": "snap",
+   "weight": 0.75,
+   "pan": 0,
+   "id": "product2"
+  },
+  {
+   "f": 360,
+   "kind": "snap",
+   "weight": 0.75,
+   "pan": 0,
+   "id": "product3"
+  },
+  {
+   "f": 480,
+   "kind": "snap",
+   "weight": 0.75,
+   "pan": 0,
+   "id": "product4"
+  },
+  {
+   "f": 600,
+   "kind": "snap",
+   "weight": 0.75,
+   "pan": 0,
+   "id": "product5"
+  },
+  {
+   "f": 714,
    "kind": "whoosh",
    "weight": 1,
    "pan": -0.6,
    "apexFrac": 0.7,
    "dur": 27,
-   "id": "tee:whip"
+   "id": "sac:whip"
   },
   {
-   "f": 240,
+   "f": 720,
    "kind": "drop",
    "weight": 1,
    "pan": 0,
    "id": "hood:drop"
   },
   {
-   "f": 360,
+   "f": 840,
    "kind": "snap",
    "weight": 0.8,
    "pan": 0,
    "id": "hood:front"
   },
   {
-   "f": 420,
+   "f": 900,
    "kind": "hit",
    "weight": 1.1,
    "pan": 0,

@@ -1,18 +1,92 @@
 {
   "key": "A minor",
   "bpm": 120,
-  "chords": ["Am", "Fmaj7", "C", "Am", "-"],
-  "sections": [
-    { "bars": [1, 2], "style": "build", "level": 0.8 },
-    { "bars": [3, 3], "style": "drive", "level": 1.0 },
-    { "bars": [4, 4], "style": "resolve", "level": 0.8 },
-    { "bars": [5, 5], "style": "hold" }
+  "chords": [
+    "Am",
+    "Fmaj7",
+    "C",
+    "G",
+    "Am",
+    "Fmaj7",
+    "G",
+    "Am",
+    "-"
   ],
-  "signature": { "tick": "A6", "tock": "E6", "motif": [0, 7, 12], "rhythm": [0, 0.5, 1.5] },
+  "sections": [
+    {
+      "bars": [
+        1,
+        2
+      ],
+      "style": "build",
+      "level": 0.8
+    },
+    {
+      "bars": [
+        3,
+        6
+      ],
+      "style": "drive",
+      "level": 0.85
+    },
+    {
+      "bars": [
+        7,
+        7
+      ],
+      "style": "drive",
+      "level": 1.0
+    },
+    {
+      "bars": [
+        8,
+        8
+      ],
+      "style": "resolve",
+      "level": 0.8
+    },
+    {
+      "bars": [
+        9,
+        9
+      ],
+      "style": "hold"
+    }
+  ],
+  "signature": {
+    "tick": "A6",
+    "tock": "E6",
+    "motif": [
+      0,
+      7,
+      12
+    ],
+    "rhythm": [
+      0,
+      0.5,
+      1.5
+    ]
+  },
   "typing": "off",
   "motifs": [],
-  "drops": [{ "at": "@drop", "silence": "1/16", "suck": 0.2 }],
+  "drops": [
+    {
+      "at": "@drop",
+      "silence": "1/16",
+      "suck": 0.2
+    }
+  ],
   "payoff": "@hero",
-  "mix": { "music": 1.0, "sfx": 1.0, "reverb": 1.0, "sidechain": 0.55, "duck_db": 3 },
-  "master": { "lufs": -14, "ceiling": 0.77, "fade": 0.4 }
+  "mix": {
+    "music": 1.0,
+    "sfx": 1.0,
+    "reverb": 1.0,
+    "sidechain": 0.55,
+    "duck_db": 3
+  },
+  "master": {
+    "lufs": -14,
+    "ceiling": 0.77,
+    "fade": 0.4
+  }
 }

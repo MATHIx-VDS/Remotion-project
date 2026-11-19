@@ -6,6 +6,10 @@ import { Img, staticFile } from 'remotion';
 
 export const PRODUCTS = {
   tee: { src: 'products/tee.png', w: 1239, h: 1211 },
+  teeCoco: { src: 'products/tee-coco.png', w: 1047, h: 954 },
+  teeNoir: { src: 'products/tee-noir.png', w: 1039, h: 1038 },
+  bonnet: { src: 'products/bonnet.png', w: 1020, h: 1067 },
+  sac: { src: 'products/sac.png', w: 1258, h: 1089 },
   hood: { src: 'products/hood.png', w: 1144, h: 1261, logo: { x: 0.33, y: 0.4 } }, // BA on the front chest
 };
 
