@@ -16,17 +16,18 @@ const OUT = path.join(__dirname, 'Boxe-Academie-Brive-x-MAP-FOUR.pptx');
 
 // ---------------------------------------------------------------- palette
 const K = {
-  bg: '0B111E', // bleu nuit
-  panel: '121B2D', // cartes
-  panel2: '17233A',
-  line: '253552', // filets
-  teal: '2EC4CF', // accent : la techno, les chiffres
-  tealDim: '1B7E86',
-  orange: 'EE6A3A', // le club (touches)
-  white: 'FFFFFF',
-  text: 'E8EEF5',
-  mute: '93A5BA',
+  bg: '0B0B0D', // le noir du club
+  panel: '161618', // cartes
+  panel2: '1D1D20',
+  line: '2C2C30', // filets
+  teal: 'FF5A1F', // accent principal : l'orange du club (nom historique de la clé)
+  tealDim: '7A2C10',
+  orange: 'F4A66A', // second ton (formule B) : le peach du site
+  white: 'F4F1EC', // le blanc cassé du wordmark
+  text: 'E9E6E1',
+  mute: '9A9AA0',
 };
+const TITLE = 'Arial Narrow'; // condensé, comme le wordmark du site
 const HEAD = 'Arial';
 const BODY = 'Calibri';
 const W = 13.333;
@@ -61,7 +62,7 @@ async function icon(Comp, color, size = 256) {
       ...footer(bg),
       objects: [
         ...footer(bg).objects,
-        { placeholder: { options: { name: 'title', type: 'title', x: M, y: 0.78, w: W - 2 * M, h: 0.8, fontFace: HEAD, fontSize: 32, bold: true, color: K.white, valign: 'top', align: 'left', margin: 0 }, text: '' } },
+        { placeholder: { options: { name: 'title', type: 'title', x: M, y: 0.78, w: W - 2 * M, h: 0.8, fontFace: TITLE, fontSize: 36, bold: true, color: K.white, valign: 'top', align: 'left', margin: 0 }, text: '' } },
       ],
     });
   }
@@ -119,20 +120,17 @@ async function icon(Comp, color, size = 256) {
   pres.addSection({ title: 'Ouverture' });
   {
     const s = pres.addSlide({ masterName: 'FULL', sectionTitle: 'Ouverture' });
-    s.addImage({ path: A('bg-a.png'), x: 0, y: 0, w: W, h: H });
-    s.addImage({ path: A('hero.jpg'), x: 6.6, y: 0, w: W - 6.6, h: H, sizing: { type: 'cover', w: W - 6.6, h: H } });
-    s.addImage({ path: A('fade-l.png'), x: 6.6, y: 0, w: 3.2, h: H });
-    s.addImage({ path: A('fade-b.png'), x: 6.6, y: 4.9, w: W - 6.6, h: 2.6, transparency: 10 });
-    s.addImage({ path: A('logo.png'), x: M, y: 0.7, w: 1.45, h: 1.28 });
-    kicker(s, 'OFFRE PARTENAIRES  ·  2026–2027', M, 2.55);
-    txt(s, 'LE VÉLO\nÉLECTRIQUE', { x: M, y: 2.95, w: 6.4, h: 2.0, fontFace: HEAD, fontSize: 58, bold: true, color: K.white, lineSpacingMultiple: 0.92 });
-    txt(s, 'pour les salariés de nos entreprises partenaires', { x: M, y: 4.98, w: 6.2, h: 0.5, fontSize: 22, color: K.text });
-    s.addShape('line', { x: M, y: 5.85, w: 0.6, h: 0, line: { color: K.orange, width: 2.5 } });
+    s.addImage({ path: A('bg-cover.png'), x: 0, y: 0, w: W, h: H });
+    // le wordmark du club, tel que sur boxe-academie.fr
     txt(s, [
-      { text: 'Boxe Académie Brive', options: { bold: true, color: K.white } },
-      { text: '   ×   ', options: { color: K.teal, bold: true } },
-      { text: 'MAP FOUR', options: { bold: true, color: K.white } },
-    ], { x: M, y: 6.05, w: 6, h: 0.4, fontFace: HEAD, fontSize: 16, charSpacing: 1 });
+      { text: 'BOXE ', options: { color: K.white } },
+      { text: 'ACADÉMIE', options: { color: K.teal } },
+      { text: ' BRIVE', options: { color: K.white } },
+    ], { x: 0.4, y: 1.95, w: W - 0.8, h: 1.3, fontFace: TITLE, fontSize: 66, bold: true, align: 'center', valign: 'middle', charSpacing: 1, fit: 'shrink' });
+    s.addShape('line', { x: W / 2 - 1.55, y: 3.45, w: 3.1, h: 0, line: { color: K.teal, width: 2.25 } });
+    txt(s, '×  MAP FOUR', { x: 0.5, y: 3.7, w: W - 1.0, h: 0.5, fontFace: HEAD, fontSize: 18, bold: true, color: K.mute, align: 'center', charSpacing: 6 });
+    txt(s, 'LE VÉLO ÉLECTRIQUE POUR LES SALARIÉS DE NOS ENTREPRISES PARTENAIRES', { x: 1.2, y: 4.5, w: W - 2.4, h: 0.95, fontFace: TITLE, fontSize: 22, bold: true, color: K.white, align: 'center', valign: 'middle', charSpacing: 1 });
+    txt(s, 'OFFRE PARTENAIRES  ·  2026–2027', { x: 0.5, y: 5.65, w: W - 1.0, h: 0.4, fontFace: HEAD, fontSize: 12, bold: true, color: K.teal, align: 'center', charSpacing: 5 });
     s.addNotes('Couverture : offre vélo électrique du club pour les salariés des entreprises partenaires, avec MAP FOUR.');
   }
 
@@ -163,7 +161,7 @@ async function icon(Comp, color, size = 256) {
     cols.forEach((c, i) => {
       const x = M + i * 6.2;
       card(s, x, 1.85, 5.9, 4.7, K.panel, `formule-${c.L}`);
-      txt(s, c.L, { x: x + 0.45, y: 2.05, w: 1.2, h: 1.3, fontFace: HEAD, fontSize: 80, bold: true, color: c.color });
+      txt(s, c.L, { x: x + 0.45, y: 2.05, w: 1.2, h: 1.3, fontFace: TITLE, fontSize: 80, bold: true, color: c.color });
       txt(s, 'FORMULE ' + c.L, { x: x + 1.7, y: 2.35, w: 3.8, h: 0.3, fontFace: HEAD, fontSize: 12, bold: true, color: c.color, charSpacing: 4 });
       txt(s, c.head, { x: x + 1.7, y: 2.68, w: 3.9, h: 0.75, fontFace: HEAD, fontSize: 19, bold: true, color: K.white });
       txt(s, c.items.map((t, k) => ({ text: t, options: { bullet: { code: '25B8' }, breakLine: k < c.items.length - 1, paraSpaceAfter: 12 } })), { x: x + 0.5, y: 3.8, w: 5.0, h: 2.4, fontSize: 16, color: K.text });
@@ -245,7 +243,7 @@ async function icon(Comp, color, size = 256) {
     s.addImage({ path: A('city.jpg'), x: 0, y: 0, w: 5.3, h: H, sizing: { type: 'cover', w: 5.3, h: H } });
     s.addImage({ path: A('fade-r.png'), x: 3.2, y: 0, w: 2.15, h: H });
     kicker(s, 'TECHNOLOGIE', 5.75, 0.45);
-    txt(s, 'CONNECTÉ ET PROTÉGÉ', { x: 5.75, y: 0.78, w: 7, h: 0.8, fontFace: HEAD, fontSize: 32, bold: true, color: K.white });
+    txt(s, 'CONNECTÉ ET PROTÉGÉ', { x: 5.75, y: 0.78, w: 7, h: 0.8, fontFace: TITLE, fontSize: 32, bold: true, color: K.white });
     const feats = [
       [Fi.FiMapPin, 'Suivi GPS', 'Le vélo se localise depuis l’appli'],
       [Fi.FiShield, 'Antivol IA', 'Déverrouillage sans clé sur le Roam'],
@@ -265,7 +263,7 @@ async function icon(Comp, color, size = 256) {
     s.addImage({ path: A('woman.jpg'), x: 7.0, y: 0, w: W - 7.0, h: H, sizing: { type: 'cover', w: W - 7.0, h: H } });
     s.addImage({ path: A('fade-l.png'), x: 7.0, y: 0, w: 2.2, h: H });
     kicker(s, 'POUR VOS ÉQUIPES');
-    txt(s, 'CE QUE VOS SALARIÉS\nY GAGNENT', { x: M, y: 0.78, w: 6.4, h: 1.5, fontFace: HEAD, fontSize: 32, bold: true, color: K.white });
+    txt(s, 'CE QUE VOS SALARIÉS\nY GAGNENT', { x: M, y: 0.78, w: 6.4, h: 1.5, fontFace: TITLE, fontSize: 32, bold: true, color: K.white });
     const gains = [
       [Fi.FiActivity, 'Du sport chaque jour', 'Le trajet devient une séance, sans arriver en sueur'],
       [Fi.FiSmile, 'Moins de stress', 'Ni bouchons ni recherche de place de parking'],
@@ -280,7 +278,7 @@ async function icon(Comp, color, size = 256) {
     const s = pres.addSlide({ masterName: 'TECH_A', sectionTitle: 'Formules' });
     kicker(s, 'FORMULE A  ·  POUR L’ENTREPRISE');
     title(s, 'L’ENTREPRISE ACHÈTE ET PRÊTE LES VÉLOS');
-    txt(s, '25 %', { x: M, y: 1.75, w: 3.6, h: 1.35, fontFace: HEAD, fontSize: 88, bold: true, color: K.teal });
+    txt(s, '25 %', { x: M, y: 1.75, w: 3.6, h: 1.35, fontFace: TITLE, fontSize: 88, bold: true, color: K.teal });
     txt(s, 'du prix des vélos récupérés en réduction d’impôt sur les sociétés', { x: 4.3, y: 2.05, w: 5.5, h: 0.9, fontSize: 20, color: K.text });
     const rows = [
       ['AVANTAGE', 'CE QUE ÇA DONNE', 'TEXTE DE LOI'],
@@ -297,7 +295,7 @@ async function icon(Comp, color, size = 256) {
     const s = pres.addSlide({ masterName: 'TECH_B', sectionTitle: 'Formules' });
     kicker(s, 'FORMULE B  ·  POUR LE SALARIÉ', M, 0.45, K.orange);
     title(s, 'LE FORFAIT MOBILITÉS DURABLES');
-    txt(s, '600 €', { x: M, y: 1.7, w: 3.6, h: 1.3, fontFace: HEAD, fontSize: 80, bold: true, color: K.orange });
+    txt(s, '600 €', { x: M, y: 1.7, w: 3.6, h: 1.3, fontFace: TITLE, fontSize: 80, bold: true, color: K.orange });
     txt(s, 'par an et par salarié,\nsans charges sociales ni impôt sur le revenu', { x: 4.3, y: 1.95, w: 6, h: 0.9, fontSize: 20, color: K.text });
     const rows = [
       ['DISPOSITIF', 'MONTANT', 'TEXTE DE LOI'],
@@ -361,7 +359,7 @@ async function icon(Comp, color, size = 256) {
     // A
     card(s, M, 1.8, 5.95, 4.55, K.panel, 'simulation-A');
     txt(s, 'FORMULE A  ·  L’ENTREPRISE ACHÈTE', { x: M + 0.4, y: 2.05, w: 5.2, h: 0.3, fontFace: HEAD, fontSize: 12, bold: true, color: K.teal, charSpacing: 3 });
-    txt(s, '≈ 900 €', { x: M + 0.4, y: 2.45, w: 5.2, h: 1.0, fontFace: HEAD, fontSize: 60, bold: true, color: K.white });
+    txt(s, '≈ 900 €', { x: M + 0.4, y: 2.45, w: 5.2, h: 1.0, fontFace: TITLE, fontSize: 60, bold: true, color: K.white });
     txt(s, 'net par vélo pour l’entreprise, au lieu de 1 800 €', { x: M + 0.4, y: 3.5, w: 5.2, h: 0.4, fontSize: 16, color: K.text });
     s.addChart(pres.charts.BAR, [
       { name: 'Coût net', labels: ['10 vélos', 'Réduction d’IS', 'IS sur amortissement', 'Coût net'], values: [18000, 4500, 4500, 9000] },
@@ -374,7 +372,7 @@ async function icon(Comp, color, size = 256) {
     const x = M + 6.25;
     card(s, x, 1.8, 5.95, 4.55, K.panel, 'simulation-B');
     txt(s, 'FORMULE B  ·  LE SALARIÉ ACHÈTE', { x: x + 0.4, y: 2.05, w: 5.2, h: 0.3, fontFace: HEAD, fontSize: 12, bold: true, color: K.orange, charSpacing: 3 });
-    txt(s, '0 €', { x: x + 0.4, y: 2.45, w: 5.2, h: 1.0, fontFace: HEAD, fontSize: 60, bold: true, color: K.white });
+    txt(s, '0 €', { x: x + 0.4, y: 2.45, w: 5.2, h: 1.0, fontFace: TITLE, fontSize: 60, bold: true, color: K.white });
     txt(s, 'reste à charge du salarié au bout de 3 ans', { x: x + 0.4, y: 3.5, w: 5.2, h: 0.4, fontSize: 16, color: K.text });
     txt(s, [
       { text: 'Vélo : 1 800 €', options: { breakLine: true } },
@@ -414,7 +412,7 @@ async function icon(Comp, color, size = 256) {
   {
     const s = pres.addSlide({ masterName: 'TECH_A', sectionTitle: 'Aides et impact' });
     kicker(s, 'IMPACT CO2');
-    txt(s, '840 kg', { x: M, y: 0.95, w: 7.2, h: 1.9, fontFace: HEAD, fontSize: 120, bold: true, color: K.teal });
+    txt(s, '840 kg', { x: M, y: 0.95, w: 7.2, h: 1.9, fontFace: TITLE, fontSize: 120, bold: true, color: K.teal });
     txt(s, 'DE CO2 ÉVITÉS PAR SALARIÉ ET PAR AN', { x: M, y: 2.95, w: 7.5, h: 0.5, fontFace: HEAD, fontSize: 22, bold: true, color: K.white });
     txt(s, 'Vélo électrique au lieu de la voiture, 10 km aller, 200 jours par an', { x: M, y: 3.5, w: 7.5, h: 0.4, fontSize: 16, color: K.mute });
     const st = [['420 kg', 'pour 5 km aller'], ['1,3 t', 'pour 15 km aller'], ['8,4 t', 'pour 10 salariés à 10 km']];
@@ -522,15 +520,18 @@ async function icon(Comp, color, size = 256) {
     s.addImage({ path: A('forest.jpg'), x: 0, y: 0, w: 5.6, h: H, sizing: { type: 'cover', w: 5.6, h: H } });
     s.addImage({ path: A('fade-r.png'), x: 3.4, y: 0, w: 2.25, h: H });
     kicker(s, 'ON EN PARLE ?', 6.1, 0.75);
-    txt(s, 'ÉQUIPEZ VOS SALARIÉS\nDÈS CET HIVER', { x: 6.1, y: 1.1, w: 6.7, h: 1.5, fontFace: HEAD, fontSize: 34, bold: true, color: K.white });
+    txt(s, 'ÉQUIPEZ VOS SALARIÉS\nDÈS CET HIVER', { x: 6.1, y: 1.1, w: 6.7, h: 1.5, fontFace: TITLE, fontSize: 34, bold: true, color: K.white });
     card(s, 6.1, 2.95, 6.63, 1.75, K.panel, 'contact-club');
-    s.addImage({ path: A('logo.png'), x: 6.35, y: 3.18, w: 1.4, h: 1.24 });
-    txt(s, 'BOXE ACADÉMIE BRIVE', { x: 8.0, y: 3.15, w: 4.5, h: 0.3, fontFace: HEAD, fontSize: 13, bold: true, color: K.orange, charSpacing: 3 });
+    txt(s, [
+      { text: 'BOXE ', options: { color: K.white } },
+      { text: 'ACADÉMIE', options: { color: K.teal } },
+      { text: ' BRIVE', options: { color: K.white } },
+    ], { x: 6.45, y: 3.1, w: 6, h: 0.45, fontFace: TITLE, fontSize: 22, bold: true });
     txt(s, [
       { text: '39 bis avenue Ribot, 19100 Brive-la-Gaillarde', options: { breakLine: true } },
       { text: '06 77 87 46 25  ·  06 70 27 57 97', options: { breakLine: true } },
       { text: 'boxeacademiebrive@gmail.com' },
-    ], { x: 8.0, y: 3.52, w: 4.6, h: 1.05, fontSize: 14, color: K.text });
+    ], { x: 6.45, y: 3.6, w: 6.1, h: 1.05, fontSize: 14, color: K.text });
     card(s, 6.1, 4.95, 6.63, 1.75, K.panel, 'contact-conseiller');
     txt(s, 'VOTRE CONSEILLER VÉLO', { x: 6.45, y: 5.15, w: 6, h: 0.3, fontFace: HEAD, fontSize: 13, bold: true, color: K.teal, charSpacing: 3 });
     txt(s, [
