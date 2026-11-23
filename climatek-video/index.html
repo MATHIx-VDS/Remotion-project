@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Climatek × Fromagerie des Monédières – Revue de compte</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: #0B0816; }
+      #root { position: relative; width: 100%; height: 100%; }
+      #fond { position: absolute; inset: 0; background: #0B0816; }
+    </style>
+  </head>
+  <body>
+    <!-- Généré par tools/build.mjs à partir de script.json : ne pas modifier à la main -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="300" data-width="1920" data-height="1080">
+      <div id="fond"></div>
+      <div id="s1" data-composition-id="s1" data-composition-src="compositions/s1.html"
+        data-start="0" data-duration="23.677" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s2" data-composition-id="s2" data-composition-src="compositions/s2.html"
+        data-start="23.677" data-duration="35.031" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s3" data-composition-id="s3" data-composition-src="compositions/s3.html"
+        data-start="58.708" data-duration="39.662" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s4" data-composition-id="s4" data-composition-src="compositions/s4.html"
+        data-start="98.369" data-duration="34.279" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s5" data-composition-id="s5" data-composition-src="compositions/s5.html"
+        data-start="132.648" data-duration="48.877" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s6" data-composition-id="s6" data-composition-src="compositions/s6.html"
+        data-start="181.525" data-duration="79.978" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="s7" data-composition-id="s7" data-composition-src="compositions/s7.html"
+        data-start="261.503" data-duration="38.497" data-track-index="1" data-track-kind="graphics"
+        data-width="1920" data-height="1080"></div>
+      <div id="hud" data-composition-id="hud" data-composition-src="compositions/hud.html"
+        data-start="0" data-duration="300" data-track-index="2" data-track-kind="graphics"
+        data-width="1920" data-height="1080" style="z-index: 40"></div>
+      <div id="captions" data-composition-id="captions" data-composition-src="compositions/captions.html"
+        data-start="0" data-duration="300" data-track-index="3" data-track-kind="captions"
+        data-width="1920" data-height="1080" style="z-index: 50"></div>
+
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 300);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

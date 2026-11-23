@@ -1,0 +1,217 @@
+<template>
+  <style>
+    /* @kit */
+/* Kit graphique commun « monde ouvert » (injecté par tools/build.mjs) */
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter", sans-serif; color: #FFFFFF; background: #0B0816; }
+    .world { position: absolute; inset: -30px; }
+    .world svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(8,6,18,.25), rgba(8,6,18,.75) 100%); }
+    .grain { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px); pointer-events: none; }
+    .ol { text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 4px 0 #000, 0 -4px 0 #000, 4px 0 0 #000, -4px 0 0 #000, 7px 8px 0 rgba(0,0,0,.55); }
+    .ol2 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 5px 10px rgba(0,0,0,.5); }
+    .gt { font-family: "League Gothic", "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .02em; line-height: .92; font-weight: 400; }
+    .hud { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .y { color: #FFD23F; } .g { color: #74E27A; } .c { color: #3FD8C4; } .r { color: #FF5A4E; } .o { color: #FFB347; } .mut { color: rgba(255,255,255,.62); }
+    .menu { position: absolute; background: rgba(9,9,18,.84); border: 2px solid rgba(255,255,255,.16); border-radius: 6px; box-shadow: 0 24px 70px rgba(0,0,0,.55); overflow: hidden; }
+    .menu-h { display: flex; border-bottom: 2px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+    .tab { padding: 12px 30px 10px; font-family: "Oswald", sans-serif; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .tab.on { background: #FFD23F; color: #121212; font-weight: 700; }
+    .help { position: absolute; background: rgba(6,6,12,.88); border-left: 6px solid #FFD23F; border-radius: 4px; padding: 20px 26px; font-size: 28px; line-height: 1.3; color: #fff; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    .help b { color: #FFD23F; }
+    .lbx { position: absolute; left: 0; right: 0; height: 120px; background: #000; z-index: 30; }
+    .lbx.t { top: 0; } .lbx.b { bottom: 0; }
+    .card-m { position: absolute; left: 0; right: 0; top: 330px; text-align: center; z-index: 31; }
+    .card-m .k { font-family: "Oswald", sans-serif; font-size: 40px; letter-spacing: .38em; color: #FFD23F; font-weight: 700; }
+    .card-m .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 190px; line-height: .95; text-transform: uppercase; color: #fff; margin-top: 10px; }
+    .card-m .bar { margin: 22px auto 0; width: 0; height: 8px; background: #FFD23F; }
+    .done { position: absolute; left: 0; right: 0; top: 380px; text-align: center; z-index: 32; }
+    .done .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 170px; color: #FFD23F; text-transform: uppercase; line-height: .95; }
+    .done .s { font-family: "Oswald", sans-serif; font-size: 42px; color: #fff; letter-spacing: .12em; text-transform: uppercase; margin-top: 12px; }
+    .done-flash { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(255,210,63,.35), rgba(0,0,0,.55) 70%); z-index: 31; opacity: 0; }
+    .pill { display: inline-block; padding: 6px 16px; border-radius: 4px; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; }
+    .p-y { background: #FFD23F; color: #121212; } .p-r { background: #FF5A4E; color: #fff; } .p-c { background: #3FD8C4; color: #0B1F1C; } .p-g { background: #74E27A; color: #0D200F; } .p-k { background: rgba(255,255,255,.12); color: #fff; }
+    /* @/kit */
+    #s5-cd { position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 29; }
+    #s5-trk { left: 380px; top: 210px; width: 1470px; height: 318px; }
+    #s5-trk .ttl { position: absolute; left: 26px; top: 16px; font-family: "Oswald", sans-serif; font-size: 26px; letter-spacing: .16em; color: #FFD23F; text-transform: uppercase; }
+    #s5-trk .leg { position: absolute; right: 26px; top: 18px; font-size: 22px; color: rgba(255,255,255,.75); }
+    #s5-road { position: absolute; left: 80px; right: 80px; top: 150px; height: 18px; background: #2E2A3A; border-top: 3px solid #555; border-bottom: 3px solid #555; }
+    #s5-road i { position: absolute; left: 0; right: 0; top: 6px; height: 4px; background: repeating-linear-gradient(90deg, #FFD23F 0 24px, transparent 24px 46px); opacity: .7; }
+    .s5-cp { position: absolute; top: 128px; width: 220px; margin-left: -110px; text-align: center; }
+    .s5-cp .dot { width: 62px; height: 62px; margin: 0 auto; border-radius: 50%; background: #FFD23F; color: #121212; border: 4px solid #000;
+      font-family: "League Gothic", sans-serif; font-size: 44px; line-height: 56px; }
+    .s5-cp .lb { margin-top: 10px; font-family: "Oswald", sans-serif; font-size: 22px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.15; }
+    .s5-star { position: absolute; top: 84px; width: 40px; height: 40px; margin-left: -20px; }
+    .s5-tag { position: absolute; top: 276px; margin-left: -48px; width: 96px; text-align: center; font-size: 18px; padding: 3px 0; }
+    .s5-ces { position: absolute; top: 276px; margin-left: 56px; width: 70px; text-align: center; font-size: 18px; padding: 3px 0; }
+    #s5-van { position: absolute; left: 0; top: 108px; width: 96px; height: 48px; }
+    #s5-kano { left: 380px; top: 548px; width: 690px; height: 360px; }
+    #s5-kano svg { position: absolute; left: 0; top: 50px; width: 690px; height: 310px; }
+    #s5-k1 { left: 1100px; top: 548px; width: 750px; height: 166px; border-left: 8px solid #FF5A4E; }
+    #s5-k2 { left: 1100px; top: 734px; width: 750px; height: 166px; border-left: 8px solid #FFD23F; }
+    .s5-k .h { position: absolute; left: 24px; top: 14px; font-family: "Oswald", sans-serif; font-size: 30px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+    .s5-k .p { position: absolute; left: 24px; top: 62px; }
+    .s5-k .n { position: absolute; right: 26px; top: 18px; font-family: "League Gothic", sans-serif; font-size: 110px; line-height: 1; }
+    .s5-k .d { position: absolute; left: 24px; top: 112px; font-size: 24px; color: rgba(255,255,255,.85); }
+  </style>
+  <div id="root" data-composition-id="s5" data-width="1920" data-height="1080">
+    <div id="s5-stage" style="position:absolute;inset:0">
+      <!-- @world:dusk -->
+    <div class="world" id="s5-world">
+      <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="s5-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E1540"/><stop offset=".4" stop-color="#6E356E"/><stop offset=".6" stop-color="#E06A4E"/><stop offset=".74" stop-color="#FFBE6A"/></linearGradient>
+          <radialGradient id="s5-sun"><stop offset="0" stop-color="#FFF3C9"/><stop offset=".35" stop-color="#FFD27A" stop-opacity=".85"/><stop offset="1" stop-color="#FFA24F" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="1920" height="1080" fill="url(#s5-sky)"/>
+        
+        <circle cx="1380" cy="650" r="280" fill="url(#s5-sun)"/>
+        
+        <g id="s5-far"><path d="M-240 700 C-40 620 180 660 380 610 S 760 560 980 625 S 1420 600 1640 555 S 2000 610 2160 590 L2160 1080 L-240 1080Z" fill="#8A4475"/></g>
+        <g id="s5-mid"><path d="M-240 790 C 60 705 300 765 600 722 S 1020 690 1320 742 S 1760 700 2160 762 L2160 1080 L-240 1080Z" fill="#55285A"/>
+          <path d="M350 771l13 -84l13 84zM1607 760l13 -83l13 83zM1277 760l7 -42l7 42zM1550 745l13 -80l13 80zM1063 783l12 -75l12 75zM1918 746l9 -58l9 58zM449 755l11 -70l11 70zM334 762l10 -63l10 63zM646 773l13 -79l13 79zM1919 792l14 -89l14 89zM46 767l8 -53l8 53zM255 747l10 -60l10 60zM216 776l12 -74l12 74zM-190 762l12 -78l12 78zM436 767l14 -85l14 85zM175 754l12 -73l12 73zM236 773l12 -76l12 76zM1514 738l13 -80l13 80zM767 790l9 -56l9 56zM208 797l10 -61l10 61zM40 769l8 -47l8 47zM1938 764l8 -52l8 52zM878 767l11 -67l11 67zM137 787l10 -61l10 61zM673 754l9 -53l9 53zM1240 757l13 -83l13 83zM1930 761l8 -48l8 48zM1508 786l9 -56l9 56zM266 764l10 -63l10 63zM1679 799l11 -71l11 71zM-65 737l11 -69l11 69zM-147 765l14 -86l14 86zM1938 795l7 -47l7 47zM833 774l9 -56l9 56zM1709 788l10 -60l10 60zM523 796l12 -75l12 75zM1404 770l11 -69l11 69zM-159 772l11 -70l11 70zM585 786l7 -47l7 47zM1682 760l7 -42l7 42zM948 780l11 -68l11 68zM1837 756l8 -47l8 47zM580 741l7 -42l7 42zM-52 796l14 -85l14 85zM1878 798l7 -45l7 45zM1856 779l13 -84l13 84zM1992 736l12 -74l12 74zM544 758l9 -59l9 59zM70 775l11 -66l11 66zM214 761l10 -60l10 60zM1160 782l11 -72l11 72zM439 786l13 -84l13 84zM521 795l7 -47l7 47zM24 756l8 -48l8 48zM2036 786l10 -64l10 64zM1725 771l13 -82l13 82zM121 748l12 -77l12 77zM1153 799l12 -75l12 75zM671 762l12 -74l12 74zM1684 788l13 -80l13 80zM2118 777l7 -42l7 42zM1152 794l10 -60l10 60zM1737 780l10 -63l10 63zM1717 754l11 -69l11 69zM1052 758l11 -70l11 70zM379 787l10 -64l10 64zM1516 761l9 -59l9 59zM1290 777l8 -51l8 51zM472 771l13 -84l13 84zM-183 759l14 -86l14 86z" fill="#4A2252"/></g>
+        <g id="s5-near"><path d="M-240 868 C 260 832 700 852 960 846 S 1640 834 2160 866 L2160 1080 L-240 1080Z" fill="#2A1431"/>
+          <path d="M915 848 L1005 848 L1560 1080 L360 1080Z" fill="#3A2440"/>
+          <path d="M960 852 L960 1080" stroke="#FFD23F" stroke-width="10" stroke-dasharray="26 30" opacity=".8"/>
+          <path d="M-162 914l19 -120l19 120zM270 937l25 -159l25 159zM110 925l23 -146l23 146zM241 998l23 -144l23 144zM-14 923l22 -140l22 140zM44 984l24 -150l24 150zM259 958l24 -149l24 149zM262 1008l23 -146l23 146zM240 969l17 -104l17 104zM-106 914l16 -98l16 98zM84 926l19 -121l19 121zM-89 958l16 -98l16 98zM122 933l20 -124l20 124zM-121 907l18 -113l18 113zM217 1004l25 -156l25 156zM230 1013l24 -151l24 151zM359 1058l25 -158l25 158zM-164 922l25 -154l25 154zM-108 1059l15 -94l15 94zM232 917l17 -106l17 106zM187 998l21 -132l21 132zM276 930l26 -161l26 161zM109 989l20 -127l20 127zM-108 915l21 -131l21 131zM274 925l20 -125l20 125zM85 968l25 -154l25 154z" fill="#2E1636"/><path d="M1687 957l16 -101l16 101zM2087 1022l23 -141l23 141zM1830 1003l20 -124l20 124zM1739 933l15 -95l15 95zM2058 1012l24 -153l24 153zM1905 916l17 -109l17 109zM1850 992l21 -129l21 129zM1714 944l17 -108l17 108zM1654 1057l16 -101l16 101zM1770 978l15 -97l15 97zM1589 903l23 -142l23 142zM1630 1029l25 -157l25 157zM2067 941l18 -115l18 115zM1685 1051l22 -137l22 137zM1621 940l23 -145l23 145zM1674 897l27 -168l27 168zM1794 1018l18 -110l18 110zM1578 979l27 -168l27 168zM1608 1021l19 -119l19 119zM1716 951l16 -103l16 103zM1969 1034l19 -118l19 118zM1825 1020l17 -105l17 105zM1595 916l26 -165l26 165zM1678 907l24 -148l24 148zM2035 1033l26 -164l26 164zM1659 883l20 -126l20 126z" fill="#2E1636"/></g>
+      </svg>
+    </div>
+    <!-- @/world -->
+      <div class="scrim" style="opacity:.65"></div>
+
+      <div class="menu" id="s5-trk">
+        <div class="ttl">Parcours client</div>
+        <div class="leg"><span class="y">★</span> moment de vérité</div>
+        <div id="s5-road"><i></i></div>
+        <svg id="s5-van" viewBox="0 0 96 48"><rect x="2" y="8" width="62" height="30" rx="4" fill="#F4F4F4" stroke="#000" stroke-width="3" /><path d="M64 16 H80 L92 28 V38 H64 Z" fill="#F4F4F4" stroke="#000" stroke-width="3" /><path d="M68 19 H79 L87 28 H68 Z" fill="#7DB8FF" /><rect x="6" y="20" width="54" height="8" fill="#3FD8C4" /><circle cx="20" cy="40" r="7" fill="#222" stroke="#000" stroke-width="2" /><circle cx="76" cy="40" r="7" fill="#222" stroke="#000" stroke-width="2" /></svg>
+        <div class="s5-cp" id="s5-c1" style="left: 140px"><div class="dot">1</div><div class="lb">Salon</div></div>
+        <div class="s5-cp" id="s5-c2" style="left: 378px"><div class="dot">2</div><div class="lb">Rappel après<br />le salon</div></div>
+        <div class="s5-cp" id="s5-c3" style="left: 616px"><div class="dot">3</div><div class="lb">Visite<br />des caves</div></div>
+        <div class="s5-cp" id="s5-c4" style="left: 854px"><div class="dot">4</div><div class="lb">RDV avec<br />la direction</div></div>
+        <div class="s5-cp" id="s5-c5" style="left: 1092px"><div class="dot">5</div><div class="lb">Chantier</div></div>
+        <div class="s5-cp" id="s5-c6" style="left: 1330px"><div class="dot">6</div><div class="lb">Première<br />panne</div></div>
+        <svg class="s5-star" id="s5-s2" style="left: 378px" viewBox="0 0 40 40"><path d="M20 2 L25 15 L39 15 L28 24 L32 38 L20 30 L8 38 L12 24 L1 15 L15 15 Z" fill="#FFD23F" stroke="#000" stroke-width="2.5" /></svg>
+        <svg class="s5-star" id="s5-s3" style="left: 616px" viewBox="0 0 40 40"><path d="M20 2 L25 15 L39 15 L28 24 L32 38 L20 30 L8 38 L12 24 L1 15 L15 15 Z" fill="#FFD23F" stroke="#000" stroke-width="2.5" /></svg>
+        <svg class="s5-star" id="s5-s4" style="left: 854px" viewBox="0 0 40 40"><path d="M20 2 L25 15 L39 15 L28 24 L32 38 L20 30 L8 38 L12 24 L1 15 L15 15 Z" fill="#FFD23F" stroke="#000" stroke-width="2.5" /></svg>
+        <svg class="s5-star" id="s5-s5" style="left: 1092px" viewBox="0 0 40 40"><path d="M20 2 L25 15 L39 15 L28 24 L32 38 L20 30 L8 38 L12 24 L1 15 L15 15 Z" fill="#FFD23F" stroke="#000" stroke-width="2.5" /></svg>
+        <svg class="s5-star" id="s5-s6" style="left: 1330px" viewBox="0 0 40 40"><path d="M20 2 L25 15 L39 15 L28 24 L32 38 L20 30 L8 38 L12 24 L1 15 L15 15 Z" fill="#FFD23F" stroke="#000" stroke-width="2.5" /></svg>
+        <div class="pill p-g s5-tag" id="s5-t2" style="left: 378px">CSAT</div>
+        <div class="pill p-g s5-tag" id="s5-t3" style="left: 616px">CSAT</div>
+        <div class="pill p-g s5-tag" id="s5-t4" style="left: 854px">CSAT</div>
+        <div class="pill p-g s5-tag" id="s5-t5" style="left: 1092px">CSAT</div>
+        <div class="pill p-g s5-tag" id="s5-t6" style="left: 1330px">CSAT</div>
+        <div class="pill p-c s5-ces" id="s5-ce" style="left: 1330px">CES</div>
+      </div>
+
+      <div class="menu" id="s5-kano">
+        <div class="menu-h"><div class="tab on">Modèle de Kano</div></div>
+        <svg viewBox="0 0 690 310">
+          <line x1="345" y1="16" x2="345" y2="296" stroke="rgba(255,255,255,.35)" stroke-width="2" />
+          <line x1="30" y1="156" x2="660" y2="156" stroke="rgba(255,255,255,.35)" stroke-width="2" />
+          <text x="356" y="30" font-family="Oswald" font-size="16" fill="rgba(255,255,255,.6)" letter-spacing="2">SATISFACTION +</text>
+          <text x="560" y="182" font-family="Oswald" font-size="16" fill="rgba(255,255,255,.6)" letter-spacing="2">RÉALISATION +</text>
+          <path d="M40 296 C 200 250 300 190 650 166" stroke="#FF5A4E" stroke-width="6" fill="none" />
+          <path d="M60 280 L640 34" stroke="#FFD23F" stroke-width="6" fill="none" />
+          <path d="M40 146 C 420 140 520 100 650 22" stroke="#3FD8C4" stroke-width="6" fill="none" />
+          <text x="420" y="214" font-family="Oswald" font-size="20" fill="#FF5A4E">BASIQUE</text>
+          <text x="440" y="96" font-family="Oswald" font-size="20" fill="#FFD23F" transform="rotate(-22 440 96)">PERFORMANCE</text>
+          <text x="40" y="128" font-family="Oswald" font-size="20" fill="#3FD8C4">ENCHANTEMENT</text>
+          <g id="s5-pt1"><circle cx="150" cy="268" r="15" fill="#FF5A4E" stroke="#fff" stroke-width="4" /><rect x="100" y="210" width="190" height="34" rx="4" fill="rgba(0,0,0,.85)" /><text x="112" y="234" font-family="Oswald" font-size="20" fill="#fff">DÉPANNAGE RAPIDE</text></g>
+          <g id="s5-pt2"><circle cx="230" cy="208" r="15" fill="#FFD23F" stroke="#fff" stroke-width="4" /><rect x="40" y="56" width="190" height="34" rx="4" fill="rgba(0,0,0,.85)" /><text x="52" y="80" font-family="Oswald" font-size="20" fill="#fff">CONSEIL ÉNERGIE</text><path d="M150 90 L222 196" stroke="#fff" stroke-width="2" /></g>
+        </svg>
+      </div>
+
+      <div class="menu s5-k" id="s5-k1">
+        <div class="h r">Dépannage rapide</div><div class="pill p-r p">Attente basique non remplie</div>
+        <div class="n r ol2" id="s5-n1">52 %</div>
+        <div class="d">satisfaits (–19 pts) · effort client <b class="r">CES 5,2/7</b></div>
+      </div>
+      <div class="menu s5-k" id="s5-k2">
+        <div class="h y">Conseil économies d'énergie</div><div class="pill p-y p">Attente n°1 du client</div>
+        <div class="n y ol2" id="s5-n2">39 %</div>
+        <div class="d">satisfaits seulement : un levier à saisir</div>
+      </div>
+
+      <div class="grain"></div>
+      <div class="lbx t" id="s5-lt"></div><div class="lbx b" id="s5-lb"></div>
+      <div id="s5-cd"></div>
+      <div class="card-m" id="s5-cm"><div class="k ol2" id="s5-mk">Mission 4a</div><div class="t ol" id="s5-mt">Satisfaction</div><div class="bar" id="s5-mb" style="width:560px"></div></div>
+      <div class="done-flash" id="s5-df"></div>
+      <div class="done" id="s5-dn"><div class="t ol" id="s5-dt">Mission accomplie</div><div class="s ol2" id="s5-ds">+ Moments de vérité sous contrôle</div></div>
+    </div>
+  </div>
+  <script>
+    const D = 48.877, L = {"5a":{"s":2.4,"e":14.323,"t":"Nous avons tracé le parcours de ce client en six étapes : le salon, le rappel, la visite des caves, le rendez-vous avec la direction, le chantier, puis la première panne."},"5b":{"s":14.723,"e":18.569,"t":"Chacun de ces moments de vérité peut tout faire basculer."},"5c":{"s":18.969,"e":31.662,"t":"Le modèle de Kano nous alerte : le dépannage rapide est une attente basique… et elle n'est pas remplie : 52 % de satisfaits seulement, et un effort client de 5,2 sur 7."},"5d":{"s":32.062,"e":38.6,"t":"Le conseil en économies d'énergie, satisfait à 39 % seulement, est l'attente numéro un de ce client."},"5e":{"s":39,"e":47.077,"t":"Nous mesurerons donc la satisfaction à chaque moment de vérité avec le CSAT, et l'effort après chaque dépannage avec le CES."}}; // @cues
+    /* @kitjs */
+    // Outils communs (injectés par tools/build.mjs)
+    const T = (id, f = 0) => L[id].s + f * (L[id].e - L[id].s);
+    const W = (id, kw) => { const t = L[id].t, i = t.indexOf(kw); return T(id, i < 0 ? 0 : i / t.length); };
+    const LAST = Math.max(...Object.values(L).map((x) => x.e));
+    const tl = gsap.timeline({ paused: true });
+    const IN = (sel, at, from = { y: 30 }, d = 0.5, ease = "back.out(1.5)") =>
+      tl.fromTo(sel, { opacity: 0, ...from }, { opacity: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: d, ease }, at);
+    const OUT = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const fr = (n, dec = 0) => n.toLocaleString("fr-FR", { minimumFractionDigits: dec, maximumFractionDigits: dec }).replace(/ | /g, " ");
+    const count = (sel, from, to, at, d, fmt) => {
+      const o = { v: from };
+      tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => { document.querySelector(sel).textContent = fmt(o.v); } }, at);
+    };
+    // décor qui défile doucement
+    const drift = (p) => {
+      if (document.querySelector("#" + p + "-far")) tl.fromTo(`#${p}-far`, { x: 0 }, { x: -50, duration: D, ease: "none" }, 0);
+      if (document.querySelector("#" + p + "-mid")) tl.fromTo(`#${p}-mid`, { x: 0 }, { x: -110, duration: D, ease: "none" }, 0);
+    };
+    // carton « MISSION X » avec bandes noires
+    const missionCard = (p) => {
+      tl.fromTo(`#${p}-lt`, { yPercent: -100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-lb`, { yPercent: 100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-cd`, { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+      tl.fromTo(`#${p}-mk`, { opacity: 0, x: -90 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+      tl.fromTo(`#${p}-mt`, { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.32, ease: "power4.out" }, 0.3);
+      tl.fromTo(`#${p}-mb`, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.45);
+      tl.to(`#${p}-cm`, { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" }, 1.95);
+      tl.to(`#${p}-cd`, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lt`, { yPercent: -100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lb`, { yPercent: 100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+    };
+    // « MISSION ACCOMPLIE » après la dernière réplique, puis fondu au noir
+    const missionDone = (p, hide = []) => {
+      const at = LAST + 0.15;
+      if (hide.length) OUT(hide, at, 0.25);
+      tl.fromTo(`#${p}-df`, { opacity: 0 }, { opacity: 1, duration: 0.25 }, at);
+      tl.fromTo(`#${p}-dt`, { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, at + 0.05);
+      tl.fromTo(`#${p}-ds`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, at + 0.35);
+    };
+    const sceneEnd = (p) => {
+      tl.to(`#${p}-stage`, { opacity: 0, duration: 0.3, ease: "power2.in" }, D - 0.32);
+      tl.set({}, {}, D);
+    };
+    /* @/kitjs */
+    drift("s5");
+    missionCard("s5");
+    IN("#s5-trk", T("5a") - 0.3, { y: -30 }, 0.45, "power3.out");
+    const steps = ["le salon", "le rappel", "la visite", "le rendez-vous", "le chantier", "la première panne"];
+    const xs = [140, 378, 616, 854, 1092, 1330];
+    tl.fromTo("#s5-van", { x: 22, opacity: 0 }, { x: 22, opacity: 1, duration: 0.3 }, W("5a", "le salon") - 0.1);
+    steps.forEach((k, i) => {
+      IN("#s5-c" + (i + 1), W("5a", k), { scale: 0.3 }, 0.35);
+      if (i > 0) tl.to("#s5-van", { x: xs[i] - 118, duration: 0.5, ease: "power2.inOut" }, W("5a", k) - 0.1);
+    });
+    [2, 3, 4, 5, 6].forEach((n, i) => IN("#s5-s" + n, T("5b") + i * 0.2, { scale: 3, rotation: -90 }, 0.35, "power3.out"));
+    // Kano
+    IN("#s5-kano", T("5c"), { y: 40 }, 0.45, "power3.out");
+    IN("#s5-pt1", W("5c", "dépannage rapide"), { scale: 0, svgOrigin: "150 268" }, 0.4);
+    IN("#s5-k1", W("5c", "elle n'est pas"), { x: 60 }, 0.45, "power3.out");
+    count("#s5-n1", 0, 52, W("5c", "52"), 0.8, (v) => Math.round(v) + " %");
+    tl.fromTo("#s5-k1", { boxShadow: "0 0 0 0px rgba(255,90,78,0)" }, { boxShadow: "0 0 0 6px rgba(255,90,78,0.9)", duration: 0.3, yoyo: true, repeat: 3, immediateRender: false }, W("5c", "5,2"));
+    IN("#s5-pt2", T("5d"), { scale: 0, svgOrigin: "230 208" }, 0.4);
+    IN("#s5-k2", T("5d", 0.1), { x: 60 }, 0.45, "power3.out");
+    count("#s5-n2", 0, 39, W("5d", "39"), 0.8, (v) => Math.round(v) + " %");
+    // mesures
+    [2, 3, 4, 5, 6].forEach((n, i) => IN("#s5-t" + n, W("5e", "CSAT") + i * 0.12, { y: 14 }, 0.3));
+    IN("#s5-ce", W("5e", "CES"), { scale: 1.8 }, 0.35, "power4.out");
+    missionDone("s5", ["#s5-trk", "#s5-kano", "#s5-k1", "#s5-k2"]);
+    sceneEnd("s5");
+    window.__timelines["s5"] = tl;
+  </script>
+</template>

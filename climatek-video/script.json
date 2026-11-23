@@ -1,0 +1,284 @@
+{
+  "speakers": {
+    "E1": {
+      "name": "Étudiant 1",
+      "color": "#3FD8C4"
+    },
+    "E2": {
+      "name": "Étudiant 2",
+      "color": "#FFB347"
+    },
+    "E3": {
+      "name": "Étudiant 3",
+      "color": "#A6E35A"
+    },
+    "E4": {
+      "name": "Étudiant 4",
+      "color": "#FF7AB8"
+    },
+    "E5": {
+      "name": "Étudiant 5",
+      "color": "#7DB8FF"
+    }
+  },
+  "credits": {
+    "school": "École de commerce",
+    "course": "Gestion de la relation client"
+  },
+  "scenes": [
+    {
+      "id": "s1",
+      "title": "Intro",
+      "planned": 20,
+      "lines": [
+        {
+          "id": "1a",
+          "speaker": "E1",
+          "text": "Climatek Services, PME de Brive, 32 salariés, 2,4 millions d'euros de chiffre d'affaires."
+        },
+        {
+          "id": "1b",
+          "speaker": "E1",
+          "text": "Face à elle, un compte à conquérir : la Fromagerie des Monédières."
+        },
+        {
+          "id": "1c",
+          "speaker": "E1",
+          "text": "70 salariés, un projet à 120 000 euros… et un client dont on ne sait presque rien."
+        },
+        {
+          "id": "1d",
+          "speaker": "E1",
+          "text": "Voici notre revue de compte."
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "Mission 1 – Connaître le client",
+      "planned": 35,
+      "lines": [
+        {
+          "id": "2a",
+          "speaker": "E2",
+          "text": "Tout commence par une carte de visite, récupérée sur un salon."
+        },
+        {
+          "id": "2b",
+          "speaker": "E2",
+          "text": "Notre première mission : la transformer en véritable fiche client."
+        },
+        {
+          "id": "2c",
+          "speaker": "E2",
+          "text": "Identité de l'entreprise, groupe de décision, parc installé, projet d'agrandissement de l'atelier d'affinage, exigences sanitaires, concurrent en place, historique des échanges."
+        },
+        {
+          "id": "2d",
+          "speaker": "E2",
+          "text": "Aujourd'hui, seulement 45 % de nos fiches CRM sont complètes : celle-ci le sera."
+        },
+        {
+          "id": "2e",
+          "speaker": "E2",
+          "text": "Et deux précautions RGPD : informer chaque contact de l'enregistrement de ses données, et ne noter que des informations professionnelles."
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "Mission 2 – Diagnostiquer et agir",
+      "planned": 35,
+      "lines": [
+        {
+          "id": "3a",
+          "speaker": "E3",
+          "text": "Diagnostic : la Fromagerie est un prospect, notre stratégie est donc de la conquérir."
+        },
+        {
+          "id": "3b",
+          "speaker": "E3",
+          "text": "L'enjeu est réel : 120 000 euros, c'est 5 % de notre chiffre d'affaires."
+        },
+        {
+          "id": "3c",
+          "speaker": "E3",
+          "text": "Notre objectif SMART : signer l'installation pour au moins 110 000 euros, et un contrat de maintenance d'environ 6 000 euros par an, avant le 31 mai 2027."
+        },
+        {
+          "id": "3d",
+          "speaker": "E3",
+          "text": "Le plan tient en trois mois : en décembre, rendez-vous découverte sur site ;"
+        },
+        {
+          "id": "3e",
+          "speaker": "E3",
+          "text": "en janvier, audit énergétique offert et dossier d'aides ;"
+        },
+        {
+          "id": "3f",
+          "speaker": "E3",
+          "text": "en février, présentation de l'offre à la direction."
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "Mission 3 – Groupe de décision",
+      "planned": 35,
+      "lines": [
+        {
+          "id": "4a",
+          "speaker": "E4",
+          "text": "Qui décide vraiment ?"
+        },
+        {
+          "id": "4b",
+          "speaker": "E4",
+          "text": "Le maître affineur, l'utilisateur, influence Monsieur Bordas, notre allié, et Madame Nadal, responsable qualité-RSE."
+        },
+        {
+          "id": "4c",
+          "speaker": "E4",
+          "text": "Avec le responsable administratif et financier, ils influencent Madame Chassagne, la directrice générale, qui tranche."
+        },
+        {
+          "id": "4d",
+          "speaker": "E4",
+          "text": "À chacun son argument : une qualité d'affinage constante pour le maître affineur, la réactivité pour Monsieur Bordas, le bilan carbone pour Madame Nadal,"
+        },
+        {
+          "id": "4e",
+          "speaker": "E4",
+          "text": "le coût total et les aides pour le financier, et le retour sur investissement pour la directrice."
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "title": "Mission 4a – Satisfaction",
+      "planned": 45,
+      "lines": [
+        {
+          "id": "5a",
+          "speaker": "E5",
+          "text": "Nous avons tracé le parcours de ce client en six étapes : le salon, le rappel, la visite des caves, le rendez-vous avec la direction, le chantier, puis la première panne."
+        },
+        {
+          "id": "5b",
+          "speaker": "E5",
+          "text": "Chacun de ces moments de vérité peut tout faire basculer."
+        },
+        {
+          "id": "5c",
+          "speaker": "E5",
+          "text": "Le modèle de Kano nous alerte : le dépannage rapide est une attente basique… et elle n'est pas remplie : 52 % de satisfaits seulement, et un effort client de 5,2 sur 7."
+        },
+        {
+          "id": "5d",
+          "speaker": "E5",
+          "text": "Le conseil en économies d'énergie, satisfait à 39 % seulement, est l'attente numéro un de ce client."
+        },
+        {
+          "id": "5e",
+          "speaker": "E5",
+          "text": "Nous mesurerons donc la satisfaction à chaque moment de vérité avec le CSAT, et l'effort après chaque dépannage avec le CES."
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "title": "Mission 4b – Promesse client",
+      "planned": 90,
+      "lines": [
+        {
+          "id": "6a",
+          "speaker": "E1",
+          "text": "Notre promesse client tient en une phrase."
+        },
+        {
+          "id": "6b",
+          "speaker": "E2",
+          "text": "Vos fromages ne doivent jamais attendre."
+        },
+        {
+          "id": "6c",
+          "speaker": "E3",
+          "text": "À 45 minutes de vos caves, nous intervenons en moins de 4 heures,"
+        },
+        {
+          "id": "6d",
+          "speaker": "E4",
+          "text": "nous vous informons à chaque étape,"
+        },
+        {
+          "id": "6e",
+          "speaker": "E5",
+          "text": "et nous réduisons chaque année votre facture énergétique."
+        },
+        {
+          "id": "6f",
+          "speaker": "E1",
+          "text": "Une promesse crédible : elle répond aux deux faiblesses de notre enquête, le délai de dépannage et le conseil énergie, et elle joue la proximité face à un concurrent jugé lointain."
+        },
+        {
+          "id": "6g",
+          "speaker": "E2",
+          "text": "Pour aller au-delà, deux attentions qui enchantent. D'abord, le rapport annuel « Cave sobre » : kilowattheures, euros et CO₂ économisés, de quoi nourrir le bilan RSE de Madame Nadal."
+        },
+        {
+          "id": "6h",
+          "speaker": "E3",
+          "text": "Ensuite, des capteurs connectés dans les caves : température et hygrométrie sont surveillées en continu, et le maître affineur est alerté avant la panne."
+        },
+        {
+          "id": "6i",
+          "speaker": "E4",
+          "text": "Pour tenir cette promesse, un plan d'amélioration en quatre leviers. Processus internes : une astreinte et des créneaux de dépannage garantis. Digital : un CRM complet et un suivi d'intervention par SMS."
+        },
+        {
+          "id": "6j",
+          "speaker": "E5",
+          "text": "Humain : un interlocuteur dédié et des techniciens formés au conseil énergétique. Innovation : la maintenance prédictive grâce aux capteurs."
+        },
+        {
+          "id": "6k",
+          "speaker": "E1",
+          "text": "Une promesse simple, mesurable, et qui fait la différence."
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "title": "Mission 5 – Pilotage et conclusion",
+      "planned": 40,
+      "lines": [
+        {
+          "id": "7a",
+          "speaker": "E1",
+          "text": "Pour piloter, trois engagements : une intervention en moins de quatre heures, une information en temps réel, un interlocuteur dédié et une revue annuelle."
+        },
+        {
+          "id": "7b",
+          "speaker": "E1",
+          "text": "Un tableau de bord de six indicateurs : délai d'intervention, CES, CSAT, respect des engagements, économies d'énergie, chiffre d'affaires et marge."
+        },
+        {
+          "id": "7c",
+          "speaker": "E1",
+          "text": "Et si un dépannage dépasse quatre heures, une alerte CRM se déclenche."
+        },
+        {
+          "id": "7d",
+          "speaker": "E1",
+          "text": "Car ce qui n'est pas mesuré n'est pas piloté."
+        },
+        {
+          "id": "7e",
+          "speaker": "E1",
+          "text": "Climatek, la proximité qui tient ses promesses !"
+        }
+      ]
+    }
+  ]
+}

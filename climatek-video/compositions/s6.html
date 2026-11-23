@@ -1,0 +1,389 @@
+<template>
+  <style>
+    /* @kit */
+/* Kit graphique commun « monde ouvert » (injecté par tools/build.mjs) */
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter", sans-serif; color: #FFFFFF; background: #0B0816; }
+    .world { position: absolute; inset: -30px; }
+    .world svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(8,6,18,.25), rgba(8,6,18,.75) 100%); }
+    .grain { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px); pointer-events: none; }
+    .ol { text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 4px 0 #000, 0 -4px 0 #000, 4px 0 0 #000, -4px 0 0 #000, 7px 8px 0 rgba(0,0,0,.55); }
+    .ol2 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 5px 10px rgba(0,0,0,.5); }
+    .gt { font-family: "League Gothic", "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .02em; line-height: .92; font-weight: 400; }
+    .hud { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .y { color: #FFD23F; } .g { color: #74E27A; } .c { color: #3FD8C4; } .r { color: #FF5A4E; } .o { color: #FFB347; } .mut { color: rgba(255,255,255,.62); }
+    .menu { position: absolute; background: rgba(9,9,18,.84); border: 2px solid rgba(255,255,255,.16); border-radius: 6px; box-shadow: 0 24px 70px rgba(0,0,0,.55); overflow: hidden; }
+    .menu-h { display: flex; border-bottom: 2px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+    .tab { padding: 12px 30px 10px; font-family: "Oswald", sans-serif; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .tab.on { background: #FFD23F; color: #121212; font-weight: 700; }
+    .help { position: absolute; background: rgba(6,6,12,.88); border-left: 6px solid #FFD23F; border-radius: 4px; padding: 20px 26px; font-size: 28px; line-height: 1.3; color: #fff; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    .help b { color: #FFD23F; }
+    .lbx { position: absolute; left: 0; right: 0; height: 120px; background: #000; z-index: 30; }
+    .lbx.t { top: 0; } .lbx.b { bottom: 0; }
+    .card-m { position: absolute; left: 0; right: 0; top: 330px; text-align: center; z-index: 31; }
+    .card-m .k { font-family: "Oswald", sans-serif; font-size: 40px; letter-spacing: .38em; color: #FFD23F; font-weight: 700; }
+    .card-m .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 190px; line-height: .95; text-transform: uppercase; color: #fff; margin-top: 10px; }
+    .card-m .bar { margin: 22px auto 0; width: 0; height: 8px; background: #FFD23F; }
+    .done { position: absolute; left: 0; right: 0; top: 380px; text-align: center; z-index: 32; }
+    .done .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 170px; color: #FFD23F; text-transform: uppercase; line-height: .95; }
+    .done .s { font-family: "Oswald", sans-serif; font-size: 42px; color: #fff; letter-spacing: .12em; text-transform: uppercase; margin-top: 12px; }
+    .done-flash { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(255,210,63,.35), rgba(0,0,0,.55) 70%); z-index: 31; opacity: 0; }
+    .pill { display: inline-block; padding: 6px 16px; border-radius: 4px; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; }
+    .p-y { background: #FFD23F; color: #121212; } .p-r { background: #FF5A4E; color: #fff; } .p-c { background: #3FD8C4; color: #0B1F1C; } .p-g { background: #74E27A; color: #0D200F; } .p-k { background: rgba(255,255,255,.12); color: #fff; }
+    /* @/kit */
+    #s6-cd { position: absolute; inset: 0; background: rgba(0,0,0,.55); z-index: 29; }
+    .s6-ph { position: absolute; inset: 0; }
+    #s6-cbt, #s6-cbb { position: absolute; left: 0; right: 0; height: 120px; background: #000; z-index: 25; }
+    #s6-cbt { top: 0; } #s6-cbb { bottom: 0; }
+    /* phase A : cinématique */
+    #s6-cave { position: absolute; left: 1290px; top: 520px; width: 520px; height: 380px; }
+    #s6-van { position: absolute; left: 0; top: 700px; width: 360px; height: 180px; }
+    #s6-beam { position: absolute; left: 330px; top: 760px; width: 520px; height: 140px;
+      background: linear-gradient(90deg, rgba(255,240,180,.55), rgba(255,240,180,0)); clip-path: polygon(0 35%, 100% 0, 100% 100%, 0 60%); }
+    #s6-ak { position: absolute; left: 0; right: 0; top: 150px; text-align: center; font-family: "Oswald", sans-serif; font-size: 30px; letter-spacing: .4em; color: #FFD23F; text-transform: uppercase; }
+    #s6-at { position: absolute; left: 0; right: 0; top: 200px; text-align: center; font-size: 104px; color: #fff; white-space: nowrap; }
+    .s6-b { position: absolute; left: 560px; height: 66px; display: flex; align-items: center; gap: 18px; background: rgba(6,6,14,.78); border-radius: 4px; padding-right: 26px; }
+    .s6-b .key { height: 66px; min-width: 130px; padding: 0 16px; background: #FFD23F; color: #121212; font-family: "League Gothic", sans-serif; font-size: 52px; line-height: 70px; text-align: center; border-radius: 4px 0 0 4px; }
+    .s6-b .tx { font-family: "Oswald", sans-serif; font-size: 32px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+    #s6-b1 { top: 380px; } #s6-b2 { top: 462px; } #s6-b3 { top: 544px; } #s6-b4 { top: 626px; }
+    .s6-phone { position: absolute; width: 300px; height: 500px; border-radius: 34px; background: #0E0E16; border: 6px solid #2A2A36; box-shadow: 0 0 0 3px #000, 0 30px 60px rgba(0,0,0,.6); overflow: hidden; }
+    .s6-phone .sb { height: 40px; display: flex; justify-content: space-between; align-items: center; padding: 0 22px; font-size: 16px; color: #ccc; font-weight: 700; }
+    .s6-phone .ap { margin: 4px 14px 10px; font-family: "Oswald", sans-serif; font-size: 20px; letter-spacing: .1em; color: #3FD8C4; text-transform: uppercase; }
+    .s6-msg { margin: 0 14px 12px; background: #1E2230; border-radius: 14px; padding: 12px 14px; font-size: 19px; line-height: 1.3; color: #fff; }
+    .s6-msg b { color: #3FD8C4; }
+    .s6-msg.warn { background: #3A1C1C; border: 2px solid #FF5A4E; }
+    .s6-msg.warn b { color: #FF5A4E; }
+    #s6-ph1 { left: 60px; top: 170px; }
+    /* phase B : promesse */
+    #s6-pB { left: 380px; top: 200px; width: 1470px; height: 700px; }
+    #s6-quote { position: absolute; left: 40px; right: 40px; top: 90px; font-size: 38px; line-height: 1.35; font-weight: 700; }
+    #s6-quote .y { color: #FFD23F; }
+    .s6-why { position: absolute; left: 40px; right: 40px; height: 92px; display: flex; align-items: center; gap: 24px; border-top: 1px solid rgba(255,255,255,.14); }
+    .s6-why .k { width: 330px; font-family: "Oswald", sans-serif; font-size: 28px; letter-spacing: .08em; text-transform: uppercase; }
+    .s6-why .from { width: 420px; font-size: 26px; color: #FF8A80; }
+    .s6-why .ar { font-family: "Oswald", sans-serif; font-size: 34px; color: #FFD23F; }
+    .s6-why .to { font-size: 28px; font-weight: 700; color: #74E27A; }
+    #s6-w0 { top: 330px; height: 50px; border: 0; font-family: "Oswald", sans-serif; font-size: 24px; letter-spacing: .16em; color: rgba(255,255,255,.6); text-transform: uppercase; }
+    #s6-w1 { top: 390px; } #s6-w2 { top: 482px; } #s6-w3 { top: 574px; }
+    /* toasts de succès */
+    .s6-ach { position: absolute; left: 610px; top: 150px; width: 700px; height: 104px; background: rgba(6,6,14,.92); border: 2px solid #FFD23F; border-radius: 52px; display: flex; align-items: center; gap: 20px; padding: 0 30px 0 14px; z-index: 6; }
+    .s6-ach .ic { width: 76px; height: 76px; border-radius: 50%; background: #FFD23F; display: flex; align-items: center; justify-content: center; }
+    .s6-ach .l1 { font-family: "Oswald", sans-serif; font-size: 22px; letter-spacing: .2em; color: #FFD23F; text-transform: uppercase; }
+    .s6-ach .l2 { font-family: "Oswald", sans-serif; font-size: 34px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+    /* phase C : rapport Cave sobre */
+    #s6-rep { position: absolute; left: 530px; top: 290px; width: 860px; height: 580px; background: #FBF6EA; color: #2B2118; border-radius: 8px; box-shadow: 0 30px 70px rgba(0,0,0,.6); }
+    #s6-rep .t1 { position: absolute; left: 50px; top: 40px; font-family: "Oswald", sans-serif; font-size: 22px; letter-spacing: .2em; color: #1F4D3A; text-transform: uppercase; }
+    #s6-rep .t2 { position: absolute; left: 50px; top: 76px; font-family: "Playfair Display", serif; font-size: 58px; font-weight: 700; color: #1F4D3A; }
+    #s6-rep .t3 { position: absolute; left: 50px; top: 156px; font-size: 22px; color: #8B5E3C; }
+    .s6-ct { position: absolute; top: 230px; width: 240px; height: 230px; border-radius: 8px; background: #EFE5D0; text-align: center; padding-top: 30px; }
+    .s6-ct .v { font-family: "League Gothic", sans-serif; font-size: 92px; line-height: 1; color: #1F4D3A; }
+    .s6-ct .u { font-family: "Oswald", sans-serif; font-size: 24px; color: #5A3B24; margin-top: 10px; text-transform: uppercase; letter-spacing: .06em; line-height: 1.2; }
+    #s6-ct1 { left: 50px; } #s6-ct2 { left: 310px; } #s6-ct3 { left: 570px; }
+    #s6-rep .nt { position: absolute; left: 50px; bottom: 30px; font-size: 18px; color: #8B5E3C; font-style: italic; }
+    #s6-stamp { position: absolute; right: 40px; bottom: 20px; padding: 10px 24px; border: 6px solid #2F8F4E; color: #2F8F4E; font-family: "League Gothic", sans-serif; font-size: 50px; line-height: 1; text-transform: uppercase; border-radius: 6px; }
+    /* phase D : capteurs */
+    #s6-sen { left: 400px; top: 290px; width: 760px; height: 580px; }
+    #s6-sen svg { position: absolute; left: 0; top: 56px; width: 760px; height: 524px; }
+    #s6-ph2 { left: 1260px; top: 290px; }
+    /* phase E : arbre d'améliorations */
+    #s6-pE { left: 380px; top: 200px; width: 1470px; height: 700px; }
+    .s6-node { position: absolute; top: 100px; width: 330px; height: 560px; text-align: center; }
+    .s6-node .ic { width: 140px; height: 140px; margin: 0 auto; border-radius: 50%; background: #2A2A36; border: 6px solid #555; display: flex; align-items: center; justify-content: center; }
+    .s6-node .nm { margin-top: 18px; font-family: "Oswald", sans-serif; font-size: 34px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+    .s6-node .pk { margin: 16px 18px 0; padding: 14px 12px; background: rgba(255,255,255,.06); border: 2px solid rgba(255,255,255,.14); border-radius: 6px; font-size: 23px; line-height: 1.25; text-align: left; display: flex; gap: 12px; align-items: flex-start; }
+    .s6-node .pk i { flex: none; width: 24px; height: 24px; margin-top: 2px; border-radius: 50%; background: #74E27A; font-style: normal; font-size: 16px; color: #0D200F; text-align: center; line-height: 24px; font-weight: 900; }
+    #s6-n1 { left: 30px; } #s6-n2 { left: 390px; } #s6-n3 { left: 750px; } #s6-n4 { left: 1110px; }
+    #s6-links { position: absolute; left: 0; top: 0; width: 1470px; height: 700px; }
+    /* phase F */
+    #s6-ft { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-size: 132px; color: #fff; }
+    #s6-fp { position: absolute; left: 0; right: 0; top: 600px; display: flex; justify-content: center; gap: 30px; }
+    #s6-fp .pill { font-size: 42px; padding: 10px 30px; }
+  </style>
+  <div id="root" data-composition-id="s6" data-width="1920" data-height="1080">
+    <div id="s6-stage" style="position:absolute;inset:0">
+      <!-- @world:night -->
+    <div class="world" id="s6-world">
+      <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="s6-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#05081A"/><stop offset=".45" stop-color="#121A44"/><stop offset=".7" stop-color="#2B2E63"/><stop offset=".82" stop-color="#4A3C72"/></linearGradient>
+          <radialGradient id="s6-sun"><stop offset="0" stop-color="#F4F1FF"/><stop offset=".35" stop-color="#C9C6F2" stop-opacity=".85"/><stop offset="1" stop-color="#8C88D0" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="1920" height="1080" fill="url(#s6-sky)"/>
+        <circle cx="458" cy="512" r="1.9" fill="#fff" opacity="0.95"/><circle cx="95" cy="479" r="1.4" fill="#fff" opacity="0.34"/><circle cx="132" cy="551" r="2.6" fill="#fff" opacity="0.67"/><circle cx="868" cy="307" r="1.9" fill="#fff" opacity="0.84"/><circle cx="1497" cy="234" r="1.7" fill="#fff" opacity="0.90"/><circle cx="696" cy="270" r="1.0" fill="#fff" opacity="0.82"/><circle cx="1602" cy="201" r="1.1" fill="#fff" opacity="0.99"/><circle cx="234" cy="255" r="1.6" fill="#fff" opacity="0.38"/><circle cx="219" cy="348" r="2.2" fill="#fff" opacity="0.36"/><circle cx="1163" cy="519" r="1.3" fill="#fff" opacity="0.71"/><circle cx="677" cy="175" r="1.7" fill="#fff" opacity="0.80"/><circle cx="595" cy="89" r="2.4" fill="#fff" opacity="0.74"/><circle cx="728" cy="558" r="1.7" fill="#fff" opacity="0.42"/><circle cx="487" cy="516" r="1.9" fill="#fff" opacity="0.64"/><circle cx="336" cy="243" r="1.1" fill="#fff" opacity="0.30"/><circle cx="1328" cy="426" r="1.1" fill="#fff" opacity="0.68"/><circle cx="1424" cy="494" r="1.5" fill="#fff" opacity="0.58"/><circle cx="1226" cy="464" r="1.7" fill="#fff" opacity="0.64"/><circle cx="1509" cy="536" r="1.4" fill="#fff" opacity="0.92"/><circle cx="398" cy="155" r="2.5" fill="#fff" opacity="0.80"/><circle cx="401" cy="29" r="1.3" fill="#fff" opacity="0.88"/><circle cx="1459" cy="118" r="1.7" fill="#fff" opacity="0.83"/><circle cx="801" cy="185" r="1.4" fill="#fff" opacity="0.44"/><circle cx="1672" cy="115" r="2.0" fill="#fff" opacity="0.79"/><circle cx="846" cy="150" r="1.7" fill="#fff" opacity="0.54"/><circle cx="193" cy="216" r="1.6" fill="#fff" opacity="0.83"/><circle cx="1654" cy="433" r="1.2" fill="#fff" opacity="0.78"/><circle cx="1123" cy="43" r="2.1" fill="#fff" opacity="0.88"/><circle cx="1081" cy="477" r="0.9" fill="#fff" opacity="0.82"/><circle cx="837" cy="557" r="2.4" fill="#fff" opacity="0.44"/><circle cx="541" cy="475" r="2.3" fill="#fff" opacity="0.99"/><circle cx="1828" cy="16" r="2.4" fill="#fff" opacity="0.47"/><circle cx="1883" cy="135" r="2.5" fill="#fff" opacity="0.88"/><circle cx="1244" cy="315" r="1.5" fill="#fff" opacity="0.43"/><circle cx="52" cy="5" r="1.0" fill="#fff" opacity="0.84"/><circle cx="168" cy="205" r="1.7" fill="#fff" opacity="0.99"/><circle cx="363" cy="310" r="1.7" fill="#fff" opacity="0.59"/><circle cx="1033" cy="33" r="2.0" fill="#fff" opacity="0.46"/><circle cx="849" cy="101" r="2.1" fill="#fff" opacity="0.82"/><circle cx="828" cy="65" r="2.4" fill="#fff" opacity="0.36"/><circle cx="1127" cy="85" r="2.3" fill="#fff" opacity="0.56"/><circle cx="1228" cy="259" r="1.3" fill="#fff" opacity="0.54"/><circle cx="1310" cy="170" r="0.8" fill="#fff" opacity="0.85"/><circle cx="1079" cy="336" r="2.2" fill="#fff" opacity="0.67"/><circle cx="553" cy="115" r="2.5" fill="#fff" opacity="0.85"/><circle cx="54" cy="182" r="1.7" fill="#fff" opacity="0.34"/><circle cx="1007" cy="510" r="1.6" fill="#fff" opacity="0.94"/><circle cx="15" cy="554" r="1.2" fill="#fff" opacity="0.60"/><circle cx="1798" cy="138" r="1.0" fill="#fff" opacity="0.96"/><circle cx="264" cy="186" r="0.9" fill="#fff" opacity="0.68"/><circle cx="346" cy="382" r="2.5" fill="#fff" opacity="0.61"/><circle cx="113" cy="488" r="1.6" fill="#fff" opacity="0.31"/><circle cx="988" cy="417" r="1.3" fill="#fff" opacity="0.58"/><circle cx="1093" cy="482" r="2.6" fill="#fff" opacity="0.74"/><circle cx="208" cy="6" r="1.2" fill="#fff" opacity="0.96"/><circle cx="1118" cy="454" r="2.0" fill="#fff" opacity="0.81"/><circle cx="307" cy="368" r="1.2" fill="#fff" opacity="0.34"/><circle cx="1741" cy="311" r="1.5" fill="#fff" opacity="0.91"/><circle cx="1588" cy="316" r="0.8" fill="#fff" opacity="0.59"/><circle cx="1597" cy="510" r="2.2" fill="#fff" opacity="0.50"/><circle cx="1871" cy="0" r="2.6" fill="#fff" opacity="0.46"/><circle cx="1014" cy="489" r="1.5" fill="#fff" opacity="0.75"/><circle cx="1396" cy="475" r="1.7" fill="#fff" opacity="0.48"/><circle cx="501" cy="214" r="1.5" fill="#fff" opacity="0.80"/><circle cx="1614" cy="229" r="1.0" fill="#fff" opacity="0.81"/><circle cx="800" cy="370" r="2.2" fill="#fff" opacity="0.42"/><circle cx="1695" cy="427" r="1.6" fill="#fff" opacity="0.59"/><circle cx="648" cy="54" r="1.4" fill="#fff" opacity="0.61"/><circle cx="440" cy="389" r="0.9" fill="#fff" opacity="0.89"/><circle cx="1872" cy="396" r="0.9" fill="#fff" opacity="0.73"/><circle cx="1664" cy="98" r="2.2" fill="#fff" opacity="0.55"/><circle cx="676" cy="85" r="2.2" fill="#fff" opacity="0.55"/><circle cx="30" cy="233" r="1.5" fill="#fff" opacity="0.64"/><circle cx="1608" cy="176" r="2.1" fill="#fff" opacity="0.35"/><circle cx="1075" cy="266" r="1.9" fill="#fff" opacity="0.43"/><circle cx="451" cy="246" r="2.4" fill="#fff" opacity="0.91"/><circle cx="559" cy="244" r="1.1" fill="#fff" opacity="0.47"/><circle cx="1311" cy="476" r="2.3" fill="#fff" opacity="0.84"/><circle cx="1854" cy="78" r="2.0" fill="#fff" opacity="0.80"/><circle cx="703" cy="114" r="2.1" fill="#fff" opacity="0.95"/><circle cx="335" cy="272" r="1.2" fill="#fff" opacity="0.58"/><circle cx="86" cy="181" r="1.3" fill="#fff" opacity="0.97"/><circle cx="44" cy="165" r="2.2" fill="#fff" opacity="0.63"/><circle cx="745" cy="335" r="2.2" fill="#fff" opacity="0.43"/><circle cx="1203" cy="407" r="1.7" fill="#fff" opacity="0.32"/><circle cx="245" cy="522" r="2.1" fill="#fff" opacity="0.39"/><circle cx="801" cy="155" r="2.3" fill="#fff" opacity="0.88"/><circle cx="35" cy="146" r="1.3" fill="#fff" opacity="0.96"/><circle cx="501" cy="176" r="1.5" fill="#fff" opacity="0.33"/><circle cx="1183" cy="357" r="1.6" fill="#fff" opacity="0.98"/>
+        <circle cx="1660" cy="340" r="120" fill="url(#s6-sun)"/>
+        <circle cx="1660" cy="340" r="46" fill="#ECEAFF"/>
+        <g id="s6-far"><path d="M-240 700 C-40 620 180 660 380 610 S 760 560 980 625 S 1420 600 1640 555 S 2000 610 2160 590 L2160 1080 L-240 1080Z" fill="#22264F"/></g>
+        <g id="s6-mid"><path d="M-240 790 C 60 705 300 765 600 722 S 1020 690 1320 742 S 1760 700 2160 762 L2160 1080 L-240 1080Z" fill="#171A3A"/>
+          <path d="M710 748l10 -62l10 62zM-136 791l13 -83l13 83zM908 755l8 -48l8 48zM2021 791l8 -53l8 53zM934 782l9 -57l9 57zM926 772l10 -66l10 66zM2111 750l8 -51l8 51zM1408 795l8 -49l8 49zM1355 767l7 -46l7 46zM910 789l9 -57l9 57zM263 737l12 -77l12 77zM1109 743l11 -71l11 71zM1952 747l13 -83l13 83zM721 751l10 -61l10 61zM1132 769l12 -72l12 72zM85 748l9 -59l9 59zM1446 746l14 -88l14 88zM832 742l10 -65l10 65zM785 781l8 -53l8 53zM921 759l9 -56l9 56zM1370 779l7 -46l7 46zM1664 741l8 -48l8 48zM799 739l7 -43l7 43zM85 741l14 -84l14 84zM1514 752l11 -69l11 69zM1971 748l8 -50l8 50zM1273 743l7 -45l7 45zM1989 775l7 -41l7 41zM2106 758l14 -84l14 84zM1690 755l12 -74l12 74zM1196 779l13 -82l13 82zM2118 781l12 -77l12 77zM766 742l7 -42l7 42zM110 795l14 -85l14 85zM1497 766l14 -85l14 85zM1122 761l7 -46l7 46zM755 743l13 -81l13 81zM1628 796l14 -87l14 87zM2019 769l10 -60l10 60zM968 784l7 -45l7 45zM1181 755l13 -84l13 84zM219 781l13 -81l13 81zM532 740l12 -73l12 73zM2111 781l12 -74l12 74zM737 760l11 -70l11 70zM134 765l9 -55l9 55zM106 748l9 -55l9 55zM333 783l8 -51l8 51zM724 778l7 -41l7 41zM1026 740l14 -85l14 85zM1610 762l9 -56l9 56zM1066 788l14 -89l14 89zM659 788l7 -45l7 45zM1541 780l12 -77l12 77zM457 769l11 -69l11 69zM-35 794l7 -45l7 45zM1210 753l10 -62l10 62zM1774 770l6 -40l6 40zM295 738l11 -69l11 69zM2049 795l12 -72l12 72zM1963 743l7 -43l7 43zM1799 745l10 -61l10 61zM1290 783l11 -72l11 72zM1522 737l11 -66l11 66zM649 777l12 -74l12 74zM1002 784l7 -45l7 45zM68 791l14 -89l14 89zM377 772l8 -52l8 52zM1049 738l14 -85l14 85zM1257 770l8 -47l8 47z" fill="#1C2046"/></g>
+        <g id="s6-near"><path d="M-240 868 C 260 832 700 852 960 846 S 1640 834 2160 866 L2160 1080 L-240 1080Z" fill="#0C0E22"/>
+          <path d="M915 848 L1005 848 L1560 1080 L360 1080Z" fill="#1A1B30"/>
+          <path d="M960 852 L960 1080" stroke="#FFD23F" stroke-width="10" stroke-dasharray="26 30" opacity=".8"/>
+          <path d="M317 964l16 -99l16 99zM12 882l25 -156l25 156zM-90 1037l16 -101l16 101zM167 1058l21 -134l21 134zM339 1044l20 -127l20 127zM68 1038l21 -134l21 134zM23 923l15 -97l15 97zM-106 1002l25 -158l25 158zM3 885l19 -122l19 122zM-135 929l16 -98l16 98zM-30 1031l17 -106l17 106zM167 1055l21 -129l21 129zM20 1052l15 -91l15 91zM213 998l19 -118l19 118zM176 938l20 -125l20 125zM-100 1011l18 -112l18 112zM363 967l17 -105l17 105zM334 1054l15 -94l15 94zM-65 984l17 -105l17 105zM59 1046l16 -98l16 98zM166 949l25 -156l25 156zM-134 917l24 -153l24 153zM-183 1054l17 -109l17 109zM-113 996l23 -142l23 142zM-112 901l21 -131l21 131zM-53 885l19 -118l19 118z" fill="#10132C"/><path d="M2038 986l16 -98l16 98zM1689 886l17 -107l17 107zM1701 1028l23 -142l23 142zM2037 893l17 -106l17 106zM1905 887l16 -99l16 99zM1635 890l20 -123l20 123zM1759 984l15 -94l15 94zM2092 1060l22 -138l22 138zM1870 935l16 -102l16 102zM1917 913l23 -147l23 147zM2116 926l21 -130l21 130zM1723 969l23 -146l23 146zM1584 1024l24 -151l24 151zM1573 948l27 -168l27 168zM1870 974l23 -145l23 145zM1618 1003l25 -154l25 154zM2041 980l17 -103l17 103zM1944 1053l17 -106l17 106zM1775 1011l23 -143l23 143zM1649 1014l16 -103l16 103zM2110 913l20 -127l20 127zM1815 927l23 -143l23 143zM1819 1031l21 -130l21 130zM1581 993l21 -129l21 129zM1739 901l24 -152l24 152zM1649 891l22 -139l22 139z" fill="#10132C"/></g>
+      </svg>
+    </div>
+    <!-- @/world -->
+      <div class="scrim" id="s6-scrim" style="opacity:.75"></div>
+
+      <!-- A : cinématique -->
+      <div class="s6-ph" id="s6-A">
+        <svg id="s6-cave" viewBox="0 0 520 380">
+          <path d="M0 380 C 40 200 140 90 280 70 S 500 160 520 380 Z" fill="#2B2C45" />
+          <path d="M150 380 V250 a110 110 0 0 1 220 0 V380 Z" fill="#6E6A84" stroke="#1B1B2E" stroke-width="6" />
+          <path d="M190 380 V262 a70 70 0 0 1 140 0 V380 Z" fill="#5A3B24" stroke="#2B1A10" stroke-width="5" />
+          <path d="M260 196 V380" stroke="#2B1A10" stroke-width="4" />
+          <circle id="s6-lamp" cx="260" cy="170" r="12" fill="#FFD27A" />
+          <rect x="120" y="96" width="280" height="44" rx="4" fill="#111" stroke="#FFD23F" stroke-width="3" />
+          <text x="260" y="126" text-anchor="middle" font-family="Oswald" font-size="19" fill="#FFD23F" letter-spacing="1.5">FROMAGERIE DES MONÉDIÈRES</text>
+        </svg>
+        <div id="s6-beam"></div>
+        <svg id="s6-van" viewBox="0 0 360 180">
+          <rect x="6" y="30" width="232" height="112" rx="10" fill="#F4F4F4" stroke="#000" stroke-width="6" />
+          <path d="M238 54 H296 L346 104 V142 H238 Z" fill="#F4F4F4" stroke="#000" stroke-width="6" stroke-linejoin="round" />
+          <path d="M250 64 H292 L328 102 H250 Z" fill="#7DB8FF" stroke="#000" stroke-width="4" />
+          <rect x="6" y="78" width="232" height="26" fill="#3FD8C4" />
+          <text x="122" y="70" text-anchor="middle" font-family="League Gothic" font-size="38" fill="#0B1F1C" letter-spacing="1">CLIMATEK</text>
+          <text x="122" y="98" text-anchor="middle" font-family="Oswald" font-size="17" fill="#0B1F1C" font-weight="700">CHAUFFAGE · CLIM · VENTILATION</text>
+          <circle cx="342" cy="120" r="8" fill="#FFF3B0" />
+          <g id="s6-w1g"><circle cx="70" cy="146" r="26" fill="#1A1A1A" stroke="#000" stroke-width="5" /><path d="M70 126 V166 M50 146 H90" stroke="#777" stroke-width="5" /></g>
+          <g id="s6-w2g"><circle cx="286" cy="146" r="26" fill="#1A1A1A" stroke="#000" stroke-width="5" /><path d="M286 126 V166 M266 146 H306" stroke="#777" stroke-width="5" /></g>
+        </svg>
+        <div id="s6-ak" class="ol2">Notre promesse client</div>
+        <div id="s6-at" class="gt ol">Vos fromages ne doivent jamais attendre.</div>
+        <div class="s6-b" id="s6-b1"><div class="key">45 min</div><div class="tx">de vos caves</div></div>
+        <div class="s6-b" id="s6-b2"><div class="key">&lt; 4 h</div><div class="tx">pour intervenir</div></div>
+        <div class="s6-b" id="s6-b3"><div class="key">SMS</div><div class="tx">informés à chaque étape</div></div>
+        <div class="s6-b" id="s6-b4"><div class="key" style="background:#74E27A">– kWh</div><div class="tx">facture énergie réduite chaque année</div></div>
+        <div class="s6-phone" id="s6-ph1">
+          <div class="sb"><span>10:47</span><span>●●● 5G</span></div>
+          <div class="ap">Climatek · suivi</div>
+          <div class="s6-msg" id="s6-m1"><b>10:02</b> Demande reçue. Technicien affecté.</div>
+          <div class="s6-msg" id="s6-m2"><b>10:15</b> Technicien en route, arrivée prévue 10:47.</div>
+          <div class="s6-msg" id="s6-m3"><b>10:49</b> Sur place, diagnostic en cours.</div>
+          <div class="s6-msg" id="s6-m4"><b>11:40</b> Intervention terminée ✓ Rapport envoyé.</div>
+        </div>
+      </div>
+
+      <!-- B : promesse crédible -->
+      <div class="menu" id="s6-pB">
+        <div class="menu-h"><div class="tab on">Promesse client</div><div class="tab">Améliorations</div><div class="tab">Stats</div></div>
+        <div id="s6-quote">« Vos fromages ne doivent jamais attendre. À <span class="y">45 minutes</span> de vos caves, nous intervenons en <span class="y">moins de 4 heures</span>, nous vous <span class="y">informons à chaque étape</span>, et nous <span class="y">réduisons chaque année</span> votre facture énergétique. »</div>
+        <div class="s6-why" id="s6-w0">Pourquoi elle est crédible</div>
+        <div class="s6-why" id="s6-w1"><div class="k">Délai de dépannage</div><div class="from">52 % de satisfaits (–19 pts)</div><div class="ar">▶</div><div class="to">intervention en moins de 4 h</div></div>
+        <div class="s6-why" id="s6-w2"><div class="k">Conseil énergie</div><div class="from">39 % de satisfaits</div><div class="ar">▶</div><div class="to">facture réduite chaque année</div></div>
+        <div class="s6-why" id="s6-w3"><div class="k">Proximité</div><div class="from">concurrent national « lointain »</div><div class="ar">▶</div><div class="to">à 45 min des caves</div></div>
+      </div>
+
+      <!-- C : rapport Cave sobre -->
+      <div class="s6-ph" id="s6-C">
+        <div class="s6-ach" id="s6-ach1"><div class="ic"><svg width="44" height="44" viewBox="0 0 44 44"><path d="M10 4 H34 V14 a12 12 0 0 1 -24 0 Z M18 26 H26 V34 H32 V40 H12 V34 H18 Z" fill="#121212" /></svg></div>
+          <div><div class="l1">Succès débloqué · enchantement</div><div class="l2">Rapport annuel « Cave sobre »</div></div></div>
+        <div id="s6-rep">
+          <div class="t1">Rapport annuel</div>
+          <div class="t2">« Cave sobre »</div>
+          <div class="t3">Fromagerie des Monédières · bilan de l'année</div>
+          <div class="s6-ct" id="s6-ct1"><div class="v" id="s6-v1">24 000</div><div class="u">kWh<br />économisés</div></div>
+          <div class="s6-ct" id="s6-ct2"><div class="v" id="s6-v2">3 600 €</div><div class="u">d'économies<br />sur la facture</div></div>
+          <div class="s6-ct" id="s6-ct3"><div class="v" id="s6-v3">1,4 t</div><div class="u">de CO₂<br />évitées</div></div>
+          <div class="nt">Valeurs illustratives</div>
+          <div id="s6-stamp">Bilan RSE ✓</div>
+        </div>
+      </div>
+
+      <!-- D : capteurs connectés -->
+      <div class="s6-ph" id="s6-Dp">
+        <div class="s6-ach" id="s6-ach2"><div class="ic"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="6" fill="#121212" /><path d="M12 12 a14 14 0 0 0 0 20 M32 12 a14 14 0 0 1 0 20 M6 6 a22 22 0 0 0 0 32 M38 6 a22 22 0 0 1 0 32" stroke="#121212" stroke-width="4" fill="none" /></svg></div>
+          <div><div class="l1">Succès débloqué · enchantement</div><div class="l2">Capteurs connectés</div></div></div>
+        <div class="menu" id="s6-sen">
+          <div class="menu-h"><div class="tab on">Cave 2 · en direct</div></div>
+          <svg viewBox="0 0 760 524">
+            <rect width="760" height="524" fill="#141824" />
+            <g fill="#5A3B24"><rect x="40" y="70" width="320" height="12" /><rect x="40" y="170" width="320" height="12" /><rect x="40" y="270" width="320" height="12" /></g>
+            <g fill="#F2C14E" stroke="#8B5E3C" stroke-width="3">
+              <ellipse cx="80" cy="56" rx="34" ry="14" /><ellipse cx="160" cy="56" rx="34" ry="14" /><ellipse cx="240" cy="56" rx="34" ry="14" /><ellipse cx="320" cy="56" rx="34" ry="14" />
+              <ellipse cx="80" cy="156" rx="34" ry="14" /><ellipse cx="160" cy="156" rx="34" ry="14" /><ellipse cx="240" cy="156" rx="34" ry="14" /><ellipse cx="320" cy="156" rx="34" ry="14" />
+              <ellipse cx="80" cy="256" rx="34" ry="14" /><ellipse cx="160" cy="256" rx="34" ry="14" /><ellipse cx="240" cy="256" rx="34" ry="14" /><ellipse cx="320" cy="256" rx="34" ry="14" />
+            </g>
+            <circle id="s6-ring" cx="380" cy="120" r="16" fill="none" stroke="#FF5A4E" stroke-width="4" />
+            <rect x="368" y="108" width="24" height="24" rx="4" fill="#3FD8C4" stroke="#000" stroke-width="3" />
+            <text x="410" y="96" font-family="Oswald" font-size="20" fill="#3FD8C4" letter-spacing="2">CAPTEUR T° · HR</text>
+            <text x="410" y="124" font-family="Inter" font-size="18" fill="#fff">Température 11,5 °C · stable</text>
+            <text x="410" y="150" font-family="Inter" font-size="18" fill="#FF8A80" id="s6-hr">Hygrométrie en dérive</text>
+            <line x1="40" y1="330" x2="720" y2="330" stroke="rgba(255,255,255,.15)" />
+            <line x1="40" y1="470" x2="720" y2="470" stroke="rgba(255,255,255,.15)" />
+            <line x1="40" y1="372" x2="720" y2="372" stroke="#FF5A4E" stroke-dasharray="10 8" stroke-width="2" />
+            <text x="580" y="364" font-family="Oswald" font-size="17" fill="#FF5A4E">SEUIL D'ALERTE</text>
+            <path id="s6-curve" d="M40 440 L120 436 L200 442 L280 438 L360 440 L440 430 L520 414 L600 392 L680 366 L720 356" stroke="#7DB8FF" stroke-width="5" fill="none" pathLength="1" stroke-dasharray="1" />
+            <text x="40" y="500" font-family="Oswald" font-size="17" fill="rgba(255,255,255,.55)" letter-spacing="2">HYGROMÉTRIE · DERNIÈRES 48 H</text>
+          </svg>
+        </div>
+        <div class="s6-phone" id="s6-ph2">
+          <div class="sb"><span>06:12</span><span>●●● 5G</span></div>
+          <div class="ap">Climatek · alertes</div>
+          <div class="s6-msg warn" id="s6-n1m"><b>⚠ Cave 2</b><br />Hygrométrie en dérive, avant toute panne.</div>
+          <div class="s6-msg" id="s6-n2m"><b>Maître affineur</b> alerté sur son téléphone.</div>
+          <div class="s6-msg" id="s6-n3m"><b>Technicien</b> prévenu · passage planifié à 9:00.</div>
+        </div>
+      </div>
+
+      <!-- E : arbre d'améliorations -->
+      <div class="menu" id="s6-pE">
+        <div class="menu-h"><div class="tab">Promesse client</div><div class="tab on">Améliorations · 4 leviers</div><div class="tab">Stats</div></div>
+        <svg id="s6-links" viewBox="0 0 1470 700"><path d="M265 230 H455 M625 230 H815 M985 230 H1175" stroke="#555" stroke-width="8" /><path id="s6-lk" d="M265 230 H1175" stroke="#FFD23F" stroke-width="8" pathLength="1" stroke-dasharray="1" /></svg>
+        <div class="s6-node" id="s6-n1"><div class="ic" id="s6-i1"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="35" cy="35" r="14" fill="none" stroke="#fff" stroke-width="8" /><path d="M35 4 V16 M35 54 V66 M4 35 H16 M54 35 H66 M13 13 L21 21 M49 49 L57 57 M57 13 L49 21 M13 57 L21 49" stroke="#fff" stroke-width="8" /></svg></div>
+          <div class="nm">Processus internes</div><div class="pk" id="s6-p11"><i>✓</i>Astreinte dépannage</div><div class="pk" id="s6-p12"><i>✓</i>Créneaux d'intervention garantis</div></div>
+        <div class="s6-node" id="s6-n2"><div class="ic" id="s6-i2"><svg width="70" height="70" viewBox="0 0 70 70"><rect x="20" y="4" width="30" height="62" rx="6" fill="none" stroke="#fff" stroke-width="6" /><circle cx="35" cy="56" r="3.5" fill="#fff" /></svg></div>
+          <div class="nm">Digital</div><div class="pk" id="s6-p21"><i>✓</i>CRM complet : 100 % des fiches</div><div class="pk" id="s6-p22"><i>✓</i>Suivi d'intervention par SMS</div></div>
+        <div class="s6-node" id="s6-n3"><div class="ic" id="s6-i3"><svg width="70" height="70" viewBox="0 0 70 70"><circle cx="24" cy="24" r="10" fill="#fff" /><circle cx="48" cy="24" r="10" fill="#fff" /><path d="M4 62 C 6 44 16 38 24 38 S 42 44 44 62 Z M30 62 C 32 44 40 38 48 38 S 64 44 66 62 Z" fill="#fff" /></svg></div>
+          <div class="nm">Humain</div><div class="pk" id="s6-p31"><i>✓</i>Interlocuteur dédié</div><div class="pk" id="s6-p32"><i>✓</i>Techniciens formés au conseil énergie</div></div>
+        <div class="s6-node" id="s6-n4"><div class="ic" id="s6-i4"><svg width="70" height="70" viewBox="0 0 70 70"><rect x="16" y="16" width="38" height="38" rx="4" fill="none" stroke="#fff" stroke-width="6" /><rect x="27" y="27" width="16" height="16" fill="#fff" /><path d="M24 4 V14 M35 4 V14 M46 4 V14 M24 56 V66 M35 56 V66 M46 56 V66 M4 24 H14 M4 35 H14 M4 46 H14 M56 24 H66 M56 35 H66 M56 46 H66" stroke="#fff" stroke-width="5" /></svg></div>
+          <div class="nm">Innovation</div><div class="pk" id="s6-p41"><i>✓</i>Capteurs connectés dans les caves</div><div class="pk" id="s6-p42"><i>✓</i>Maintenance prédictive</div></div>
+      </div>
+
+      <!-- F : récapitulatif -->
+      <div class="s6-ph" id="s6-F">
+        <div id="s6-ft" class="gt ol">Vos fromages ne doivent<br />jamais attendre.</div>
+        <div id="s6-fp"><span class="pill p-y" id="s6-f1">Simple</span><span class="pill p-c" id="s6-f2">Mesurable</span><span class="pill p-g" id="s6-f3">Différenciante</span></div>
+      </div>
+
+      <div class="grain"></div>
+      <div id="s6-cbt"></div><div id="s6-cbb"></div>
+      <div class="lbx t" id="s6-lt"></div><div class="lbx b" id="s6-lb"></div>
+      <div id="s6-cd"></div>
+      <div class="card-m" id="s6-cm"><div class="k ol2" id="s6-mk">Mission 4b · scène clé</div><div class="t ol" id="s6-mt">La promesse client</div><div class="bar" id="s6-mb" style="width:560px"></div></div>
+      <div class="done-flash" id="s6-df"></div>
+      <div class="done" id="s6-dn"><div class="t ol" id="s6-dt">Mission accomplie</div><div class="s ol2" id="s6-ds">+ Promesse client débloquée</div></div>
+    </div>
+  </div>
+  <script>
+    const D = 79.978, L = {"6a":{"s":2.42,"e":5.112,"t":"Notre promesse client tient en une phrase."},"6b":{"s":5.532,"e":7.84,"t":"Vos fromages ne doivent jamais attendre."},"6c":{"s":8.26,"e":13.26,"t":"À 45 minutes de vos caves, nous intervenons en moins de 4 heures,"},"6d":{"s":13.68,"e":15.987,"t":"nous vous informons à chaque étape,"},"6e":{"s":16.407,"e":19.484,"t":"et nous réduisons chaque année votre facture énergétique."},"6f":{"s":19.904,"e":31.827,"t":"Une promesse crédible : elle répond aux deux faiblesses de notre enquête, le délai de dépannage et le conseil énergie, et elle joue la proximité face à un concurrent jugé lointain."},"6g":{"s":32.247,"e":43.786,"t":"Pour aller au-delà, deux attentions qui enchantent. D'abord, le rapport annuel « Cave sobre » : kilowattheures, euros et CO₂ économisés, de quoi nourrir le bilan RSE de Madame Nadal."},"6h":{"s":44.206,"e":53.436,"t":"Ensuite, des capteurs connectés dans les caves : température et hygrométrie sont surveillées en continu, et le maître affineur est alerté avant la panne."},"6i":{"s":53.856,"e":66.164,"t":"Pour tenir cette promesse, un plan d'amélioration en quatre leviers. Processus internes : une astreinte et des créneaux de dépannage garantis. Digital : un CRM complet et un suivi d'intervention par SMS."},"6j":{"s":66.584,"e":74.276,"t":"Humain : un interlocuteur dédié et des techniciens formés au conseil énergétique. Innovation : la maintenance prédictive grâce aux capteurs."},"6k":{"s":74.696,"e":78.158,"t":"Une promesse simple, mesurable, et qui fait la différence."}}; // @cues
+    /* @kitjs */
+    // Outils communs (injectés par tools/build.mjs)
+    const T = (id, f = 0) => L[id].s + f * (L[id].e - L[id].s);
+    const W = (id, kw) => { const t = L[id].t, i = t.indexOf(kw); return T(id, i < 0 ? 0 : i / t.length); };
+    const LAST = Math.max(...Object.values(L).map((x) => x.e));
+    const tl = gsap.timeline({ paused: true });
+    const IN = (sel, at, from = { y: 30 }, d = 0.5, ease = "back.out(1.5)") =>
+      tl.fromTo(sel, { opacity: 0, ...from }, { opacity: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: d, ease }, at);
+    const OUT = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const fr = (n, dec = 0) => n.toLocaleString("fr-FR", { minimumFractionDigits: dec, maximumFractionDigits: dec }).replace(/ | /g, " ");
+    const count = (sel, from, to, at, d, fmt) => {
+      const o = { v: from };
+      tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => { document.querySelector(sel).textContent = fmt(o.v); } }, at);
+    };
+    // décor qui défile doucement
+    const drift = (p) => {
+      if (document.querySelector("#" + p + "-far")) tl.fromTo(`#${p}-far`, { x: 0 }, { x: -50, duration: D, ease: "none" }, 0);
+      if (document.querySelector("#" + p + "-mid")) tl.fromTo(`#${p}-mid`, { x: 0 }, { x: -110, duration: D, ease: "none" }, 0);
+    };
+    // carton « MISSION X » avec bandes noires
+    const missionCard = (p) => {
+      tl.fromTo(`#${p}-lt`, { yPercent: -100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-lb`, { yPercent: 100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-cd`, { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+      tl.fromTo(`#${p}-mk`, { opacity: 0, x: -90 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+      tl.fromTo(`#${p}-mt`, { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.32, ease: "power4.out" }, 0.3);
+      tl.fromTo(`#${p}-mb`, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.45);
+      tl.to(`#${p}-cm`, { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" }, 1.95);
+      tl.to(`#${p}-cd`, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lt`, { yPercent: -100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lb`, { yPercent: 100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+    };
+    // « MISSION ACCOMPLIE » après la dernière réplique, puis fondu au noir
+    const missionDone = (p, hide = []) => {
+      const at = LAST + 0.15;
+      if (hide.length) OUT(hide, at, 0.25);
+      tl.fromTo(`#${p}-df`, { opacity: 0 }, { opacity: 1, duration: 0.25 }, at);
+      tl.fromTo(`#${p}-dt`, { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, at + 0.05);
+      tl.fromTo(`#${p}-ds`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, at + 0.35);
+    };
+    const sceneEnd = (p) => {
+      tl.to(`#${p}-stage`, { opacity: 0, duration: 0.3, ease: "power2.in" }, D - 0.32);
+      tl.set({}, {}, D);
+    };
+    /* @/kitjs */
+    drift("s6");
+    missionCard("s6");
+    const pB = T("6f") - 0.35, pC = T("6g") - 0.35, pD = T("6h") - 0.35, pE = T("6i") - 0.35, pF = T("6k") - 0.35;
+    // ---- A : cinématique
+    tl.fromTo(["#s6-cbt", "#s6-cbb"], { opacity: 0 }, { opacity: 1, duration: 0.01 }, 1.99);
+    tl.fromTo("#s6-scrim", { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+    tl.fromTo("#s6-lamp", { opacity: 1 }, { opacity: 0.4, duration: 0.5, yoyo: true, repeat: 40, ease: "sine.inOut" }, 0);
+    IN("#s6-ak", T("6a"), { y: -20 });
+    tl.fromTo("#s6-at", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power4.out" }, T("6b"));
+    // la camionnette roule vers les caves
+    tl.fromTo("#s6-van", { x: -420 }, { x: 900, duration: T("6e") - T("6c") + 1.5, ease: "power1.inOut" }, T("6c") - 0.3);
+    tl.fromTo("#s6-beam", { x: -420 }, { x: 900, duration: T("6e") - T("6c") + 1.5, ease: "power1.inOut" }, T("6c") - 0.3);
+    tl.fromTo(["#s6-w1g", "#s6-w2g"], { rotation: 0 }, { rotation: 1440, duration: T("6e") - T("6c") + 1.5, ease: "power1.inOut", transformOrigin: "50% 50%" }, T("6c") - 0.3);
+    tl.fromTo("#s6-van", { y: 0 }, { y: -3, duration: 0.12, yoyo: true, repeat: 60, ease: "none", immediateRender: false }, T("6c"));
+    tl.to("#s6-ak", { opacity: 0, duration: 0.3 }, T("6c") - 0.3);
+    tl.to("#s6-at", { y: -60, scale: 0.74, duration: 0.5, ease: "power2.inOut" }, T("6c") - 0.3);
+    IN("#s6-b1", W("6c", "45"), { x: -60 }, 0.4);
+    IN("#s6-b2", W("6c", "moins de 4"), { x: -60 }, 0.4);
+    tl.fromTo("#s6-b2 .key", { scale: 1 }, { scale: 1.2, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, W("6c", "moins de 4") + 0.4);
+    IN("#s6-b3", T("6d"), { x: -60 }, 0.4);
+    IN("#s6-ph1", T("6d"), { y: 120, rotation: -6 }, 0.45, "power3.out");
+    ["#s6-m1", "#s6-m2", "#s6-m3", "#s6-m4"].forEach((m, i) => IN(m, T("6d") + 0.35 + i * ((T("6e", 1) - T("6d") - 0.6) / 4), { y: 20 }, 0.3));
+    IN("#s6-b4", T("6e"), { x: -60 }, 0.4);
+    tl.to("#s6-A", { opacity: 0, duration: 0.35 }, pB);
+    tl.to(["#s6-cbt", "#s6-cbb"], { opacity: 0, duration: 0.35 }, pB);
+    tl.to("#s6-scrim", { opacity: 0.75, duration: 0.5 }, pB);
+    // ---- B : promesse crédible
+    IN("#s6-pB", pB + 0.1, { scale: 0.94 }, 0.45, "power3.out");
+    IN("#s6-w0", W("6f", "elle répond"), { y: 10 });
+    IN("#s6-w1", W("6f", "délai"), { x: 40 }, 0.4);
+    IN("#s6-w2", W("6f", "conseil"), { x: 40 }, 0.4);
+    IN("#s6-w3", W("6f", "proximité"), { x: 40 }, 0.4);
+    OUT("#s6-pB", pC);
+    // ---- C : rapport Cave sobre
+    IN("#s6-ach1", W("6g", "rapport"), { y: -60, scale: 0.8 }, 0.45);
+    IN("#s6-rep", W("6g", "rapport") + 0.3, { y: 80, rotation: 3 }, 0.6, "power3.out");
+    count("#s6-v1", 0, 24000, W("6g", "kilowattheures"), 1.0, (v) => fr(Math.round(v / 100) * 100));
+    count("#s6-v2", 0, 3600, W("6g", "euros"), 1.0, (v) => fr(Math.round(v / 10) * 10) + " €");
+    count("#s6-v3", 0, 1.4, W("6g", "CO₂"), 1.0, (v) => fr(v, 1) + " t");
+    IN("#s6-stamp", W("6g", "bilan RSE"), { scale: 2.6, rotation: -24 }, 0.3, "power4.out");
+    tl.to("#s6-stamp", { rotation: -8, duration: 0.01 }, W("6g", "bilan RSE") + 0.31);
+    tl.fromTo("#s6-C", { opacity: 1 }, { opacity: 0, duration: 0.35, immediateRender: false }, pD);
+    // ---- D : capteurs
+    IN("#s6-ach2", T("6h", 0.05), { y: -60, scale: 0.8 }, 0.45);
+    IN("#s6-sen", T("6h", 0.1), { x: -60 }, 0.5, "power3.out");
+    tl.fromTo("#s6-curve", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: "none" }, W("6h", "température"));
+    tl.fromTo("#s6-ring", { scale: 1, opacity: 1 }, { scale: 2.4, opacity: 0, duration: 0.8, repeat: 8, ease: "power1.out", svgOrigin: "380 120" }, T("6h", 0.2));
+    IN("#s6-ph2", W("6h", "maître affineur") - 0.4, { y: 120 }, 0.45, "power3.out");
+    IN("#s6-n1m", W("6h", "maître affineur"), { y: 20 }, 0.3);
+    IN("#s6-n2m", W("6h", "alerté"), { y: 20 }, 0.3);
+    IN("#s6-n3m", W("6h", "avant la panne"), { y: 20 }, 0.3);
+    tl.fromTo("#s6-Dp", { opacity: 1 }, { opacity: 0, duration: 0.35, immediateRender: false }, pE);
+    // ---- E : arbre d'améliorations
+    IN("#s6-pE", pE + 0.1, { scale: 0.94 }, 0.45, "power3.out");
+    tl.fromTo("#s6-lk", { strokeDashoffset: 1 }, { strokeDashoffset: 1, duration: 0.01 }, 0);
+    const unlock = (n, at, col) => {
+      tl.fromTo("#s6-i" + n, { backgroundColor: "#2A2A36", borderColor: "#555555", scale: 1 },
+        { backgroundColor: col, borderColor: "#000000", scale: 1.12, duration: 0.3, ease: "back.out(2)" }, at);
+      tl.to("#s6-i" + n, { scale: 1, duration: 0.2 }, at + 0.3);
+    };
+    unlock(1, W("6i", "Processus"), "#FF8A3D");
+    IN("#s6-p11", W("6i", "astreinte"), { x: -20 }, 0.3);
+    IN("#s6-p12", W("6i", "créneaux"), { x: -20 }, 0.3);
+    tl.to("#s6-lk", { strokeDashoffset: 0.66, duration: 0.5 }, W("6i", "Digital") - 0.4);
+    unlock(2, W("6i", "Digital"), "#3FA9F5");
+    IN("#s6-p21", W("6i", "CRM complet"), { x: -20 }, 0.3);
+    IN("#s6-p22", W("6i", "suivi"), { x: -20 }, 0.3);
+    tl.to("#s6-lk", { strokeDashoffset: 0.33, duration: 0.5 }, W("6j", "Humain") - 0.4);
+    unlock(3, W("6j", "Humain"), "#B48CFF");
+    IN("#s6-p31", W("6j", "interlocuteur"), { x: -20 }, 0.3);
+    IN("#s6-p32", W("6j", "techniciens"), { x: -20 }, 0.3);
+    tl.to("#s6-lk", { strokeDashoffset: 0, duration: 0.5 }, W("6j", "Innovation") - 0.4);
+    unlock(4, W("6j", "Innovation"), "#2FBF8F");
+    IN("#s6-p41", W("6j", "maintenance") - 0.5, { x: -20 }, 0.3);
+    IN("#s6-p42", W("6j", "maintenance"), { x: -20 }, 0.3);
+    OUT("#s6-pE", pF);
+    // ---- F : récapitulatif
+    IN("#s6-ft", pF + 0.2, { scale: 1.3 }, 0.4, "power4.out");
+    IN("#s6-f1", W("6k", "simple"), { scale: 1.8 }, 0.3, "power4.out");
+    IN("#s6-f2", W("6k", "mesurable"), { scale: 1.8 }, 0.3, "power4.out");
+    IN("#s6-f3", W("6k", "différence"), { scale: 1.8 }, 0.3, "power4.out");
+    missionDone("s6", ["#s6-F"]);
+    sceneEnd("s6");
+    window.__timelines["s6"] = tl;
+  </script>
+</template>

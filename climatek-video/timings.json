@@ -1,0 +1,259 @@
+{
+ "total": 300,
+ "scenes": [
+  {
+   "id": "s1",
+   "start": 0,
+   "duration": 23.677,
+   "lines": {
+    "1a": {
+     "s": 2.6,
+     "e": 7.6,
+     "t": "Climatek Services, PME de Brive, 32 salariés, 2,4 millions d'euros de chiffre d'affaires."
+    },
+    "1b": {
+     "s": 8,
+     "e": 12.615,
+     "t": "Face à elle, un compte à conquérir : la Fromagerie des Monédières."
+    },
+    "1c": {
+     "s": 13.015,
+     "e": 19.554,
+     "t": "70 salariés, un projet à 120 000 euros… et un client dont on ne sait presque rien."
+    },
+    "1d": {
+     "s": 19.954,
+     "e": 21.877,
+     "t": "Voici notre revue de compte."
+    }
+   }
+  },
+  {
+   "id": "s2",
+   "start": 23.677,
+   "duration": 35.031,
+   "lines": {
+    "2a": {
+     "s": 2.4,
+     "e": 6.631,
+     "t": "Tout commence par une carte de visite, récupérée sur un salon."
+    },
+    "2b": {
+     "s": 7.031,
+     "e": 10.877,
+     "t": "Notre première mission : la transformer en véritable fiche client."
+    },
+    "2c": {
+     "s": 11.277,
+     "e": 19.354,
+     "t": "Identité de l'entreprise, groupe de décision, parc installé, projet d'agrandissement de l'atelier d'affinage, exigences sanitaires, concurrent en place, historique des échanges."
+    },
+    "2d": {
+     "s": 19.754,
+     "e": 25.138,
+     "t": "Aujourd'hui, seulement 45 % de nos fiches CRM sont complètes : celle-ci le sera."
+    },
+    "2e": {
+     "s": 25.538,
+     "e": 33.231,
+     "t": "Et deux précautions RGPD : informer chaque contact de l'enregistrement de ses données, et ne noter que des informations professionnelles."
+    }
+   }
+  },
+  {
+   "id": "s3",
+   "start": 58.708,
+   "duration": 39.662,
+   "lines": {
+    "3a": {
+     "s": 2.4,
+     "e": 7.785,
+     "t": "Diagnostic : la Fromagerie est un prospect, notre stratégie est donc de la conquérir."
+    },
+    "3b": {
+     "s": 8.185,
+     "e": 13.569,
+     "t": "L'enjeu est réel : 120 000 euros, c'est 5 % de notre chiffre d'affaires."
+    },
+    "3c": {
+     "s": 13.969,
+     "e": 24.738,
+     "t": "Notre objectif SMART : signer l'installation pour au moins 110 000 euros, et un contrat de maintenance d'environ 6 000 euros par an, avant le 31 mai 2027."
+    },
+    "3d": {
+     "s": 25.138,
+     "e": 30.523,
+     "t": "Le plan tient en trois mois : en décembre, rendez-vous découverte sur site ;"
+    },
+    "3e": {
+     "s": 30.923,
+     "e": 34.385,
+     "t": "en janvier, audit énergétique offert et dossier d'aides ;"
+    },
+    "3f": {
+     "s": 34.785,
+     "e": 37.862,
+     "t": "en février, présentation de l'offre à la direction."
+    }
+   }
+  },
+  {
+   "id": "s4",
+   "start": 98.369,
+   "duration": 34.279,
+   "lines": {
+    "4a": {
+     "s": 2.403,
+     "e": 3.941,
+     "t": "Qui décide vraiment ?"
+    },
+    "4b": {
+     "s": 4.344,
+     "e": 9.729,
+     "t": "Le maître affineur, l'utilisateur, influence Monsieur Bordas, notre allié, et Madame Nadal, responsable qualité-RSE."
+    },
+    "4c": {
+     "s": 10.132,
+     "e": 15.901,
+     "t": "Avec le responsable administratif et financier, ils influencent Madame Chassagne, la directrice générale, qui tranche."
+    },
+    "4d": {
+     "s": 16.304,
+     "e": 25.535,
+     "t": "À chacun son argument : une qualité d'affinage constante pour le maître affineur, la réactivité pour Monsieur Bordas, le bilan carbone pour Madame Nadal,"
+    },
+    "4e": {
+     "s": 25.937,
+     "e": 32.476,
+     "t": "le coût total et les aides pour le financier, et le retour sur investissement pour la directrice."
+    }
+   }
+  },
+  {
+   "id": "s5",
+   "start": 132.648,
+   "duration": 48.877,
+   "lines": {
+    "5a": {
+     "s": 2.4,
+     "e": 14.323,
+     "t": "Nous avons tracé le parcours de ce client en six étapes : le salon, le rappel, la visite des caves, le rendez-vous avec la direction, le chantier, puis la première panne."
+    },
+    "5b": {
+     "s": 14.723,
+     "e": 18.569,
+     "t": "Chacun de ces moments de vérité peut tout faire basculer."
+    },
+    "5c": {
+     "s": 18.969,
+     "e": 31.662,
+     "t": "Le modèle de Kano nous alerte : le dépannage rapide est une attente basique… et elle n'est pas remplie : 52 % de satisfaits seulement, et un effort client de 5,2 sur 7."
+    },
+    "5d": {
+     "s": 32.062,
+     "e": 38.6,
+     "t": "Le conseil en économies d'énergie, satisfait à 39 % seulement, est l'attente numéro un de ce client."
+    },
+    "5e": {
+     "s": 39,
+     "e": 47.077,
+     "t": "Nous mesurerons donc la satisfaction à chaque moment de vérité avec le CSAT, et l'effort après chaque dépannage avec le CES."
+    }
+   }
+  },
+  {
+   "id": "s6",
+   "start": 181.525,
+   "duration": 79.978,
+   "lines": {
+    "6a": {
+     "s": 2.42,
+     "e": 5.112,
+     "t": "Notre promesse client tient en une phrase."
+    },
+    "6b": {
+     "s": 5.532,
+     "e": 7.84,
+     "t": "Vos fromages ne doivent jamais attendre."
+    },
+    "6c": {
+     "s": 8.26,
+     "e": 13.26,
+     "t": "À 45 minutes de vos caves, nous intervenons en moins de 4 heures,"
+    },
+    "6d": {
+     "s": 13.68,
+     "e": 15.987,
+     "t": "nous vous informons à chaque étape,"
+    },
+    "6e": {
+     "s": 16.407,
+     "e": 19.484,
+     "t": "et nous réduisons chaque année votre facture énergétique."
+    },
+    "6f": {
+     "s": 19.904,
+     "e": 31.827,
+     "t": "Une promesse crédible : elle répond aux deux faiblesses de notre enquête, le délai de dépannage et le conseil énergie, et elle joue la proximité face à un concurrent jugé lointain."
+    },
+    "6g": {
+     "s": 32.247,
+     "e": 43.786,
+     "t": "Pour aller au-delà, deux attentions qui enchantent. D'abord, le rapport annuel « Cave sobre » : kilowattheures, euros et CO₂ économisés, de quoi nourrir le bilan RSE de Madame Nadal."
+    },
+    "6h": {
+     "s": 44.206,
+     "e": 53.436,
+     "t": "Ensuite, des capteurs connectés dans les caves : température et hygrométrie sont surveillées en continu, et le maître affineur est alerté avant la panne."
+    },
+    "6i": {
+     "s": 53.856,
+     "e": 66.164,
+     "t": "Pour tenir cette promesse, un plan d'amélioration en quatre leviers. Processus internes : une astreinte et des créneaux de dépannage garantis. Digital : un CRM complet et un suivi d'intervention par SMS."
+    },
+    "6j": {
+     "s": 66.584,
+     "e": 74.276,
+     "t": "Humain : un interlocuteur dédié et des techniciens formés au conseil énergétique. Innovation : la maintenance prédictive grâce aux capteurs."
+    },
+    "6k": {
+     "s": 74.696,
+     "e": 78.158,
+     "t": "Une promesse simple, mesurable, et qui fait la différence."
+    }
+   }
+  },
+  {
+   "id": "s7",
+   "start": 261.503,
+   "duration": 38.497,
+   "lines": {
+    "7a": {
+     "s": 2.406,
+     "e": 11.637,
+     "t": "Pour piloter, trois engagements : une intervention en moins de quatre heures, une information en temps réel, un interlocuteur dédié et une revue annuelle."
+    },
+    "7b": {
+     "s": 12.043,
+     "e": 20.12,
+     "t": "Un tableau de bord de six indicateurs : délai d'intervention, CES, CSAT, respect des engagements, économies d'énergie, chiffre d'affaires et marge."
+    },
+    "7c": {
+     "s": 20.526,
+     "e": 25.141,
+     "t": "Et si un dépannage dépasse quatre heures, une alerte CRM se déclenche."
+    },
+    "7d": {
+     "s": 25.547,
+     "e": 29.009,
+     "t": "Car ce qui n'est pas mesuré n'est pas piloté."
+    },
+    "7e": {
+     "s": 29.415,
+     "e": 32.491,
+     "t": "Climatek, la proximité qui tient ses promesses !"
+    }
+   }
+  }
+ ]
+}

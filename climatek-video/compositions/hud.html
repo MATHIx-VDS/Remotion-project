@@ -1,0 +1,77 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; color: #fff; }
+    #hud-all { position: absolute; inset: 0; opacity: 0; }
+    #hud-map { position: absolute; left: 70px; top: 770px; width: 230px; height: 230px; border-radius: 50%; overflow: hidden;
+      background: #1C2A33; border: 5px solid rgba(0,0,0,.75); box-shadow: 0 0 0 2px rgba(255,255,255,.35), 0 10px 30px rgba(0,0,0,.6); }
+    #hud-mapg { position: absolute; left: -135px; top: -135px; width: 500px; height: 500px; }
+    #hud-me { position: absolute; left: 100px; top: 98px; width: 30px; height: 34px; }
+    #hud-wp { position: absolute; left: 168px; top: 26px; width: 26px; height: 26px; border-radius: 50%; background: #FFD23F; border: 3px solid #000; }
+    #hud-n { position: absolute; left: 105px; top: 4px; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 20px; color: #fff; text-shadow: 0 0 4px #000; }
+    .hud-bar { position: absolute; left: 80px; width: 210px; height: 8px; background: rgba(0,0,0,.6); border: 1px solid rgba(0,0,0,.8); }
+    .hud-bar i { position: absolute; left: 0; top: 0; bottom: 0; }
+    #hud-tr { position: absolute; right: 70px; top: 40px; text-align: right; }
+    #hud-clock { font-family: "Oswald", sans-serif; font-size: 40px; font-weight: 700; line-height: 1; }
+    #hud-money { font-family: "League Gothic", sans-serif; font-size: 74px; color: #74E27A; line-height: 1; margin-top: 4px; }
+    .ol2 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 5px 10px rgba(0,0,0,.5); }
+    .hud-m { position: absolute; right: 70px; top: 166px; font-family: "Oswald", sans-serif; font-size: 22px; letter-spacing: .14em; color: #FFD23F; text-transform: uppercase; opacity: 0; white-space: nowrap; }
+  </style>
+  <div id="root" data-composition-id="hud" data-width="1920" data-height="1080">
+    <div id="hud-all">
+      <div id="hud-map">
+        <svg id="hud-mapg" viewBox="0 0 500 500">
+          <rect width="500" height="500" fill="#22343F" />
+          <path d="M0 120 H500 M0 260 H500 M0 400 H500 M90 0 V500 M230 0 V500 M380 0 V500" stroke="#3B5563" stroke-width="16" />
+          <path d="M0 470 C 120 380 200 300 250 250 S 420 90 500 40" stroke="#C9D6DE" stroke-width="12" fill="none" />
+          <path d="M250 250 C 300 210 340 160 360 90" stroke="#FFD23F" stroke-width="9" fill="none" stroke-linecap="round" />
+          <rect x="300" y="290" width="60" height="70" fill="#2D4A3A" /><rect x="120" y="150" width="70" height="60" fill="#2D4A3A" />
+          <rect x="20" y="300" width="50" height="60" fill="#3A3550" /><rect x="400" y="180" width="70" height="50" fill="#3A3550" />
+        </svg>
+        <svg id="hud-me" viewBox="0 0 30 34"><path d="M15 0 L30 34 L15 26 L0 34 Z" fill="#fff" stroke="#000" stroke-width="2" /></svg>
+        <div id="hud-wp"></div>
+        <div id="hud-n">N</div>
+      </div>
+      <div class="hud-bar" style="top: 1012px; width: 120px"><i style="right: 0; background: #74E27A"></i></div>
+      <div class="hud-bar" style="top: 1012px; left: 210px; width: 80px"><i style="right: 12px; background: #4FA3FF"></i></div>
+      <div id="hud-tr">
+        <div id="hud-clock" class="ol2">09:00</div>
+        <div id="hud-money" class="ol2">2 400 000 €</div>
+      </div>
+      <div class="hud-m ol2" id="hud-m2">Mission 1/5 · Connaître le client</div>
+      <div class="hud-m ol2" id="hud-m3">Mission 2/5 · Diagnostiquer et agir</div>
+      <div class="hud-m ol2" id="hud-m4">Mission 3/5 · Groupe de décision</div>
+      <div class="hud-m ol2" id="hud-m5">Mission 4/5 · Satisfaction</div>
+      <div class="hud-m ol2" id="hud-m6">Mission 4/5 · Promesse client</div>
+      <div class="hud-m ol2" id="hud-m7">Mission 5/5 · Pilotage</div>
+    </div>
+  </div>
+  <script>
+    const D = 300, S = {"s1":{"s":0,"d":23.677},"s2":{"s":23.677,"d":35.031},"s3":{"s":58.708,"d":39.662},"s4":{"s":98.369,"d":34.279},"s5":{"s":132.648,"d":48.877},"s6":{"s":181.525,"d":79.978},"s7":{"s":261.503,"d":38.497}}, A = {"1a":[2.6,7.6],"1b":[8,12.615],"1c":[13.015,19.554],"1d":[19.954,21.877],"2a":[26.077,30.308],"2b":[30.708,34.554],"2c":[34.954,43.031],"2d":[43.431,48.815],"2e":[49.215,56.908],"3a":[61.108,66.493],"3b":[66.893,72.277],"3c":[72.677,83.446],"3d":[83.846,89.231],"3e":[89.631,93.093],"3f":[93.493,96.57],"4a":[100.772,102.31],"4b":[102.713,108.098],"4c":[108.501,114.27],"4d":[114.673,123.904],"4e":[124.306,130.845],"5a":[135.048,146.971],"5b":[147.371,151.217],"5c":[151.617,164.31],"5d":[164.71,171.248],"5e":[171.648,179.725],"6a":[183.945,186.637],"6b":[187.057,189.365],"6c":[189.785,194.785],"6d":[195.205,197.512],"6e":[197.932,201.009],"6f":[201.429,213.352],"6g":[213.772,225.311],"6h":[225.731,234.961],"6i":[235.381,247.689],"6j":[248.109,255.801],"6k":[256.221,259.683],"7a":[263.909,273.14],"7b":[273.546,281.623],"7c":[282.029,286.644],"7d":[287.05,290.512],"7e":[290.918,293.994]}; // @cues
+    const tl = gsap.timeline({ paused: true });
+    // fenêtres où le HUD est visible (pas pendant l'écran de chargement, les cartons ni la cinématique)
+    const win = [];
+    for (const k of ["s2", "s3", "s4", "s5", "s6", "s7"]) {
+      if (!S[k]) continue;
+      let a = S[k].s + 2.35, b = S[k].s + S[k].d - 0.3;
+      if (k === "s6" && A["6f"]) a = A["6f"][0] - 0.2;
+      if (k === "s7" && A["7d"]) b = A["7d"][0] - 0.3;
+      win.push([a, b, k]);
+    }
+    for (const [a, b, k] of win) {
+      tl.fromTo("#hud-all", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, a);
+      tl.to("#hud-all", { opacity: 0, duration: 0.25, ease: "power2.in" }, b - 0.25);
+      tl.fromTo("#hud-m" + k.slice(1), { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, a);
+      tl.to("#hud-m" + k.slice(1), { opacity: 0, duration: 0.2 }, b - 0.2);
+    }
+    // horloge du jeu et mini-carte
+    const clk = { m: 0 };
+    tl.fromTo(clk, { m: 0 }, { m: D * 0.6, duration: D, ease: "none", onUpdate: () => {
+      const mm = 9 * 60 + Math.floor(clk.m);
+      document.querySelector("#hud-clock").textContent = String(Math.floor(mm / 60)).padStart(2, "0") + ":" + String(mm % 60).padStart(2, "0");
+    } }, 0);
+    tl.fromTo("#hud-mapg", { rotation: 0 }, { rotation: -70, duration: D, ease: "none" }, 0);
+    tl.fromTo("#hud-wp", { scale: 1 }, { scale: 1.3, duration: 0.6, yoyo: true, repeat: Math.floor(D / 0.6), ease: "sine.inOut" }, 0);
+    tl.set({}, {}, D);
+    window.__timelines["hud"] = tl;
+  </script>
+</template>

@@ -1,0 +1,124 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; pointer-events: none; }
+    .cap { position: absolute; left: 0; right: 0; bottom: 46px; text-align: center; opacity: 0; visibility: hidden; }
+    .cap-in { display: inline-block; max-width: 1120px; font-family: "Inter", sans-serif; font-weight: 700; font-size: 40px; line-height: 1.18;
+      color: #FFFFFF; text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 6px 14px rgba(0,0,0,.6); }
+    .cap-who { font-weight: 900; text-transform: uppercase; letter-spacing: .03em; margin-right: 12px; }
+  </style>
+  <div id="root" data-composition-id="captions" data-width="1920" data-height="1080">
+    <div id="cap-1a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Climatek Services, PME de Brive,</span></div>
+    <div id="cap-1a-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>32 salariés, 2,4 millions d'euros de chiffre d'affaires.</span></div>
+    <div id="cap-1b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Face à elle, un compte à conquérir :</span></div>
+    <div id="cap-1b-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>la Fromagerie des Monédières.</span></div>
+    <div id="cap-1c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>70 salariés, un projet à 120 000 euros…</span></div>
+    <div id="cap-1c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>et un client dont on ne sait presque rien.</span></div>
+    <div id="cap-1d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Voici notre revue de compte.</span></div>
+    <div id="cap-2a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Tout commence par une carte de visite,</span></div>
+    <div id="cap-2a-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>récupérée sur un salon.</span></div>
+    <div id="cap-2b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Notre première mission :</span></div>
+    <div id="cap-2b-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>la transformer en véritable fiche client.</span></div>
+    <div id="cap-2c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Identité de l'entreprise, groupe de décision,</span></div>
+    <div id="cap-2c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>parc installé, projet d'agrandissement de l'atelier d'affinage,</span></div>
+    <div id="cap-2c-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>exigences sanitaires, concurrent en place,</span></div>
+    <div id="cap-2c-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>historique des échanges.</span></div>
+    <div id="cap-2d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Aujourd'hui, seulement 45 % de nos fiches CRM sont</span></div>
+    <div id="cap-2d-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>complètes : celle-ci le sera.</span></div>
+    <div id="cap-2e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Et deux précautions RGPD :</span></div>
+    <div id="cap-2e-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>informer chaque contact de l'enregistrement de ses données,</span></div>
+    <div id="cap-2e-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>et ne noter que des informations professionnelles.</span></div>
+    <div id="cap-3a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>Diagnostic : la Fromagerie est un prospect,</span></div>
+    <div id="cap-3a-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>notre stratégie est donc de la conquérir.</span></div>
+    <div id="cap-3b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>L'enjeu est réel :</span></div>
+    <div id="cap-3b-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>120 000 euros, c'est 5 % de notre chiffre d'affaires.</span></div>
+    <div id="cap-3c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>Notre objectif SMART :</span></div>
+    <div id="cap-3c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>signer l'installation pour au moins 110 000 euros,</span></div>
+    <div id="cap-3c-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>et un contrat de maintenance d'environ 6 000 euros</span></div>
+    <div id="cap-3c-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>par an, avant le 31 mai 2027.</span></div>
+    <div id="cap-3d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>Le plan tient en trois mois :</span></div>
+    <div id="cap-3d-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>en décembre, rendez-vous découverte sur site ;</span></div>
+    <div id="cap-3e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>en janvier, audit énergétique offert et dossier d'aides ;</span></div>
+    <div id="cap-3f-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>en février, présentation de l'offre à la direction.</span></div>
+    <div id="cap-4a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>Qui décide vraiment ?</span></div>
+    <div id="cap-4b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>Le maître affineur, l'utilisateur,</span></div>
+    <div id="cap-4b-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>influence Monsieur Bordas, notre allié,</span></div>
+    <div id="cap-4b-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>et Madame Nadal, responsable qualité-RSE.</span></div>
+    <div id="cap-4c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>Avec le responsable administratif et financier,</span></div>
+    <div id="cap-4c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>ils influencent Madame Chassagne,</span></div>
+    <div id="cap-4c-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>la directrice générale, qui tranche.</span></div>
+    <div id="cap-4d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>À chacun son argument :</span></div>
+    <div id="cap-4d-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>une qualité d'affinage constante pour le maître affineur,</span></div>
+    <div id="cap-4d-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>la réactivité pour Monsieur Bordas,</span></div>
+    <div id="cap-4d-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>le bilan carbone pour Madame Nadal,</span></div>
+    <div id="cap-4e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>le coût total et les aides pour le financier,</span></div>
+    <div id="cap-4e-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>et le retour sur investissement pour la directrice.</span></div>
+    <div id="cap-5a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Nous avons tracé le parcours de ce client en</span></div>
+    <div id="cap-5a-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>six étapes : le salon,</span></div>
+    <div id="cap-5a-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>le rappel, la visite des caves,</span></div>
+    <div id="cap-5a-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>le rendez-vous avec la direction,</span></div>
+    <div id="cap-5a-4" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>le chantier, puis la première panne.</span></div>
+    <div id="cap-5b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Chacun de ces moments de vérité peut tout faire basculer.</span></div>
+    <div id="cap-5c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Le modèle de Kano nous alerte :</span></div>
+    <div id="cap-5c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>le dépannage rapide est une attente basique…</span></div>
+    <div id="cap-5c-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>et elle n'est pas remplie :</span></div>
+    <div id="cap-5c-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>52 % de satisfaits seulement,</span></div>
+    <div id="cap-5c-4" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>et un effort client de 5,2 sur 7.</span></div>
+    <div id="cap-5d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Le conseil en économies d'énergie,</span></div>
+    <div id="cap-5d-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>satisfait à 39 % seulement,</span></div>
+    <div id="cap-5d-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>est l'attente numéro un de ce client.</span></div>
+    <div id="cap-5e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Nous mesurerons donc la satisfaction à chaque moment de</span></div>
+    <div id="cap-5e-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>vérité avec le CSAT,</span></div>
+    <div id="cap-5e-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>et l'effort après chaque dépannage avec le CES.</span></div>
+    <div id="cap-6a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Notre promesse client tient en une phrase.</span></div>
+    <div id="cap-6b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Vos fromages ne doivent jamais attendre.</span></div>
+    <div id="cap-6c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>À 45 minutes de vos caves,</span></div>
+    <div id="cap-6c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>nous intervenons en moins de 4 heures,</span></div>
+    <div id="cap-6d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>nous vous informons à chaque étape,</span></div>
+    <div id="cap-6e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>et nous réduisons chaque année votre facture énergétique.</span></div>
+    <div id="cap-6f-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Une promesse crédible :</span></div>
+    <div id="cap-6f-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>elle répond aux deux faiblesses de notre enquête,</span></div>
+    <div id="cap-6f-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>le délai de dépannage et le conseil énergie,</span></div>
+    <div id="cap-6f-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>et elle joue la proximité face à un concurrent jugé lointain.</span></div>
+    <div id="cap-6g-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>Pour aller au-delà, deux attentions qui enchantent.</span></div>
+    <div id="cap-6g-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>D'abord, le rapport annuel « Cave sobre » :</span></div>
+    <div id="cap-6g-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>kilowattheures, euros et CO₂ économisés,</span></div>
+    <div id="cap-6g-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FFB347">Étudiant 2 :</span>de quoi nourrir le bilan RSE de Madame Nadal.</span></div>
+    <div id="cap-6h-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>Ensuite, des capteurs connectés dans les caves :</span></div>
+    <div id="cap-6h-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>température et hygrométrie sont surveillées en continu,</span></div>
+    <div id="cap-6h-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#A6E35A">Étudiant 3 :</span>et le maître affineur est alerté avant la panne.</span></div>
+    <div id="cap-6i-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>Pour tenir cette promesse,</span></div>
+    <div id="cap-6i-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>un plan d'amélioration en quatre leviers.</span></div>
+    <div id="cap-6i-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>Processus internes : une astreinte et des créneaux de</span></div>
+    <div id="cap-6i-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>dépannage garantis. Digital :</span></div>
+    <div id="cap-6i-4" class="cap"><span class="cap-in"><span class="cap-who" style="color:#FF7AB8">Étudiant 4 :</span>un CRM complet et un suivi d'intervention par SMS.</span></div>
+    <div id="cap-6j-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>Humain : un interlocuteur dédié et des techniciens formés</span></div>
+    <div id="cap-6j-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>au conseil énergétique. Innovation :</span></div>
+    <div id="cap-6j-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#7DB8FF">Étudiant 5 :</span>la maintenance prédictive grâce aux capteurs.</span></div>
+    <div id="cap-6k-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Une promesse simple, mesurable,</span></div>
+    <div id="cap-6k-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>et qui fait la différence.</span></div>
+    <div id="cap-7a-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Pour piloter, trois engagements :</span></div>
+    <div id="cap-7a-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>une intervention en moins de quatre heures,</span></div>
+    <div id="cap-7a-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>une information en temps réel,</span></div>
+    <div id="cap-7a-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>un interlocuteur dédié et une revue annuelle.</span></div>
+    <div id="cap-7b-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Un tableau de bord de six indicateurs :</span></div>
+    <div id="cap-7b-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>délai d'intervention, CES, CSAT,</span></div>
+    <div id="cap-7b-2" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>respect des engagements, économies d'énergie,</span></div>
+    <div id="cap-7b-3" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>chiffre d'affaires et marge.</span></div>
+    <div id="cap-7c-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Et si un dépannage dépasse quatre heures,</span></div>
+    <div id="cap-7c-1" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>une alerte CRM se déclenche.</span></div>
+    <div id="cap-7d-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Car ce qui n'est pas mesuré n'est pas piloté.</span></div>
+    <div id="cap-7e-0" class="cap"><span class="cap-in"><span class="cap-who" style="color:#3FD8C4">Étudiant 1 :</span>Climatek, la proximité qui tient ses promesses !</span></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const C = [["cap-1a-0",2.6,4.454],["cap-1a-1",4.454,7.8],["cap-1b-0",8,10.587],["cap-1b-1",10.587,12.815],["cap-1c-0",13.015,16.205],["cap-1c-1",16.205,19.754],["cap-1d-0",19.954,22.077],["cap-2a-0",26.077,28.738],["cap-2a-1",28.738,30.508],["cap-2b-0",30.708,32.165],["cap-2b-1",32.165,34.754],["cap-2c-0",34.954,37.053],["cap-2c-1",37.053,39.973],["cap-2c-2",39.973,41.936],["cap-2c-3",41.936,43.231],["cap-2d-0",43.431,46.864],["cap-2d-1",46.864,49.015],["cap-2e-0",49.215,50.731],["cap-2e-1",50.731,54.1],["cap-2e-2",54.1,57.108],["cap-3a-0",61.108,63.895],["cap-3a-1",63.895,66.693],["cap-3b-0",66.893,68.314],["cap-3b-1",68.314,72.477],["cap-3c-0",72.677,74.286],["cap-3c-1",74.286,77.852],["cap-3c-2",77.852,81.418],["cap-3c-3",81.418,83.646],["cap-3d-0",83.846,85.972],["cap-3d-1",85.972,89.431],["cap-3e-0",89.631,93.293],["cap-3f-0",93.493,96.77],["cap-4a-0",100.772,102.51],["cap-4b-0",102.713,104.338],["cap-4b-1",104.338,106.195],["cap-4b-2",106.195,108.298],["cap-4c-0",108.501,110.847],["cap-4c-1",110.847,112.51],["cap-4c-2",112.51,114.47],["cap-4d-0",114.673,116.121],["cap-4d-1",116.121,119.62],["cap-4d-2",119.62,121.792],["cap-4d-3",121.792,124.104],["cap-4e-0",124.306,127.407],["cap-4e-1",127.407,131.045],["cap-5a-0",135.048,138.204],["cap-5a-1",138.204,139.817],["cap-5a-2",139.817,142.062],["cap-5a-3",142.062,144.446],["cap-5a-4",144.446,147.171],["cap-5b-0",147.371,151.417],["cap-5c-0",151.617,154.035],["cap-5c-1",154.035,157.435],["cap-5c-2",157.435,159.55],["cap-5c-3",159.55,161.816],["cap-5c-4",161.816,164.51],["cap-5d-0",164.71,166.998],["cap-5d-1",166.998,168.829],["cap-5d-2",168.829,171.448],["cap-5e-0",171.648,175.296],["cap-5e-1",175.296,176.664],["cap-5e-2",176.664,179.925],["cap-6a-0",183.945,186.837],["cap-6b-0",187.057,189.565],["cap-6c-0",189.785,191.862],["cap-6c-1",191.862,194.985],["cap-6d-0",195.205,197.712],["cap-6e-0",197.932,201.209],["cap-6f-0",201.429,203.019],["cap-6f-1",203.019,206.331],["cap-6f-2",206.331,209.312],["cap-6f-3",209.312,213.552],["cap-6g-0",213.772,217.069],["cap-6g-1",217.069,219.858],["cap-6g-2",219.858,222.458],["cap-6g-3",222.458,225.511],["cap-6h-0",225.731,228.687],["cap-6h-1",228.687,232.065],["cap-6h-2",232.065,235.161],["cap-6i-0",235.381,237.018],["cap-6i-1",237.018,239.565],["cap-6i-2",239.565,242.839],["cap-6i-3",242.839,244.658],["cap-6i-4",244.658,247.889],["cap-6j-0",248.109,251.296],["cap-6j-1",251.296,253.329],["cap-6j-2",253.329,256.001],["cap-6k-0",256.221,258.131],["cap-6k-1",258.131,259.883],["cap-7a-0",263.909,265.947],["cap-7a-1",265.947,268.584],["cap-7a-2",268.584,270.442],["cap-7a-3",270.442,273.34],["cap-7b-0",273.546,275.744],["cap-7b-1",275.744,277.557],["cap-7b-2",277.557,280.084],["cap-7b-3",280.084,281.823],["cap-7c-0",282.029,284.798],["cap-7c-1",284.798,286.844],["cap-7d-0",287.05,290.712],["cap-7e-0",290.918,294.194]];
+    for (const [id, s, e] of C) {
+      const el = "#" + id;
+      tl.set(el, { visibility: "visible" }, s);
+      tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "none" }, s);
+      tl.set(el, { opacity: 0, visibility: "hidden" }, e);
+    }
+    tl.set({}, {}, 300);
+    window.__timelines["captions"] = tl;
+  </script>
+</template>

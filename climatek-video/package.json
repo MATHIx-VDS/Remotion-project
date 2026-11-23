@@ -1,0 +1,12 @@
+{
+  "name": "climatek-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "dev": "npx --yes hyperframes@0.9.84 preview",
+    "check": "npx --yes hyperframes@0.9.84 check",
+    "render": "npx --yes hyperframes@0.9.84 render",
+    "publish": "npx --yes hyperframes@0.9.84 publish"
+  }
+}

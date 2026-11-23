@@ -1,0 +1,177 @@
+<template>
+  <style>
+    /* @kit */
+/* Kit graphique commun « monde ouvert » (injecté par tools/build.mjs) */
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter", sans-serif; color: #FFFFFF; background: #0B0816; }
+    .world { position: absolute; inset: -30px; }
+    .world svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .scrim { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 45%, rgba(8,6,18,.25), rgba(8,6,18,.75) 100%); }
+    .grain { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px); pointer-events: none; }
+    .ol { text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000, 0 4px 0 #000, 0 -4px 0 #000, 4px 0 0 #000, -4px 0 0 #000, 7px 8px 0 rgba(0,0,0,.55); }
+    .ol2 { text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 3px 0 #000, 0 -3px 0 #000, 3px 0 0 #000, -3px 0 0 #000, 0 5px 10px rgba(0,0,0,.5); }
+    .gt { font-family: "League Gothic", "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .02em; line-height: .92; font-weight: 400; }
+    .hud { font-family: "Oswald", sans-serif; text-transform: uppercase; letter-spacing: .12em; }
+    .y { color: #FFD23F; } .g { color: #74E27A; } .c { color: #3FD8C4; } .r { color: #FF5A4E; } .o { color: #FFB347; } .mut { color: rgba(255,255,255,.62); }
+    .menu { position: absolute; background: rgba(9,9,18,.84); border: 2px solid rgba(255,255,255,.16); border-radius: 6px; box-shadow: 0 24px 70px rgba(0,0,0,.55); overflow: hidden; }
+    .menu-h { display: flex; border-bottom: 2px solid rgba(255,255,255,.14); background: rgba(255,255,255,.04); }
+    .tab { padding: 12px 30px 10px; font-family: "Oswald", sans-serif; font-size: 26px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+    .tab.on { background: #FFD23F; color: #121212; font-weight: 700; }
+    .help { position: absolute; background: rgba(6,6,12,.88); border-left: 6px solid #FFD23F; border-radius: 4px; padding: 20px 26px; font-size: 28px; line-height: 1.3; color: #fff; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    .help b { color: #FFD23F; }
+    .lbx { position: absolute; left: 0; right: 0; height: 120px; background: #000; z-index: 30; }
+    .lbx.t { top: 0; } .lbx.b { bottom: 0; }
+    .card-m { position: absolute; left: 0; right: 0; top: 330px; text-align: center; z-index: 31; }
+    .card-m .k { font-family: "Oswald", sans-serif; font-size: 40px; letter-spacing: .38em; color: #FFD23F; font-weight: 700; }
+    .card-m .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 190px; line-height: .95; text-transform: uppercase; color: #fff; margin-top: 10px; }
+    .card-m .bar { margin: 22px auto 0; width: 0; height: 8px; background: #FFD23F; }
+    .done { position: absolute; left: 0; right: 0; top: 380px; text-align: center; z-index: 32; }
+    .done .t { font-family: "League Gothic", "Oswald", sans-serif; font-size: 170px; color: #FFD23F; text-transform: uppercase; line-height: .95; }
+    .done .s { font-family: "Oswald", sans-serif; font-size: 42px; color: #fff; letter-spacing: .12em; text-transform: uppercase; margin-top: 12px; }
+    .done-flash { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(255,210,63,.35), rgba(0,0,0,.55) 70%); z-index: 31; opacity: 0; }
+    .pill { display: inline-block; padding: 6px 16px; border-radius: 4px; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 24px; letter-spacing: .12em; text-transform: uppercase; }
+    .p-y { background: #FFD23F; color: #121212; } .p-r { background: #FF5A4E; color: #fff; } .p-c { background: #3FD8C4; color: #0B1F1C; } .p-g { background: #74E27A; color: #0D200F; } .p-k { background: rgba(255,255,255,.12); color: #fff; }
+    /* @/kit */
+    #s1-cover { position: absolute; inset: 0; background: #000; z-index: 40; }
+    #s1-logo { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
+    #s1-k { font-family: "Oswald", sans-serif; font-size: 30px; letter-spacing: .42em; color: #FFD23F; font-weight: 700; }
+    #s1-l1 { font-size: 210px; color: #3FD8C4; margin-top: 8px; }
+    #s1-l1 .x { color: #FFD23F; font-size: 150px; padding: 0 26px; vertical-align: 20px; }
+    #s1-l1 .w { color: #fff; }
+    #s1-l2 { font-size: 132px; color: #fff; margin-top: -6px; }
+    #s1-ban { position: absolute; left: 0; right: 0; top: 452px; text-align: center; }
+    #s1-ban span { display: inline-block; padding: 8px 40px 6px; background: #FFD23F; color: #111; font-family: "League Gothic", sans-serif; font-size: 64px;
+      letter-spacing: .08em; text-transform: uppercase; box-shadow: 8px 8px 0 #000; }
+    .s1-chip { position: absolute; top: 560px; width: 650px; height: 124px; }
+    .s1-chip .menu-h .tab { font-size: 22px; padding: 6px 20px 4px; }
+    .s1-chip .body { padding: 10px 22px; display: flex; align-items: baseline; gap: 16px; font-size: 25px; white-space: nowrap; }
+    .s1-chip .big { font-family: "Oswald", sans-serif; font-size: 34px; font-weight: 700; }
+    #s1-p { left: 300px; } #s1-t { right: 300px; }
+    #s1-t .tab.on { background: #FF5A4E; color: #fff; }
+    .s1-cards { position: absolute; left: 300px; right: 300px; top: 712px; display: flex; gap: 30px; }
+    .s1-card { flex: 1; height: 180px; position: relative; }
+    .s1-card .lab { position: absolute; left: 22px; top: 16px; font-family: "Oswald", sans-serif; font-size: 24px; letter-spacing: .16em; color: rgba(255,255,255,.65); text-transform: uppercase; }
+    .s1-card .val { position: absolute; left: 22px; top: 56px; font-family: "League Gothic", sans-serif; font-size: 100px; line-height: 1; white-space: nowrap; }
+    #s1-q .val { letter-spacing: .1em; }
+    #s1-load { position: absolute; right: 70px; bottom: 60px; display: flex; align-items: center; gap: 18px; font-family: "Oswald", sans-serif; font-size: 26px; letter-spacing: .2em; text-transform: uppercase; }
+    #s1-spin { width: 40px; height: 40px; border-radius: 50%; border: 6px solid rgba(255,255,255,.25); border-top-color: #FFD23F; }
+    #s1-go { position: absolute; right: 70px; bottom: 60px; font-family: "Oswald", sans-serif; font-size: 30px; letter-spacing: .2em; color: #FFD23F; font-weight: 700; text-transform: uppercase; }
+  </style>
+  <div id="root" data-composition-id="s1" data-width="1920" data-height="1080">
+    <div id="s1-stage" style="position:absolute;inset:0">
+      <!-- @world:dusk -->
+    <div class="world" id="s1-world">
+      <svg viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="s1-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E1540"/><stop offset=".4" stop-color="#6E356E"/><stop offset=".6" stop-color="#E06A4E"/><stop offset=".74" stop-color="#FFBE6A"/></linearGradient>
+          <radialGradient id="s1-sun"><stop offset="0" stop-color="#FFF3C9"/><stop offset=".35" stop-color="#FFD27A" stop-opacity=".85"/><stop offset="1" stop-color="#FFA24F" stop-opacity="0"/></radialGradient>
+        </defs>
+        <rect width="1920" height="1080" fill="url(#s1-sky)"/>
+        
+        <circle cx="1380" cy="650" r="280" fill="url(#s1-sun)"/>
+        
+        <g id="s1-far"><path d="M-240 700 C-40 620 180 660 380 610 S 760 560 980 625 S 1420 600 1640 555 S 2000 610 2160 590 L2160 1080 L-240 1080Z" fill="#8A4475"/></g>
+        <g id="s1-mid"><path d="M-240 790 C 60 705 300 765 600 722 S 1020 690 1320 742 S 1760 700 2160 762 L2160 1080 L-240 1080Z" fill="#55285A"/>
+          <path d="M350 771l13 -84l13 84zM1607 760l13 -83l13 83zM1277 760l7 -42l7 42zM1550 745l13 -80l13 80zM1063 783l12 -75l12 75zM1918 746l9 -58l9 58zM449 755l11 -70l11 70zM334 762l10 -63l10 63zM646 773l13 -79l13 79zM1919 792l14 -89l14 89zM46 767l8 -53l8 53zM255 747l10 -60l10 60zM216 776l12 -74l12 74zM-190 762l12 -78l12 78zM436 767l14 -85l14 85zM175 754l12 -73l12 73zM236 773l12 -76l12 76zM1514 738l13 -80l13 80zM767 790l9 -56l9 56zM208 797l10 -61l10 61zM40 769l8 -47l8 47zM1938 764l8 -52l8 52zM878 767l11 -67l11 67zM137 787l10 -61l10 61zM673 754l9 -53l9 53zM1240 757l13 -83l13 83zM1930 761l8 -48l8 48zM1508 786l9 -56l9 56zM266 764l10 -63l10 63zM1679 799l11 -71l11 71zM-65 737l11 -69l11 69zM-147 765l14 -86l14 86zM1938 795l7 -47l7 47zM833 774l9 -56l9 56zM1709 788l10 -60l10 60zM523 796l12 -75l12 75zM1404 770l11 -69l11 69zM-159 772l11 -70l11 70zM585 786l7 -47l7 47zM1682 760l7 -42l7 42zM948 780l11 -68l11 68zM1837 756l8 -47l8 47zM580 741l7 -42l7 42zM-52 796l14 -85l14 85zM1878 798l7 -45l7 45zM1856 779l13 -84l13 84zM1992 736l12 -74l12 74zM544 758l9 -59l9 59zM70 775l11 -66l11 66zM214 761l10 -60l10 60zM1160 782l11 -72l11 72zM439 786l13 -84l13 84zM521 795l7 -47l7 47zM24 756l8 -48l8 48zM2036 786l10 -64l10 64zM1725 771l13 -82l13 82zM121 748l12 -77l12 77zM1153 799l12 -75l12 75zM671 762l12 -74l12 74zM1684 788l13 -80l13 80zM2118 777l7 -42l7 42zM1152 794l10 -60l10 60zM1737 780l10 -63l10 63zM1717 754l11 -69l11 69zM1052 758l11 -70l11 70zM379 787l10 -64l10 64zM1516 761l9 -59l9 59zM1290 777l8 -51l8 51zM472 771l13 -84l13 84zM-183 759l14 -86l14 86z" fill="#4A2252"/></g>
+        <g id="s1-near"><path d="M-240 868 C 260 832 700 852 960 846 S 1640 834 2160 866 L2160 1080 L-240 1080Z" fill="#2A1431"/>
+          <path d="M915 848 L1005 848 L1560 1080 L360 1080Z" fill="#3A2440"/>
+          <path d="M960 852 L960 1080" stroke="#FFD23F" stroke-width="10" stroke-dasharray="26 30" opacity=".8"/>
+          <path d="M-162 914l19 -120l19 120zM270 937l25 -159l25 159zM110 925l23 -146l23 146zM241 998l23 -144l23 144zM-14 923l22 -140l22 140zM44 984l24 -150l24 150zM259 958l24 -149l24 149zM262 1008l23 -146l23 146zM240 969l17 -104l17 104zM-106 914l16 -98l16 98zM84 926l19 -121l19 121zM-89 958l16 -98l16 98zM122 933l20 -124l20 124zM-121 907l18 -113l18 113zM217 1004l25 -156l25 156zM230 1013l24 -151l24 151zM359 1058l25 -158l25 158zM-164 922l25 -154l25 154zM-108 1059l15 -94l15 94zM232 917l17 -106l17 106zM187 998l21 -132l21 132zM276 930l26 -161l26 161zM109 989l20 -127l20 127zM-108 915l21 -131l21 131zM274 925l20 -125l20 125zM85 968l25 -154l25 154z" fill="#2E1636"/><path d="M1687 957l16 -101l16 101zM2087 1022l23 -141l23 141zM1830 1003l20 -124l20 124zM1739 933l15 -95l15 95zM2058 1012l24 -153l24 153zM1905 916l17 -109l17 109zM1850 992l21 -129l21 129zM1714 944l17 -108l17 108zM1654 1057l16 -101l16 101zM1770 978l15 -97l15 97zM1589 903l23 -142l23 142zM1630 1029l25 -157l25 157zM2067 941l18 -115l18 115zM1685 1051l22 -137l22 137zM1621 940l23 -145l23 145zM1674 897l27 -168l27 168zM1794 1018l18 -110l18 110zM1578 979l27 -168l27 168zM1608 1021l19 -119l19 119zM1716 951l16 -103l16 103zM1969 1034l19 -118l19 118zM1825 1020l17 -105l17 105zM1595 916l26 -165l26 165zM1678 907l24 -148l24 148zM2035 1033l26 -164l26 164zM1659 883l20 -126l20 126z" fill="#2E1636"/></g>
+      </svg>
+    </div>
+    <!-- @/world -->
+      <div class="scrim" style="opacity:.7"></div>
+      <div id="s1-logo">
+        <div id="s1-k" class="ol2">Étude de cas · 5 missions</div>
+        <div id="s1-l1" class="gt ol">Climatek<span class="x">×</span><span class="w">Fromagerie</span></div>
+        <div id="s1-l2" class="gt ol">des Monédières</div>
+      </div>
+      <div id="s1-ban"><span>Revue de compte</span></div>
+      <div class="menu s1-chip" id="s1-p">
+        <div class="menu-h"><div class="tab on">Joueur</div></div>
+        <div class="body"><span class="big c">Climatek Services</span><span>Brive · 32 sal.</span><span class="g big">2,4 M€</span></div>
+      </div>
+      <div class="menu s1-chip" id="s1-t">
+        <div class="menu-h"><div class="tab on">Cible</div></div>
+        <div class="body"><span class="big">Fromagerie des Monédières</span><span class="mut">Corrèze</span></div>
+      </div>
+      <div class="s1-cards">
+        <div class="menu s1-card" id="s1-c1"><div class="lab">Butin</div><div class="val g ol2" id="s1-v1">120 000 €</div></div>
+        <div class="menu s1-card" id="s1-c2"><div class="lab">Effectif</div><div class="val ol2">70 salariés</div></div>
+        <div class="menu s1-card" id="s1-q"><div class="lab">Infos client</div><div class="val r ol2" id="s1-qv">???</div></div>
+      </div>
+      <div id="s1-load" class="ol2"><div id="s1-spin"></div>Chargement</div>
+      <div id="s1-go" class="ol2">▶ Lancer la partie</div>
+      <div class="grain"></div>
+      <div id="s1-cover"></div>
+    </div>
+  </div>
+  <script>
+    const D = 23.677, L = {"1a":{"s":2.6,"e":7.6,"t":"Climatek Services, PME de Brive, 32 salariés, 2,4 millions d'euros de chiffre d'affaires."},"1b":{"s":8,"e":12.615,"t":"Face à elle, un compte à conquérir : la Fromagerie des Monédières."},"1c":{"s":13.015,"e":19.554,"t":"70 salariés, un projet à 120 000 euros… et un client dont on ne sait presque rien."},"1d":{"s":19.954,"e":21.877,"t":"Voici notre revue de compte."}}; // @cues
+    /* @kitjs */
+    // Outils communs (injectés par tools/build.mjs)
+    const T = (id, f = 0) => L[id].s + f * (L[id].e - L[id].s);
+    const W = (id, kw) => { const t = L[id].t, i = t.indexOf(kw); return T(id, i < 0 ? 0 : i / t.length); };
+    const LAST = Math.max(...Object.values(L).map((x) => x.e));
+    const tl = gsap.timeline({ paused: true });
+    const IN = (sel, at, from = { y: 30 }, d = 0.5, ease = "back.out(1.5)") =>
+      tl.fromTo(sel, { opacity: 0, ...from }, { opacity: 1, x: 0, y: 0, scale: 1, rotation: 0, duration: d, ease }, at);
+    const OUT = (sel, at, d = 0.3) => tl.to(sel, { opacity: 0, duration: d, ease: "power2.in" }, at);
+    const fr = (n, dec = 0) => n.toLocaleString("fr-FR", { minimumFractionDigits: dec, maximumFractionDigits: dec }).replace(/ | /g, " ");
+    const count = (sel, from, to, at, d, fmt) => {
+      const o = { v: from };
+      tl.fromTo(o, { v: from }, { v: to, duration: d, ease: "power2.out", onUpdate: () => { document.querySelector(sel).textContent = fmt(o.v); } }, at);
+    };
+    // décor qui défile doucement
+    const drift = (p) => {
+      if (document.querySelector("#" + p + "-far")) tl.fromTo(`#${p}-far`, { x: 0 }, { x: -50, duration: D, ease: "none" }, 0);
+      if (document.querySelector("#" + p + "-mid")) tl.fromTo(`#${p}-mid`, { x: 0 }, { x: -110, duration: D, ease: "none" }, 0);
+    };
+    // carton « MISSION X » avec bandes noires
+    const missionCard = (p) => {
+      tl.fromTo(`#${p}-lt`, { yPercent: -100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-lb`, { yPercent: 100 }, { yPercent: 0, duration: 0.35, ease: "power3.out" }, 0);
+      tl.fromTo(`#${p}-cd`, { opacity: 1 }, { opacity: 1, duration: 0.01 }, 0);
+      tl.fromTo(`#${p}-mk`, { opacity: 0, x: -90 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 0.15);
+      tl.fromTo(`#${p}-mt`, { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.32, ease: "power4.out" }, 0.3);
+      tl.fromTo(`#${p}-mb`, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.45);
+      tl.to(`#${p}-cm`, { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" }, 1.95);
+      tl.to(`#${p}-cd`, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lt`, { yPercent: -100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+      tl.to(`#${p}-lb`, { yPercent: 100, duration: 0.4, ease: "power2.inOut" }, 2.0);
+    };
+    // « MISSION ACCOMPLIE » après la dernière réplique, puis fondu au noir
+    const missionDone = (p, hide = []) => {
+      const at = LAST + 0.15;
+      if (hide.length) OUT(hide, at, 0.25);
+      tl.fromTo(`#${p}-df`, { opacity: 0 }, { opacity: 1, duration: 0.25 }, at);
+      tl.fromTo(`#${p}-dt`, { opacity: 0, scale: 1.7 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, at + 0.05);
+      tl.fromTo(`#${p}-ds`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, at + 0.35);
+    };
+    const sceneEnd = (p) => {
+      tl.to(`#${p}-stage`, { opacity: 0, duration: 0.3, ease: "power2.in" }, D - 0.32);
+      tl.set({}, {}, D);
+    };
+    /* @/kitjs */
+    drift("s1");
+    tl.fromTo("#s1-cover", { opacity: 1 }, { opacity: 0, duration: 0.9, ease: "power2.out" }, 0.1);
+    tl.fromTo("#s1-spin", { rotation: 0 }, { rotation: 360 * 14, duration: D, ease: "none" }, 0);
+    IN("#s1-k", 0.6, { y: -20 });
+    IN("#s1-l1", 0.8, { scale: 1.6 }, 0.35, "power4.out");
+    IN("#s1-l2", 1.15, { scale: 1.6 }, 0.35, "power4.out");
+    IN("#s1-ban", 1.6, { scale: 0.4, rotation: -8 }, 0.4);
+    IN("#s1-p", T("1a"), { x: -60 });
+    IN("#s1-t", W("1b", "un compte"), { x: 60 });
+    tl.fromTo("#s1-t", { boxShadow: "0 0 0 0px rgba(255,90,78,0)" }, { boxShadow: "0 0 0 6px rgba(255,90,78,.9)", duration: 0.25, yoyo: true, repeat: 3 }, W("1b", "la Fromagerie"));
+    IN("#s1-c2", W("1c", "70"), { y: 40 });
+    IN("#s1-c1", W("1c", "projet"), { y: 40 });
+    count("#s1-v1", 0, 120000, W("1c", "projet"), 1.1, (v) => fr(Math.round(v / 1000) * 1000) + " €");
+    IN("#s1-q", W("1c", "client dont"), { y: 40 });
+    tl.fromTo("#s1-qv", { x: 0 }, { x: 6, duration: 0.05, yoyo: true, repeat: 15, ease: "none" }, W("1c", "client dont") + 0.4);
+    tl.fromTo("#s1-ban span", { scale: 1 }, { scale: 1.15, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out" }, T("1d"));
+    OUT("#s1-load", T("1d", 0.6), 0.2);
+    IN("#s1-go", T("1d", 0.7), { x: 30 }, 0.3);
+    tl.fromTo("#s1-go", { opacity: 1 }, { opacity: 0.35, duration: 0.35, yoyo: true, repeat: 5, ease: "none", immediateRender: false }, T("1d", 0.7) + 0.4);
+    sceneEnd("s1");
+    window.__timelines["s1"] = tl;
+  </script>
+</template>
