@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tirage au sort · Le Défi du Sac de Noël</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    body { overflow-y: auto; }
+    .doc { max-width: 720px; margin: 0 auto; padding: 28px 16px 48px; }
+    h1 { font-family: var(--font-title); font-weight: 400; font-size: 52px; line-height: .95; margin: 0 0 8px; }
+    h1 span { color: var(--orange); }
+    h2 { font-family: var(--font-title); font-weight: 400; font-size: 28px; margin: 26px 0 8px; color: var(--orange); }
+    p, li { color: #e4e4e4; font-size: 15px; }
+    .file { display: block; margin: 14px 0; padding: 18px; border: 2px dashed #4a4a4a; border-radius: 14px; text-align: center; cursor: pointer; }
+    .file input { display: block; margin: 10px auto 0; color: var(--muted); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .stat { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+    .stat b { display: block; font-family: var(--font-title); font-size: 40px; font-weight: 400; line-height: 1; }
+    .stat small { color: var(--muted); font-size: 12px; }
+    .winner { margin-top: 16px; padding: 18px; border-radius: 14px; background: var(--bg-2); border: 1px solid var(--line); border-top: 3px solid var(--orange); }
+    .winner .name { font-family: var(--font-title); font-size: 46px; line-height: 1; color: var(--orange); }
+    .warn { color: #ff8b7d; }
+    textarea { width: 100%; min-height: 90px; padding: 10px; border-radius: 10px; background: var(--bg); color: #fff; border: 1px solid #4a4a4a; font: 14px/1.4 var(--font-text); }
+    .doc .btn { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <main class="doc">
+    <h1>Tirage au sort <span>du 24 décembre</span></h1>
+    <p>Page réservée au club (non indexée par Google, non liée depuis le jeu). Le fichier reste sur ton appareil : rien n'est envoyé sur internet.</p>
+    <ol>
+      <li>Sur Netlify : <b>Forms</b> → formulaire <b>tirage-noel</b> → <b>Download as CSV</b>.</li>
+      <li>Ici : touche le cadre ci-dessous et choisis le fichier téléchargé (dans « Téléchargements » / app Fichiers).</li>
+      <li>Touche <b>Tirer au sort</b>. Fais une capture d'écran du résultat pour garder une trace.</li>
+    </ol>
+
+    <label class="file">Choisir le fichier CSV des participations
+      <input type="file" id="csv" accept=".csv,text/csv">
+    </label>
+    <p class="warn" id="err" role="alert"></p>
+
+    <div id="out" hidden>
+      <div class="stats">
+        <div class="stat"><b id="sRows">0</b><small>lignes dans le fichier</small></div>
+        <div class="stat"><b id="sValid">0</b><small>participants retenus</small></div>
+        <div class="stat"><b id="sDup">0</b><small>doublons / invalides écartés</small></div>
+      </div>
+      <p>Règle appliquée : une participation par adresse e-mail (la première reçue est gardée), règlement accepté obligatoire. Le score ne compte pas.</p>
+      <button class="btn btn-primary btn-block" id="drawBtn" type="button">Tirer au sort</button>
+      <div class="winner" id="win" hidden aria-live="polite"></div>
+
+      <h2>Inscrits à la newsletter</h2>
+      <p id="newsCount"></p>
+      <textarea id="news" readonly></textarea>
+      <button class="btn btn-ghost btn-block" id="copyNews" type="button">Copier les e-mails</button>
+    </div>
+  </main>
+  <script>
+  (function () {
+    'use strict';
+    var $ = function (s) { return document.querySelector(s); };
+    var people = [];
+
+    // Lecteur CSV (guillemets, virgules et retours à la ligne dans les champs)
+    function parseCSV(text) {
+      text = text.replace(/^﻿/, '');
+      var sep = (text.split('\n')[0].match(/;/g) || []).length > (text.split('\n')[0].match(/,/g) || []).length ? ';' : ',';
+      var rows = [], row = [], cur = '', q = false;
+      for (var i = 0; i < text.length; i++) {
+        var c = text[i];
+        if (q) {
+          if (c === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; }
+          else cur += c;
+        } else if (c === '"') q = true;
+        else if (c === sep) { row.push(cur); cur = ''; }
+        else if (c === '\n' || c === '\r') {
+          if (c === '\r' && text[i + 1] === '\n') i++;
+          row.push(cur); cur = '';
+          if (row.some(function (x) { return x.trim() !== ''; })) rows.push(row);
+          row = [];
+        } else cur += c;
+      }
+      row.push(cur);
+      if (row.some(function (x) { return x.trim() !== ''; })) rows.push(row);
+      return rows;
+    }
+
+    function col(head, re) {
+      for (var i = 0; i < head.length; i++) if (re.test(head[i].trim())) return i;
+      return -1;
+    }
+
+    $('#csv').addEventListener('change', function (e) {
+      var f = e.target.files[0];
+      if (!f) return;
+      var r = new FileReader();
+      r.onload = function () { load(String(r.result)); };
+      r.readAsText(f, 'utf-8');
+    });
+
+    function load(text) {
+      $('#err').textContent = '';
+      var rows = parseCSV(text);
+      if (rows.length < 2) { $('#err').textContent = 'Le fichier semble vide.'; return; }
+      var h = rows[0].map(function (x) { return x.toLowerCase(); });
+      var iMail = col(h, /^e-?mail$/), iFirst = col(h, /^pr[ée]nom/), iLast = col(h, /^nom$/),
+          iRules = col(h, /^r[eè]glement/), iNews = col(h, /^newsletter/), iDate = col(h, /created|date/),
+          iScore = col(h, /^score$/);
+      if (iMail < 0) { $('#err').textContent = 'Colonne « email » introuvable : est-ce bien l\'export du formulaire tirage-noel ?'; return; }
+      var data = rows.slice(1).map(function (r, n) {
+        return {
+          n: n, email: (r[iMail] || '').trim().toLowerCase(),
+          first: iFirst >= 0 ? (r[iFirst] || '').trim() : '', last: iLast >= 0 ? (r[iLast] || '').trim() : '',
+          rules: iRules < 0 ? true : /^(oui|on|true|yes)$/i.test((r[iRules] || '').trim()),
+          news: iNews >= 0 && /^(oui|on|true|yes)$/i.test((r[iNews] || '').trim()),
+          date: iDate >= 0 ? Date.parse(r[iDate]) : NaN, score: iScore >= 0 ? r[iScore] : '',
+        };
+      });
+      // ordre d'arrivée : la date si elle est lisible, sinon l'ordre du fichier (Netlify : les plus récents en premier)
+      var hasDates = data.every(function (d) { return !isNaN(d.date); });
+      data.sort(hasDates ? function (a, b) { return a.date - b.date; } : function (a, b) { return b.n - a.n; });
+      var seen = {};
+      people = [];
+      var news = {};
+      data.forEach(function (d) {
+        if (d.news && /@/.test(d.email)) news[d.email] = true;
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email) || !d.rules || seen[d.email]) return;
+        seen[d.email] = true;
+        people.push(d);
+      });
+      $('#sRows').textContent = data.length;
+      $('#sValid').textContent = people.length;
+      $('#sDup').textContent = data.length - people.length;
+      var list = Object.keys(news);
+      $('#news').value = list.join(', ');
+      $('#newsCount').textContent = list.length + ' adresse(s) e-mail.';
+      $('#win').hidden = true;
+      $('#out').hidden = false;
+    }
+
+    // Tirage équitable : générateur cryptographique, sans biais de modulo
+    function pick(n) {
+      var max = Math.floor(4294967296 / n) * n, x;
+      var a = new Uint32Array(1);
+      do { crypto.getRandomValues(a); x = a[0]; } while (x >= max);
+      return x % n;
+    }
+
+    $('#drawBtn').addEventListener('click', function () {
+      if (!people.length) return;
+      var pool = people.slice(), res = [];
+      for (var k = 0; k < Math.min(3, pool.length); k++) res.push(pool.splice(pick(pool.length), 1)[0]);
+      var w = res[0];
+      var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+      $('#win').innerHTML =
+        '<p style="margin:0;color:var(--muted)">Gagnant · tiré le ' + new Date().toLocaleString('fr-FR') + ' parmi ' + people.length + ' participants</p>' +
+        '<p class="name">' + esc(w.first + ' ' + w.last) + '</p>' +
+        '<p style="margin:4px 0 12px"><a href="mailto:' + esc(w.email) + '">' + esc(w.email) + '</a>' + (w.score ? ' · ' + esc(w.score) + ' coups' : '') + '</p>' +
+        (res.length > 1 ? '<p style="margin:0;color:var(--muted)">Suppléants, dans l\'ordre, si le gagnant ne répond pas : ' +
+          res.slice(1).map(function (p) { return esc(p.first + ' ' + p.last) + ' (' + esc(p.email) + ')'; }).join(' ; ') + '</p>' : '');
+      $('#win').hidden = false;
+    });
+
+    $('#copyNews').addEventListener('click', function () {
+      var t = $('#news');
+      t.select();
+      (navigator.clipboard ? navigator.clipboard.writeText(t.value) : Promise.reject()).then(
+        function () { $('#copyNews').textContent = 'Copié !'; },
+        function () { document.execCommand && document.execCommand('copy'); $('#copyNews').textContent = 'Copié !'; });
+    });
+  })();
+  </script>
+</body>
+</html>

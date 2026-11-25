@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Le Défi du Sac de Noël · Boxe Académie Brive</title>
+  <meta name="description" content="15 secondes. Un sac. Un mois offert à gagner. Le jeu de Noël de la Boxe Académie Brive : frappe le sac le plus de fois possible et tente de gagner 1 mois d'abonnement.">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <!-- Open Graph / aperçu du lien (Instagram, WhatsApp, Facebook, SMS…)
+       Les robots de partage ne lisent pas config.js : si l'adresse du site n'est pas
+       https://defi-noel-boxe-academie.netlify.app, remplace-la dans les 2 lignes og:url et og:image. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Boxe Académie Brive">
+  <meta property="og:title" content="Le Défi du Sac de Noël 🥊 Boxe Académie Brive">
+  <meta property="og:description" content="15 secondes. Un sac. Un mois offert à gagner. Combien de coups tu mets ?">
+  <meta property="og:url" content="https://defi-noel-boxe-academie.netlify.app/">
+  <meta property="og:image" content="https://defi-noel-boxe-academie.netlify.app/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Le Défi du Sac de Noël : un sac de frappe noir avec un bonnet de Noël, sur fond noir et orange.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="config.js" defer></script>
+  <script src="assets/sfx.js" defer></script>
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <!-- Ambiance : guirlande, neige, photos du club -->
+  <div class="garland" id="garland" aria-hidden="true"></div>
+  <div class="snow" id="snow" aria-hidden="true"></div>
+  <div class="bg-photos" id="bgPhotos" aria-hidden="true"></div>
+
+  <button class="mute" id="muteBtn" type="button" aria-pressed="false" aria-label="Couper le son">
+    <svg class="ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <svg class="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M17 9l5 6m0-6l-5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+
+  <main class="app">
+    <!-- 1. ACCUEIL -->
+    <section class="screen screen-home is-active" id="screen-home" aria-labelledby="homeTitle">
+      <div class="home-inner">
+        <img class="logo" src="assets/logo.jpg" width="420" height="374" alt="Boxe Académie Brive">
+        <p class="kicker">Jeu de Noël · Brive-la-Gaillarde</p>
+        <h1 class="title" id="homeTitle">Le défi du sac <span>de Noël</span></h1>
+        <p class="subtitle">15 secondes. Un sac. <strong>Un mois offert</strong> à gagner.</p>
+        <button class="btn btn-primary btn-xl" id="startBtn" type="button">Entrer sur le ring</button>
+        <p class="home-best" id="homeBest" hidden></p>
+        <p class="fineprint">Gratuit, sans obligation d'achat · Tirage au sort le <span data-cfg="DRAW_DATE_TEXT">24 décembre 2026</span> · <a href="reglement.html">Règlement</a></p>
+      </div>
+    </section>
+
+    <!-- 2. COMPTE À REBOURS -->
+    <section class="screen screen-count" id="screen-count" aria-live="assertive" aria-label="Compte à rebours">
+      <div class="count-ring"></div>
+      <p class="count-num" id="countNum">3</p>
+    </section>
+
+    <!-- 3. JEU -->
+    <section class="screen screen-game" id="screen-game" aria-label="Le jeu : frappe le sac">
+      <header class="hud">
+        <div class="hud-box">
+          <span class="hud-label">Coups</span>
+          <span class="hud-val" id="hits" aria-live="off">0</span>
+        </div>
+        <div class="hud-box hud-time" id="timeBox">
+          <span class="hud-label">Chrono</span>
+          <span class="hud-val" id="time">15.0</span>
+        </div>
+      </header>
+      <div class="stage" id="stage">
+        <div class="spot" aria-hidden="true"></div>
+        <div class="rig" id="rig">
+          <div class="bag" id="bag">
+            <div class="bag-halo" id="bagHalo" aria-hidden="true"></div>
+            <svg class="bag-svg" viewBox="0 0 200 470" aria-hidden="true">
+              <defs>
+                <linearGradient id="gLeather" x1="0" x2="1">
+                  <stop offset="0" stop-color="#050505"/>
+                  <stop offset=".18" stop-color="#232323"/>
+                  <stop offset=".34" stop-color="#3b3b3b"/>
+                  <stop offset=".5" stop-color="#1f1f1f"/>
+                  <stop offset=".82" stop-color="#0d0d0d"/>
+                  <stop offset="1" stop-color="#020202"/>
+                </linearGradient>
+                <linearGradient id="gBand" x1="0" x2="1">
+                  <stop offset="0" stop-color="#7a3d06"/>
+                  <stop offset=".3" stop-color="#F08A24"/>
+                  <stop offset=".42" stop-color="#ffb066"/>
+                  <stop offset=".6" stop-color="#d9761a"/>
+                  <stop offset="1" stop-color="#5e2e04"/>
+                </linearGradient>
+                <linearGradient id="gChain" x1="0" x2="1">
+                  <stop offset="0" stop-color="#5a5a5a"/>
+                  <stop offset=".45" stop-color="#d8d8d8"/>
+                  <stop offset="1" stop-color="#3a3a3a"/>
+                </linearGradient>
+                <linearGradient id="gHat" x1="0" x2="1">
+                  <stop offset="0" stop-color="#5c0a12"/>
+                  <stop offset=".4" stop-color="#a5162a"/>
+                  <stop offset="1" stop-color="#4a0710"/>
+                </linearGradient>
+                <linearGradient id="gHot" x1="0" x2="1">
+                  <stop offset="0" stop-color="#ff6a00" stop-opacity="0"/>
+                  <stop offset=".22" stop-color="#ff7a10" stop-opacity=".55"/>
+                  <stop offset=".36" stop-color="#ffc070" stop-opacity=".9"/>
+                  <stop offset=".55" stop-color="#ff8a1e" stop-opacity=".6"/>
+                  <stop offset="1" stop-color="#ff5a00" stop-opacity="0"/>
+                </linearGradient>
+                <clipPath id="clipBag"><rect x="38" y="150" width="124" height="300" rx="26"/></clipPath>
+              </defs>
+              <!-- chaîne -->
+              <g fill="none" stroke="url(#gChain)" stroke-width="5">
+                <rect x="93" y="-6" width="14" height="26" rx="7"/>
+                <rect x="97.5" y="14" width="5" height="26" rx="2.5" stroke-width="4"/>
+                <rect x="93" y="34" width="14" height="26" rx="7"/>
+                <rect x="97.5" y="54" width="5" height="26" rx="2.5" stroke-width="4"/>
+                <rect x="93" y="74" width="14" height="26" rx="7"/>
+              </g>
+              <circle cx="100" cy="104" r="8" fill="none" stroke="url(#gChain)" stroke-width="5"/>
+              <!-- sangles -->
+              <g stroke="#1b1b1b" stroke-width="5" stroke-linecap="round">
+                <path d="M100 110 L52 156"/><path d="M100 110 L80 154"/><path d="M100 110 L120 154"/><path d="M100 110 L148 156"/>
+              </g>
+              <g stroke="#9a9a9a" stroke-width="1.2" opacity=".55"><path d="M100 110 L52 156"/><path d="M100 110 L148 156"/></g>
+              <!-- corps du sac -->
+              <rect x="38" y="150" width="124" height="300" rx="26" fill="url(#gLeather)"/>
+              <g clip-path="url(#clipBag)">
+                <rect class="bag-hot" x="38" y="150" width="124" height="300" fill="url(#gHot)"/>
+                <!-- coutures -->
+                <g stroke="#6b6b6b" stroke-width="1.4" stroke-dasharray="5 4" fill="none" opacity=".55">
+                  <path d="M60 158 V444"/><path d="M140 158 V444"/>
+                  <path d="M40 178 H160"/><path d="M40 424 H160"/>
+                </g>
+                <!-- bande orange -->
+                <rect x="38" y="262" width="124" height="58" fill="url(#gBand)"/>
+                <path d="M38 264 H162 M38 318 H162" stroke="#0d0d0d" stroke-opacity=".35" stroke-width="2"/>
+                <text x="100" y="288" text-anchor="middle" class="bag-t1">BOXE</text>
+                <text x="100" y="311" text-anchor="middle" class="bag-t2">ACADÉMIE</text>
+                <!-- reflet -->
+                <rect x="64" y="150" width="16" height="300" fill="#fff" opacity=".05"/>
+                <!-- ombre du bas -->
+                <rect x="38" y="400" width="124" height="50" fill="#000" opacity=".35"/>
+              </g>
+              <ellipse cx="100" cy="151" rx="62" ry="9" fill="#2a2a2a"/>
+              <ellipse cx="100" cy="150" rx="58" ry="6" fill="#111"/>
+              <!-- bonnet de Noël -->
+              <g class="hat">
+                <path d="M44 150 C 52 108, 92 86, 128 92 C 150 96, 170 112, 176 132 C 170 128, 158 120, 150 122 C 152 132, 156 142, 156 150 Z" fill="url(#gHat)"/>
+                <path d="M128 92 C 150 96, 170 112, 176 132" stroke="#000" stroke-opacity=".25" stroke-width="2" fill="none"/>
+                <rect x="38" y="140" width="124" height="18" rx="9" fill="#efe9e1"/>
+                <rect x="38" y="140" width="124" height="7" rx="3.5" fill="#fff" opacity=".7"/>
+                <circle cx="176" cy="136" r="11" fill="#f4efe8"/>
+                <circle cx="173" cy="132" r="4" fill="#fff"/>
+              </g>
+            </svg>
+            <span class="bag-hit" id="bagHit"></span>
+          </div>
+        </div>
+        <div class="fx" id="fx" aria-hidden="true"></div>
+        <p class="combo" id="combo" aria-hidden="true">Combo <b>x2</b></p>
+      </div>
+      <p class="game-hint" id="gameHint">Tape le sac ! · Au clavier : barre <kbd>Espace</kbd></p>
+      <p class="sr-only" id="srStatus" aria-live="polite"></p>
+    </section>
+
+    <!-- 4. RÉSULTAT -->
+    <section class="screen screen-result" id="screen-result" aria-labelledby="scoreTitle">
+      <div class="result-inner">
+        <p class="kicker">Temps écoulé !</p>
+        <p class="score"><span id="scoreNum">0</span><small>coups</small></p>
+        <h2 class="rank" id="scoreTitle">Échauffement</h2>
+        <p class="best" id="bestLine"></p>
+
+        <div class="actions">
+          <button class="btn btn-primary" id="replayBtn" type="button">Rejouer</button>
+          <button class="btn btn-ghost" id="shareBtn" type="button">Partager mon score</button>
+        </div>
+
+        <!-- Formulaire du tirage au sort (Netlify Forms).
+             Netlify lit ce formulaire au moment du déploiement : ne pas le générer en JavaScript. -->
+        <div class="card" id="drawCard">
+          <h3 class="card-title">Tente de gagner <span data-cfg="PRIZE_SHORT">1 mois offert</span></h3>
+          <p class="card-sub" id="drawSub">Un tirage au sort parmi tous les participants, quel que soit le score. Tirage le <span data-cfg="DRAW_DATE_TEXT">24 décembre 2026</span>.</p>
+          <form name="tirage-noel" id="drawForm" method="POST" action="/merci.html" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="tirage-noel">
+            <input type="hidden" name="score" id="fScore" value="">
+            <input type="hidden" name="meilleur_score" id="fBest" value="">
+            <input type="hidden" name="titre" id="fTitle" value="">
+            <p class="hp" aria-hidden="true"><label>Ne pas remplir : <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+            <div class="row2">
+              <div class="field">
+                <label for="fFirst">Prénom</label>
+                <input id="fFirst" name="prenom" type="text" autocomplete="given-name" required maxlength="60">
+              </div>
+              <div class="field">
+                <label for="fLast">Nom</label>
+                <input id="fLast" name="nom" type="text" autocomplete="family-name" required maxlength="60">
+              </div>
+            </div>
+            <div class="field">
+              <label for="fEmail">E-mail</label>
+              <input id="fEmail" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="fPhone">Téléphone <span class="opt">(facultatif)</span></label>
+              <input id="fPhone" name="telephone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20">
+            </div>
+            <label class="check">
+              <input type="checkbox" name="reglement" value="oui" id="fRules" required>
+              <span>J'accepte le <a href="reglement.html" target="_blank" rel="noopener">règlement du jeu</a></span>
+            </label>
+            <label class="check">
+              <input type="checkbox" name="newsletter" value="oui" id="fNews">
+              <span>Je veux recevoir la newsletter du club</span>
+            </label>
+            <p class="form-msg" id="formMsg" role="alert"></p>
+            <button class="btn btn-primary btn-block" id="submitBtn" type="submit">Je tente ma chance</button>
+          </form>
+          <div class="done" id="drawDone" hidden>
+            <p class="done-big">Tu es dans le tirage !</p>
+            <p><span data-cfg="RESULT_TEXT">Résultat le 24 décembre.</span> Le gagnant est prévenu par e-mail.</p>
+            <button class="link-btn" id="anotherBtn" type="button">Inscrire une autre personne</button>
+          </div>
+          <div class="done" id="drawClosed" hidden>
+            <p class="done-big">Participations closes</p>
+            <p>Le tirage a lieu le <span data-cfg="DRAW_DATE_TEXT">24 décembre 2026</span>. Merci à tous !</p>
+          </div>
+        </div>
+
+        <div class="club">
+          <h3 class="card-title">Le club</h3>
+          <div class="gallery" id="gallery"></div>
+          <a class="btn btn-ghost btn-block" id="shopBtn" href="#" target="_blank" rel="noopener" hidden>Découvrir la boutique du club</a>
+        </div>
+
+        <p class="fineprint"><a href="reglement.html">Règlement du jeu</a> · <span data-cfg="CLUB_NAME">Boxe Académie Brive</span></p>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <dialog class="share-dialog" id="shareDialog" aria-labelledby="shareDlgTitle">
+    <h3 id="shareDlgTitle">Copie ce message</h3>
+    <textarea id="shareText" rows="4" readonly></textarea>
+    <form method="dialog"><button class="btn btn-primary btn-block">Fermer</button></form>
+  </dialog>
+
+  <noscript><p class="noscript">Active JavaScript pour jouer au Défi du Sac de Noël.</p></noscript>
+</body>
+</html>

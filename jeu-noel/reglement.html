@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Règlement · Le Défi du Sac de Noël · Boxe Académie Brive</title>
+  <meta name="description" content="Règlement du jeu-concours gratuit « Le Défi du Sac de Noël » de la Boxe Académie Brive.">
+  <meta name="theme-color" content="#0d0d0d">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&display=swap">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    body { overflow-y: auto; }
+    .doc { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: calc(env(safe-area-inset-top, 0px) + 24px) 16px 48px; }
+    .doc h1 { margin: 18px 0 4px; font-family: var(--font-title); font-weight: 400; font-size: clamp(44px, 11vw, 64px); line-height: .95; text-transform: uppercase; }
+    .doc h1 span { color: var(--orange); }
+    .doc h2 { margin: 30px 0 8px; font-family: var(--font-title); font-weight: 400; font-size: 28px; letter-spacing: .02em; color: var(--orange); }
+    .doc p, .doc li { color: #e4e4e4; font-size: 15.5px; }
+    .doc ul { padding-left: 20px; }
+    .doc .lead { color: var(--muted); }
+    .todo { background: rgba(240,138,36,.18); color: var(--orange); padding: 0 4px; border-radius: 4px; font-weight: 600; }
+    .back { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; text-decoration: none; }
+    .doc .btn { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <!--
+    ⚠️ À FAIRE RELIRE ET VALIDER PAR LE PRÉSIDENT DU CLUB AVANT LA MISE EN LIGNE.
+    Ce règlement est un modèle simple de jeu-concours gratuit sans obligation d'achat ;
+    il ne remplace pas l'avis d'un juriste.
+    Les informations entre [CROCHETS] se remplissent dans config.js (elles s'affichent surlignées
+    en orange tant qu'elles ne sont pas remplies). Points à vérifier en particulier :
+    statut juridique et adresse du club, valeur du lot, participation des mineurs, durée de conservation des données.
+  -->
+  <main class="doc">
+    <a class="back" href="./">← Retour au jeu</a>
+    <h1>Règlement du jeu <span>« Le Défi du Sac de Noël »</span></h1>
+    <p class="lead">Jeu-concours gratuit et sans obligation d'achat.</p>
+
+    <h2>Article 1 · Organisateur</h2>
+    <p>Le jeu est organisé par <b data-r="CLUB_NAME">Boxe Académie Brive</b>, <span data-r="CLUB_STATUS"></span>, dont le siège est situé <span data-r="CLUB_ADDRESS"></span> (ci-après « l'Organisateur »). Contact : <span data-r="CLUB_EMAIL" data-mail></span>.</p>
+
+    <h2>Article 2 · Durée</h2>
+    <p>Le jeu est ouvert du <span data-r="LAUNCH_DATE"></span> au <span data-r="END_DATE_TEXT">23 décembre 2026 à minuit</span> (heure de Paris). Les participations enregistrées après cette date ne sont pas prises en compte.</p>
+
+    <h2>Article 3 · Qui peut participer ?</h2>
+    <p>Le jeu est ouvert à toute personne physique, sans obligation d'achat ni d'adhésion au club. Les mineurs participent sous la responsabilité et avec l'accord de leur représentant légal, qui pourra être demandé lors de la remise du lot. Les membres du bureau de l'Organisateur ne peuvent pas participer.</p>
+    <p>Une seule participation au tirage est autorisée par personne (même nom, même adresse e-mail). En cas de participations multiples, seule la première est retenue.</p>
+
+    <h2>Article 4 · Comment participer ?</h2>
+    <ul>
+      <li>Jouer au « Défi du Sac de Noël » sur le site du jeu : frapper le sac le plus de fois possible en 15 secondes.</li>
+      <li>Remplir le formulaire « Tente de gagner » (prénom, nom, adresse e-mail, téléphone facultatif) et accepter le présent règlement.</li>
+    </ul>
+    <p><b>Le score obtenu n'a aucune influence sur le tirage au sort :</b> chaque participant a la même chance de gagner.</p>
+
+    <h2>Article 5 · Le lot</h2>
+    <p>Le jeu est doté d'un lot unique : <b data-r="PRIZE_TEXT">1 mois d'abonnement offert au club</b>, d'une valeur commerciale de <span data-r="PRIZE_VALUE"></span>. Le lot est nominatif. Il ne peut être ni échangé, ni remboursé, ni converti en argent. Si les circonstances l'exigent, l'Organisateur peut le remplacer par un lot de valeur équivalente.</p>
+
+    <h2>Article 6 · Tirage au sort et gagnant</h2>
+    <p>Le tirage au sort a lieu le <span data-r="DRAW_DATE_TEXT">24 décembre 2026</span> parmi toutes les participations valides. Le gagnant est contacté par e-mail à l'adresse indiquée dans le formulaire. Il dispose de <span data-r="CLAIM_DAYS">15</span> jours pour répondre ; sans réponse dans ce délai, le lot est attribué à un nouveau participant tiré au sort. Le prénom et l'initiale du nom du gagnant peuvent être annoncés sur les réseaux sociaux du club, s'il l'accepte.</p>
+
+    <h2>Article 7 · Données personnelles (RGPD)</h2>
+    <p>Les données recueillies (prénom, nom, e-mail, téléphone, score) sont traitées par l'Organisateur uniquement pour organiser le jeu : enregistrer les participations, effectuer le tirage au sort et contacter le gagnant. Si tu coches la case « newsletter », ton e-mail est aussi utilisé pour t'envoyer les actualités du club ; tu peux te désinscrire à tout moment.</p>
+    <p>Les données ne sont ni vendues, ni cédées à des tiers. Elles sont enregistrées chez l'hébergeur du site (Netlify). Les données du jeu sont supprimées au plus tard 3 mois après le tirage au sort ; celles de la newsletter sont conservées jusqu'à ta désinscription.</p>
+    <p>Conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés, tu disposes d'un droit d'accès, de rectification, d'opposition et de suppression de tes données. Pour l'exercer, il suffit d'écrire à <span data-r="CLUB_EMAIL" data-mail></span>. Tu peux aussi adresser une réclamation à la CNIL (cnil.fr).</p>
+
+    <h2>Article 8 · Responsabilité</h2>
+    <p>L'Organisateur ne peut être tenu responsable d'un problème technique (connexion, navigateur, panne du site) empêchant de jouer ou de participer. Il se réserve le droit d'écarter toute participation frauduleuse (fausse identité, triche, participations multiples) et d'écourter, prolonger ou annuler le jeu si les circonstances l'exigent.</p>
+
+    <h2>Article 9 · Règlement et litiges</h2>
+    <p>Participer au jeu implique l'acceptation pleine et entière du présent règlement, consultable gratuitement sur cette page pendant toute la durée du jeu. Le règlement est soumis à la loi française. Toute question est à adresser à <span data-r="CLUB_EMAIL" data-mail></span>.</p>
+
+    <a class="btn btn-primary" href="./">Retour au jeu</a>
+  </main>
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var C = window.CONFIG || {};
+      document.querySelectorAll('[data-r]').forEach(function (el) {
+        var k = el.getAttribute('data-r');
+        var v = C[k];
+        v = v === undefined || v === null ? '' : String(v);
+        if (!v.trim() || /\[[^\]]*\]/.test(v)) {
+          el.textContent = v.trim() || '[' + k + ' À COMPLÉTER]';
+          el.className = 'todo';
+        } else if (el.hasAttribute('data-mail')) {
+          el.innerHTML = '';
+          var a = document.createElement('a');
+          a.href = 'mailto:' + v; a.textContent = v;
+          el.appendChild(a);
+        } else {
+          el.textContent = v;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

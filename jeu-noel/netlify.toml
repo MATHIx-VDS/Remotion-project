@@ -1,0 +1,28 @@
+# Site statique : aucune commande de build.
+# Sur Netlify, « Base directory » = jeu-noel (ce dossier).
+[build]
+  publish = "."
+  command = ""
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+# Les photos, le logo et l'image de partage changent rarement : cache 7 jours.
+[[headers]]
+  for = "/photos/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+[[headers]]
+  for = "/assets/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# La page du tirage ne doit pas apparaître dans Google.
+[[headers]]
+  for = "/tirage.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
