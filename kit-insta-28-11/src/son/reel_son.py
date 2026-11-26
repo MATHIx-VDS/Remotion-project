@@ -4,8 +4,8 @@ python reel_son.py <musique.wav> <dossier_bruitages> <sortie.wav>
 
 - La musique est décalée pour qu'un temps fort tombe pile sur chaque coupe : à 100 BPM, un temps
   dure 0,6 s, et les coupes du Reel sont à 1,0 / 4,0 / 7,0 / 8,2 / 9,4 s, soit 1,0 s + un nombre entier de temps.
-- Bruitages (bruitages.py, synthétisés, libres de droits) : cloche de ring au début, impact sur chaque titre,
-  whoosh avant chaque coupe.
+- Bruitages (bruitages.py, synthétisés, libres de droits) : cloche de ring au début, un impact par coupe,
+  whoosh discret avant chaque coupe.
 """
 import json
 import subprocess
@@ -21,8 +21,10 @@ DUR = 12.0
 BEAT = 60 / 100
 CUTS = [1.0, 4.0, 7.0, 8.2, 9.4]
 # (instant, gain) des impacts : gros titres forts, sous-titres plus discrets
-HITS = [(0.04, 0), (0.16, -5), (0.30, -2), (1.18, 0), (1.60, -3), (4.18, 0), (4.60, -3),
-        (7.04, 0), (7.40, -2), (7.76, -2), (8.24, 0), (8.55, -2), (8.86, -2), (9.44, 0), (9.90, -4)]
+# un impact franc à chaque changement de partie, un plus léger sur les coupes internes des images de combat,
+# et un gros impact sur le coup de pied au ralenti de Chloé (≈ 5,6 s)
+HITS = [(0.04, -1), (1.0, -2), (4.0, -2), (7.0, -2), (8.2, -4), (9.4, -1),
+        (0.4, -9), (2.2, -9), (2.8, -9), (3.4, -9), (4.6, -9), (5.8, -9), (6.4, -9), (5.6, 0)]
 
 
 def load(path):
@@ -78,7 +80,7 @@ put('cloche', 0.0, -2)
 for at, g in HITS:
     put('coup', at, g)
 for c in CUTS:
-    put('whoosh', c - 0.3, -4)
+    put('whoosh', c - 0.3, -8)
 fx *= 10 ** ((-18 - lufs(fx)) / 20)
 
 mix = seg + fx

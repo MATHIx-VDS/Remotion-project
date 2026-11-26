@@ -22,8 +22,16 @@
 
 Tague ton partenaire d'entraînement 👇
 
+📹 Images : Sportmag TV
+
 #boxefrancaise #savate #brive #correze #kickboxing #savateboxefrancaise #brivelagaillarde #sportdecombat
 ```
+
+> **Droits des images de combat du Reel.** Les extraits viennent des retransmissions de **Sportmag TV**
+> (finale Elite A 2019 de Kévin Albertus, son entrée sur le ring, combat de Chloé Nandi).
+> Le crédit « Images : Sportmag TV » est affiché dans la vidéo et dans la légende, mais **un crédit ne vaut pas autorisation** :
+> pour une publication promotionnelle, demande leur accord à Sportmag (ou passe par Kevin et Chloé, qui peuvent
+> te fournir leurs propres vidéos). En cas de souci, la version sans images de combat reste dans l'historique du projet.
 
 ## 2. Légende du carrousel
 
@@ -60,6 +68,8 @@ en collaboration avec ton compte ? Il apparaîtra chez toi et chez nous, et ça 
 avec des licenciés des autres clubs.
 
 Tu recevras une invitation « Collaboration » d'Instagram : il suffit de l'accepter.
+Petite question : on a utilisé quelques secondes de ton combat diffusé par Sportmag TV. Tu as des vidéos à toi
+(combats, entraînements) qu'on pourrait utiliser librement ? Ce serait parfait pour le Reel récap.
 Si tu préfères simplement le partager en story, c'est parfait aussi.
 
 À samedi 🥊

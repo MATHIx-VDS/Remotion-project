@@ -1,59 +1,52 @@
-/* Animation du Reel, image par image : window.seek(t) (en secondes) place tout à l'instant t.
-   Coupes sèches (calées sur les temps de la musique à 100 BPM) avec flash orange,
-   Ken Burns lent sur les photos, textes qui claquent (scale + secousse). */
+/* Animation du Reel, image par image : await window.seek(t) place tout à l'instant t.
+   Extraits vidéo lus image par image (assets/footage/<extrait>/f_0001.jpg… à 60 i/s), coupes sèches sur le temps,
+   léger « punch-in » à chaque coupe, textes qui montent derrière un masque, filets orange qui se tracent. */
 (function () {
   'use strict';
   const $$ = (s) => [...document.querySelectorAll(s)];
   const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
-  const outBack = (p, s = 1.6) => 1 + (s + 1) * Math.pow(p - 1, 3) + s * Math.pow(p - 1, 2);
+  const expo = (p) => (p >= 1 ? 1 : 1 - Math.pow(2, -10 * p));
   const shots = $$('.shot').map((el) => ({ el, a: +el.dataset.in, b: +el.dataset.out }));
-  const cuts = shots.map((s) => s.a);
-  const slams = $$('[data-slam]').map((el) => ({
-    el, t0: +el.dataset.slam,
-    skew: el.classList.contains('t') || el.classList.contains('band-txt') ? 'skewX(-7deg) ' : '',
-  }));
-  const slamTimes = [...new Set(slams.map((s) => s.t0))];
-  const stage = document.getElementById('stage');
-  const flash = document.getElementById('flash');
+  const clips = $$('.media img').map((el) => ({ el, a: +el.dataset.in, b: +el.dataset.out, seq: el.dataset.seq, n: +el.dataset.n || 0 }));
+  const revs = $$('[data-rev]').map((el) => ({ span: el.firstElementChild, t0: +el.dataset.rev }));
+  const draws = $$('[data-draw]').map((el) => ({ el, t0: +el.dataset.draw }));
+  const fades = $$('[data-fade]').map((el) => ({ el, t0: +el.dataset.fade }));
+  const pops = $$('[data-pop]').map((el) => ({ el, t0: +el.dataset.pop }));
   const grain = document.querySelector('.grain');
+  const credit = document.getElementById('credit');
+  window.TIMELINE = { cuts: [...new Set(clips.map((c) => c.a).concat(shots.map((s) => s.a)))].sort((x, y) => x - y) };
 
-  window.TIMELINE = { cuts, slams: slamTimes }; // lu par le mixage pour caler les bruitages
-
-  window.seek = function (t) {
-    // plan visible
-    let cur = null;
-    shots.forEach((s) => {
-      const on = t >= s.a && t < s.b;
-      s.el.style.display = on ? 'block' : 'none';
-      if (on) cur = s;
+  window.seek = async function (t) {
+    shots.forEach((s) => { s.el.style.display = t >= s.a && t < s.b ? 'block' : 'none'; });
+    const loading = [];
+    clips.forEach((c) => {
+      const on = t >= c.a && t < c.b;
+      c.el.style.display = on ? 'block' : 'none';
+      if (!on) return;
+      const d = t - c.a;
+      if (c.seq) {
+        const i = clamp(Math.floor(d * 60 + 1e-6), 0, c.n - 1) + 1;
+        const src = `assets/footage/${c.seq}/f_${String(i).padStart(4, '0')}.jpg`;
+        if (!c.el.src.endsWith(src)) { c.el.src = src; loading.push(c.el.decode().catch(() => {})); }
+      }
+      // punch-in à la coupe (1,08 → 1,0 en 0,35 s) puis zoom lent
+      const punch = 0.08 * (1 - expo(clamp(d / 0.35)));
+      c.el.style.transform = `scale(${(1 + punch + 0.02 * d).toFixed(5)})`;
     });
-    // Ken Burns : zoom lent et léger glissement
-    if (cur) {
-      cur.el.querySelectorAll('[data-kb]').forEach((img) => {
-        const d = t - cur.a;
-        img.style.transform = `scale(${(1.04 + 0.028 * d).toFixed(5)}) translate(${(-6 * d).toFixed(2)}px, ${(4 * d).toFixed(2)}px)`;
-      });
-    }
-    // textes qui claquent
-    slams.forEach(({ el, t0, skew }) => {
-      const d = t - t0;
-      if (d < 0) { el.style.opacity = 0; return; }
-      const p = clamp(d / 0.16);
-      const s = 1.7 - 0.7 * outBack(p, 2.2);
-      el.style.opacity = clamp(d / 0.03);
-      el.style.transform = `${skew}scale(${s.toFixed(4)})`;
+    revs.forEach(({ span, t0 }) => { span.style.transform = `translateY(${((1 - expo(clamp((t - t0) / 0.55))) * 105).toFixed(3)}%)`; });
+    draws.forEach(({ el, t0 }) => { el.style.transform = `scaleX(${expo(clamp((t - t0) / 0.5)).toFixed(4)})`; });
+    fades.forEach(({ el, t0 }) => {
+      const p = expo(clamp((t - t0) / 0.45));
+      el.style.opacity = p.toFixed(3);
+      el.style.transform = `translateY(${((1 - p) * 18).toFixed(2)}px)`;
     });
-    // secousse de l'image à chaque impact
-    let e = 0;
-    slamTimes.forEach((t0) => { const d = t - t0; if (d >= 0 && d < 0.3) e = Math.max(e, 16 * Math.exp(-14 * d)); });
-    stage.style.transform = `translate(${(e * Math.sin(t * 97)).toFixed(2)}px, ${(e * 0.7 * Math.cos(t * 83)).toFixed(2)}px) scale(1.02)`;
-    // flash orange sur les coupes
-    let f = 0;
-    cuts.forEach((c) => { const d = t - c; if (d >= 0 && d < 0.2) f = Math.max(f, 0.85 * Math.pow(1 - d / 0.2, 2)); });
-    flash.style.opacity = f.toFixed(3);
-    // grain vivant
+    pops.forEach(({ el, t0 }) => {
+      el.style.opacity = clamp((t - t0) / 0.25).toFixed(3);
+      el.style.transform = `scale(${(0.86 + 0.14 * expo(clamp((t - t0) / 0.6))).toFixed(4)})`;
+    });
+    credit.style.display = t < 9.4 ? 'block' : 'none';
     const k = Math.floor(t * 30);
-    grain.style.transform = `translate(${((k * 37) % 60) - 30}px, ${((k * 53) % 60) - 30}px) scale(1.08)`;
+    grain.style.transform = `translate(${((k * 37) % 40) - 20}px, ${((k * 53) % 40) - 20}px)`;
+    await Promise.all(loading);
   };
-  window.seek(0);
 })();

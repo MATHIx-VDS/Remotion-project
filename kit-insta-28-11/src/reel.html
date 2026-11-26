@@ -2,83 +2,123 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Reel teaser · 2 champions du monde</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=block">
-  <link rel="stylesheet" href="kit.css">
+  <title>Reel teaser · 2 champions du monde (montage avec images de combat)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@500;600;700;800&display=block">
   <style>
-    /* zones masquées par l'interface des Reels : 0-250 px et 1580-1920 px, sans texte */
-    #stage { position: absolute; inset: 0; z-index: 4; }
+    /* Version « premium » : images de combat en noir et blanc contrasté, orange en accent seulement,
+       typographie nette (Anton + Inter), textes révélés derrière un masque, coupes sèches sur le temps (100 BPM).
+       Zones masquées par l'interface des Reels : 0-250 px et 1580-1920 px, sans texte important. */
+    :root { --orange: #F5710A; --black: #070707; --white: #fff; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: var(--black); }
+    .frame { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--black); color: var(--white); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+    #stage { position: absolute; inset: 0; }
     .shot { position: absolute; inset: 0; display: none; }
     .shot > * { position: absolute; }
-    .c { transform-origin: 50% 50%; }
-    #flash { inset: 0; z-index: 30; background: var(--orange); opacity: 0; mix-blend-mode: normal; }
-    .name { z-index: 6; }
-    .badge-xl { left: 280px; top: 470px; width: 520px; z-index: 6; background: #fff; border-radius: 34px; padding: 16px;
-      box-shadow: 0 30px 80px -20px rgba(0,0,0,.9), 0 0 0 8px var(--orange), 0 0 120px 10px rgba(245,113,10,.35); }
-    .badge-xl img { display: block; width: 100%; border-radius: 22px; }
+    .media { inset: 0; overflow: hidden; }
+    .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: none; transform-origin: 50% 40%; }
+    .media img.photo { object-position: 50% 0%; filter: grayscale(1) contrast(1.22) brightness(.95); }
+    .media.dim { opacity: .15; }
+    /* dégradé pour lire les textes sur l'image */
+    .shade { inset: 0; background: linear-gradient(180deg, rgba(7,7,7,.55) 0%, rgba(7,7,7,0) 20%, rgba(7,7,7,0) 42%, rgba(7,7,7,.82) 66%, rgba(7,7,7,.96) 100%); }
+    .shade.full { background: rgba(7,7,7,.5); }
+
+    .line { overflow: hidden; line-height: .9; padding: .2em 0 .14em; white-space: nowrap; }
+    .line > span { display: block; will-change: transform; }
+    .big { font-family: 'Anton', sans-serif; text-transform: uppercase; letter-spacing: .005em; }
+    .o { color: var(--orange); }
+    .label { margin: 0; font: 700 28px/1 'Inter', sans-serif; letter-spacing: .24em; text-transform: uppercase; white-space: nowrap; }
+    .rule { height: 6px; background: var(--orange); transform-origin: 0 50%; }
+    .detail { margin: 0; font: 700 32px/1.25 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+    .center { left: 0; width: 1080px; text-align: center; }
+    .logo { left: 360px; top: 470px; width: 360px; padding: 14px; background: #fff; border-radius: 28px; box-shadow: 0 40px 90px -30px rgba(0,0,0,.9); }
+    .logo img { display: block; width: 100%; border-radius: 16px; }
+    .brand { position: absolute; margin: 0; left: 80px; top: 286px; z-index: 5; display: flex; align-items: center; gap: 14px; font: 600 22px/1 'Inter', sans-serif; letter-spacing: .3em; color: rgba(255,255,255,.8); }
+    .brand i { width: 10px; height: 10px; background: var(--orange); }
+    .credit { position: absolute; margin: 0; right: 80px; top: 288px; z-index: 5; font: 500 18px/1 'Inter', sans-serif; letter-spacing: .08em; color: rgba(255,255,255,.62); }
+    .grain { position: absolute; inset: -40px; z-index: 9; pointer-events: none; opacity: .06; mix-blend-mode: screen; }
   </style>
 </head>
 <body>
-  <div class="frame tall">
-    <p class="brand" style="left:80px;top:276px">BOXE ACADÉMIE BRIVE</p>
+  <div class="frame">
     <div id="stage">
-      <!-- 0 – 1 s : accroche -->
+      <!-- 0 – 1 s : accroche sur l'action -->
       <section class="shot" data-in="0" data-out="1">
-        <div class="splat" data-splat style="left:0;top:420px;width:1080px;height:900px"></div>
-        <p class="t c" data-slam="0.04" style="left:80px;top:400px;font-size:520px;color:var(--orange)">2</p>
-        <h1 class="t c" data-slam="0.16" style="left:80px;top:880px;font-size:196px">Champions</h1>
-        <span class="band c" data-slam="0.3" style="left:52px;top:1092px;width:900px;height:182px"></span>
-        <p class="band-txt c" data-slam="0.3" style="left:100px;top:1100px;font-size:168px">du monde</p>
+        <div class="media">
+          <img class="vid" data-seq="hook_chloe" data-n="24" data-in="0" data-out="0.4" alt="">
+          <img class="vid" data-seq="hook_kevin" data-n="36" data-in="0.4" data-out="1" alt="">
+        </div>
+        <div class="shade full"></div>
+        <div class="line big" data-rev="0.04" style="left:80px;top:694px;font-size:184px"><span>2 champions</span></div>
+        <div class="line big o" data-rev="0.16" style="left:80px;top:870px;font-size:184px"><span>du monde</span></div>
+        <div class="rule" data-draw="0.32" style="left:84px;top:1092px;width:300px"></div>
       </section>
 
       <!-- 1 – 4 s : Kevin -->
       <section class="shot" data-in="1" data-out="4">
-        <div class="photo fade-b" style="left:0;top:180px;width:1080px;height:1180px"><img data-kb src="assets/kevin.jpg" alt="Kevin Albertus" style="object-position:50% 0%"></div>
-        <p class="kick c" data-slam="1.1" style="left:80px;top:1000px">IL T'ENTRAÎNE SAMEDI</p>
-        <h2 class="t c" data-slam="1.18" style="left:80px;top:1058px;font-size:190px">Kevin<br><span class="o">Albertus</span></h2>
-        <span class="band c" data-slam="1.6" style="left:52px;top:1412px;width:960px;height:96px"></span>
-        <p class="band-txt c" data-slam="1.6" style="left:92px;top:1425px;font-size:57px">Champion du monde de combat 2017</p>
+        <div class="media">
+          <img class="vid" data-seq="k_entree" data-n="72" data-in="1" data-out="2.2" alt="">
+          <img class="vid" data-seq="k_echange" data-n="36" data-in="2.2" data-out="2.8" alt="">
+          <img class="vid" data-seq="k_garde" data-n="36" data-in="2.8" data-out="3.4" alt="">
+          <img class="photo" data-in="3.4" data-out="4" src="assets/kevin.jpg" alt="Kevin Albertus">
+        </div>
+        <div class="shade"></div>
+        <p class="label o" data-fade="1.12" style="left:80px;top:1050px">Il t'entraîne samedi</p>
+        <div class="line big" data-rev="1.16" style="left:80px;top:1083px;font-size:190px"><span>Kevin</span></div>
+        <div class="line big" data-rev="1.26" style="left:80px;top:1255px;font-size:190px"><span>Albertus</span></div>
+        <div class="rule" data-draw="1.5" style="left:84px;top:1474px;width:140px"></div>
+        <p class="detail" data-fade="1.6" style="left:80px;top:1500px">Champion du monde de combat <span class="o">2017</span></p>
       </section>
 
       <!-- 4 – 7 s : Chloé -->
       <section class="shot" data-in="4" data-out="7">
-        <div class="photo fade-b" style="left:0;top:180px;width:1080px;height:1120px"><img data-kb src="assets/chloe.jpg" alt="Chloé Nandi" style="object-position:50% 0%"></div>
-        <p class="kick c" data-slam="4.1" style="left:80px;top:1000px">ELLE T'ENTRAÎNE SAMEDI</p>
-        <h2 class="t c" data-slam="4.18" style="left:80px;top:1058px;font-size:190px">Chloé<br><span class="o">Nandi</span></h2>
-        <span class="band c" data-slam="4.6" style="left:52px;top:1412px;width:976px;height:96px"></span>
-        <p class="band-txt c" data-slam="4.6" style="left:92px;top:1425px;font-size:53px">Championne du monde assaut et combat</p>
+        <div class="media">
+          <img class="vid" data-seq="c_echange" data-n="36" data-in="4" data-out="4.6" alt="">
+          <img class="vid" data-seq="c_ralenti" data-n="72" data-in="4.6" data-out="5.8" alt="">
+          <img class="vid" data-seq="c_frappe" data-n="36" data-in="5.8" data-out="6.4" alt="">
+          <img class="photo" data-in="6.4" data-out="7" src="assets/chloe.jpg" alt="Chloé Nandi">
+        </div>
+        <div class="shade"></div>
+        <p class="label o" data-fade="4.12" style="left:80px;top:1050px">Elle t'entraîne samedi</p>
+        <div class="line big" data-rev="4.16" style="left:80px;top:1083px;font-size:190px"><span>Chloé</span></div>
+        <div class="line big" data-rev="4.26" style="left:80px;top:1255px;font-size:190px"><span>Nandi</span></div>
+        <div class="rule" data-draw="4.5" style="left:84px;top:1474px;width:140px"></div>
+        <p class="detail" data-fade="4.6" style="left:80px;top:1500px;font-size:30px;letter-spacing:.07em">Championne du monde <span class="o">assaut et combat</span></p>
       </section>
 
       <!-- 7 – 8,2 s : date, heure, ville -->
       <section class="shot" data-in="7" data-out="8.2">
-        <div class="splat" data-splat style="left:0;top:500px;width:1080px;height:900px"></div>
-        <h2 class="t c" data-slam="7.04" style="left:80px;top:520px;font-size:230px">Samedi</h2>
-        <p class="t c" data-slam="7.04" style="left:80px;top:740px;font-size:330px;color:var(--orange)">28.11</p>
-        <span class="band c" data-slam="7.4" style="left:52px;top:1080px;width:820px;height:170px"></span>
-        <p class="band-txt c" data-slam="7.4" style="left:98px;top:1090px;font-size:150px">10h - 12h</p>
-        <p class="t c" data-slam="7.76" style="left:80px;top:1284px;font-size:180px">Brive</p>
+        <div class="media dim"><img class="vid" data-seq="fond_date" data-n="72" data-in="7" data-out="8.2" alt=""></div>
+        <p class="label o" data-fade="7.04" style="left:80px;top:560px">Samedi</p>
+        <div class="line big" data-rev="7.06" style="left:72px;top:541px;font-size:420px"><span>28.11</span></div>
+        <div class="rule" data-draw="7.3" style="left:84px;top:1012px;width:300px"></div>
+        <div class="line big" data-rev="7.38" style="left:80px;top:1026px;font-size:170px"><span>10h <span class="o">—</span> 12h</span></div>
+        <p class="label" data-fade="7.66" style="left:80px;top:1250px;font-size:34px">Brive-la-Gaillarde</p>
       </section>
 
       <!-- 8,2 – 9,4 s : public -->
       <section class="shot" data-in="8.2" data-out="9.4">
-        <p class="t c" data-slam="8.24" style="left:80px;top:560px;font-size:140px">Réservé aux</p>
-        <p class="t c" data-slam="8.24" style="left:80px;top:700px;font-size:210px;color:var(--orange)">Licenciés</p>
-        <span class="band c" data-slam="8.55" style="left:52px;top:950px;width:900px;height:180px"></span>
-        <p class="band-txt c" data-slam="8.55" style="left:98px;top:960px;font-size:158px">BF &amp; kick</p>
-        <p class="t c" data-slam="8.86" style="left:80px;top:1170px;font-size:210px">Tous clubs</p>
+        <div class="media dim"><img class="vid" data-seq="fond_public" data-n="72" data-in="8.2" data-out="9.4" alt=""></div>
+        <p class="label o" data-fade="8.22" style="left:80px;top:628px">Réservé aux licenciés</p>
+        <div class="line big" data-rev="8.25" style="left:80px;top:670px;font-size:146px"><span>Boxe française</span></div>
+        <div class="line big o" data-rev="8.37" style="left:80px;top:810px;font-size:146px"><span>&amp; kick-boxing</span></div>
+        <div class="rule" data-draw="8.55" style="left:84px;top:1030px;width:300px"></div>
+        <p class="label" data-fade="8.62" style="left:80px;top:1070px;font-size:34px">Tous clubs confondus</p>
       </section>
 
       <!-- 9,4 – 12 s : logo + infos en légende -->
       <section class="shot" data-in="9.4" data-out="12.01">
-        <div class="badge-xl c" data-slam="9.44"><img src="assets/logo-club.jpg" alt="Logo Boxe Académie Brive"></div>
-        <span class="band c" data-slam="9.9" style="left:52px;top:1080px;width:976px;height:170px"></span>
-        <p class="band-txt c" data-slam="9.9" style="left:94px;top:1098px;font-size:124px">Infos en légende</p>
-        <p class="lead c" data-slam="10.3" style="left:80px;top:1290px;width:920px;font-size:40px">Boxe française · <b>samedi 28.11 · 10h-12h</b></p>
+        <div class="logo" data-pop="9.44"><img src="assets/logo-club.jpg" alt="Logo Boxe Académie Brive"></div>
+        <div class="line big center" data-rev="9.8" style="top:876px;font-size:170px"><span>Infos</span></div>
+        <div class="line big center o" data-rev="9.92" style="top:1026px;font-size:170px"><span>en légende</span></div>
+        <div class="rule" data-draw="10.2" style="left:470px;top:1250px;width:140px"></div>
+        <p class="label center" data-fade="10.3" style="top:1290px">Samedi 28.11 · 10h-12h · Brive</p>
       </section>
     </div>
-    <div id="flash"></div>
+    <p class="brand"><i></i>BOXE ACADÉMIE BRIVE</p>
+    <p class="credit" id="credit">Images : Sportmag TV</p>
+    <svg class="grain" viewBox="0 0 1160 2000" preserveAspectRatio="none"><filter id="g"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="2"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#g)"/></svg>
   </div>
-  <script src="kit.js"></script>
   <script src="reel.js"></script>
 </body>
 </html>
