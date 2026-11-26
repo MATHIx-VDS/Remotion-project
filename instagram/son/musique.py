@@ -26,6 +26,19 @@ print(msg)
 if not ok:
     sys.exit(1)
 
+# CPU avec 15 Go de RAM : avant le décodage audio (VAE), on libère le modèle de diffusion et l'encodeur
+# de texte, puis on décode par petits morceaux, sinon la mémoire déborde.
+import gc
+_orig_tiled = dit.tiled_decode
+def _tiled_low_mem(latents, *a, **k):
+    for name in ('model', 'text_encoder'):
+        if getattr(dit, name, None) is not None:
+            setattr(dit, name, None)
+    gc.collect()
+    k['chunk_size'] = 64
+    return _orig_tiled(latents, *a, **k)
+dit.tiled_decode = _tiled_low_mem
+
 params = GenerationParams(
     caption=CAPTION, lyrics='[Instrumental]', instrumental=True,
     bpm=98, keyscale='D minor', timesignature='4', duration=18,

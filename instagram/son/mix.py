@@ -76,13 +76,13 @@ sfx_raw = os.path.join(TMP, 'sfx_raw.wav')
 place([(src(n, os.path.join(SON, 'bruitages', n + '.wav')), at, g) for n, at, g in SFX], sfx_raw, SON)
 mus_src = src('musique', os.path.join(SON, 'musique.wav'))
 
-# 2. niveaux : voix -16 LUFS, musique 9 dB dessous (puis ducking ≈ -6 dB sous la voix → ≈ -15 dB), bruitages présents
+# 2. niveaux : voix -16 LUFS, musique 7 dB dessous, puis ducking ≈ -8 dB pendant la voix → ≈ -15 dB sous la voix, bruitages présents
 gv = -16 - float(loudness(voix_raw)['input_i'])
 gs = -19 - float(loudness(sfx_raw)['input_i'])
 mus_trim = os.path.join(TMP, 'mus_trim.wav')
 run(['ffmpeg', '-y', '-hide_banner', '-i', mus_src, '-af',
      f'aformat=sample_rates=48000:channel_layouts=stereo,atrim=0:{DUR},apad,atrim=0:{DUR}', '-c:a', 'pcm_s24le', mus_trim])
-gm = -25 - float(loudness(mus_trim)['input_i'])
+gm = -23 - float(loudness(mus_trim)['input_i'])
 
 voix = os.path.join(OUT, 'voix.wav')
 musique = os.path.join(OUT, 'musique.wav')
@@ -91,7 +91,7 @@ run(['ffmpeg', '-y', '-hide_banner', '-i', voix_raw, '-i', mus_trim, '-i', sfx_r
      f'[0:a]volume={gv:.2f}dB,asplit=2[v][sc];'
      f'[1:a]volume={gm:.2f}dB,afade=t=in:d=0.08,afade=t=out:st={DUR - 1:.2f}:d=1[m];'
      # ducking : la musique baisse quand la voix parle
-     '[m][sc]sidechaincompress=threshold=0.015:ratio=6:attack=25:release=350:makeup=1[md];'
+     '[m][sc]sidechaincompress=threshold=0.03:ratio=4:attack=30:release=300:makeup=1[md];'
      f'[2:a]volume={gs:.2f}dB[s]',
      '-map', '[v]', '-c:a', 'pcm_s24le', voix,
      '-map', '[md]', '-c:a', 'pcm_s24le', musique,
