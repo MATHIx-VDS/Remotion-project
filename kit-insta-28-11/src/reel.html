@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Reel teaser · 2 champions du monde</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=block">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    /* zones masquées par l'interface des Reels : 0-250 px et 1580-1920 px, sans texte */
+    #stage { position: absolute; inset: 0; z-index: 4; }
+    .shot { position: absolute; inset: 0; display: none; }
+    .shot > * { position: absolute; }
+    .c { transform-origin: 50% 50%; }
+    #flash { inset: 0; z-index: 30; background: var(--orange); opacity: 0; mix-blend-mode: normal; }
+    .name { z-index: 6; }
+    .badge-xl { left: 280px; top: 470px; width: 520px; z-index: 6; background: #fff; border-radius: 34px; padding: 16px;
+      box-shadow: 0 30px 80px -20px rgba(0,0,0,.9), 0 0 0 8px var(--orange), 0 0 120px 10px rgba(245,113,10,.35); }
+    .badge-xl img { display: block; width: 100%; border-radius: 22px; }
+  </style>
+</head>
+<body>
+  <div class="frame tall">
+    <p class="brand" style="left:80px;top:276px">BOXE ACADÉMIE BRIVE</p>
+    <div id="stage">
+      <!-- 0 – 1 s : accroche -->
+      <section class="shot" data-in="0" data-out="1">
+        <div class="splat" data-splat style="left:0;top:420px;width:1080px;height:900px"></div>
+        <p class="t c" data-slam="0.04" style="left:80px;top:400px;font-size:520px;color:var(--orange)">2</p>
+        <h1 class="t c" data-slam="0.16" style="left:80px;top:880px;font-size:196px">Champions</h1>
+        <span class="band c" data-slam="0.3" style="left:52px;top:1092px;width:900px;height:182px"></span>
+        <p class="band-txt c" data-slam="0.3" style="left:100px;top:1100px;font-size:168px">du monde</p>
+      </section>
+
+      <!-- 1 – 4 s : Kevin -->
+      <section class="shot" data-in="1" data-out="4">
+        <div class="photo fade-b" style="left:0;top:180px;width:1080px;height:1180px"><img data-kb src="assets/kevin.jpg" alt="Kevin Albertus" style="object-position:50% 0%"></div>
+        <p class="kick c" data-slam="1.1" style="left:80px;top:1000px">IL T'ENTRAÎNE SAMEDI</p>
+        <h2 class="t c" data-slam="1.18" style="left:80px;top:1058px;font-size:190px">Kevin<br><span class="o">Albertus</span></h2>
+        <span class="band c" data-slam="1.6" style="left:52px;top:1412px;width:960px;height:96px"></span>
+        <p class="band-txt c" data-slam="1.6" style="left:92px;top:1425px;font-size:57px">Champion du monde de combat 2017</p>
+      </section>
+
+      <!-- 4 – 7 s : Chloé -->
+      <section class="shot" data-in="4" data-out="7">
+        <div class="photo fade-b" style="left:0;top:180px;width:1080px;height:1120px"><img data-kb src="assets/chloe.jpg" alt="Chloé Nandi" style="object-position:50% 0%"></div>
+        <p class="kick c" data-slam="4.1" style="left:80px;top:1000px">ELLE T'ENTRAÎNE SAMEDI</p>
+        <h2 class="t c" data-slam="4.18" style="left:80px;top:1058px;font-size:190px">Chloé<br><span class="o">Nandi</span></h2>
+        <span class="band c" data-slam="4.6" style="left:52px;top:1412px;width:976px;height:96px"></span>
+        <p class="band-txt c" data-slam="4.6" style="left:92px;top:1425px;font-size:53px">Championne du monde assaut et combat</p>
+      </section>
+
+      <!-- 7 – 8,2 s : date, heure, ville -->
+      <section class="shot" data-in="7" data-out="8.2">
+        <div class="splat" data-splat style="left:0;top:500px;width:1080px;height:900px"></div>
+        <h2 class="t c" data-slam="7.04" style="left:80px;top:520px;font-size:230px">Samedi</h2>
+        <p class="t c" data-slam="7.04" style="left:80px;top:740px;font-size:330px;color:var(--orange)">28.11</p>
+        <span class="band c" data-slam="7.4" style="left:52px;top:1080px;width:820px;height:170px"></span>
+        <p class="band-txt c" data-slam="7.4" style="left:98px;top:1090px;font-size:150px">10h - 12h</p>
+        <p class="t c" data-slam="7.76" style="left:80px;top:1284px;font-size:180px">Brive</p>
+      </section>
+
+      <!-- 8,2 – 9,4 s : public -->
+      <section class="shot" data-in="8.2" data-out="9.4">
+        <p class="t c" data-slam="8.24" style="left:80px;top:560px;font-size:140px">Réservé aux</p>
+        <p class="t c" data-slam="8.24" style="left:80px;top:700px;font-size:210px;color:var(--orange)">Licenciés</p>
+        <span class="band c" data-slam="8.55" style="left:52px;top:950px;width:900px;height:180px"></span>
+        <p class="band-txt c" data-slam="8.55" style="left:98px;top:960px;font-size:158px">BF &amp; kick</p>
+        <p class="t c" data-slam="8.86" style="left:80px;top:1170px;font-size:210px">Tous clubs</p>
+      </section>
+
+      <!-- 9,4 – 12 s : logo + infos en légende -->
+      <section class="shot" data-in="9.4" data-out="12.01">
+        <div class="badge-xl c" data-slam="9.44"><img src="assets/logo-club.jpg" alt="Logo Boxe Académie Brive"></div>
+        <span class="band c" data-slam="9.9" style="left:52px;top:1080px;width:976px;height:170px"></span>
+        <p class="band-txt c" data-slam="9.9" style="left:94px;top:1090px;font-size:150px">Infos en légende</p>
+        <p class="lead c" data-slam="10.3" style="left:80px;top:1290px;width:920px;font-size:40px">Boxe française · <b>samedi 28.11 · 10h-12h</b></p>
+      </section>
+    </div>
+    <div id="flash"></div>
+  </div>
+  <script src="kit.js"></script>
+  <script src="reel.js"></script>
+</body>
+</html>

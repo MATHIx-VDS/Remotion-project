@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Story 2 · Demain 10h</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=block">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    .duo { z-index: 7; width: 150px; height: 150px; border-radius: 50%; overflow: hidden; border: 5px solid var(--orange); box-shadow: 0 12px 30px -10px rgba(0,0,0,.9); }
+    .duo img { width: 100%; height: 100%; object-fit: cover; }
+    .duo-names { z-index: 7; font: 400 44px/1.05 var(--title); text-transform: uppercase; transform: skewX(-7deg); }
+    .duo-names small { display: block; font: 700 26px/1.3 var(--text); text-transform: none; color: var(--orange); transform: none; }
+    /* zone vide pour le sticker « Compte à rebours » : 860×340, ne rien mettre dedans */
+    .sticker { left: 110px; top: 1150px; width: 860px; height: 340px; z-index: 7; }
+    .sticker i { position: absolute; width: 54px; height: 54px; border-color: var(--orange); border-style: solid; border-width: 0; }
+    .sticker i:nth-child(1) { left: 0; top: 0; border-left-width: 6px; border-top-width: 6px; }
+    .sticker i:nth-child(2) { right: 0; top: 0; border-right-width: 6px; border-top-width: 6px; }
+    .sticker i:nth-child(3) { left: 0; bottom: 0; border-left-width: 6px; border-bottom-width: 6px; }
+    .sticker i:nth-child(4) { right: 0; bottom: 0; border-right-width: 6px; border-bottom-width: 6px; }
+  </style>
+</head>
+<body>
+  <!-- zones masquées par Instagram : 0-250 px et 1580-1920 px, sans texte -->
+  <div class="frame tall">
+    <div class="splat" data-splat style="left:0;top:300px;width:1080px;height:520px"></div>
+    <p class="brand" style="left:80px;top:276px">BOXE ACADÉMIE BRIVE</p>
+
+    <h1 class="t" style="left:80px;top:330px;font-size:250px">Demain</h1>
+    <span class="band" style="left:52px;top:590px;width:640px;height:300px"></span>
+    <p class="band-txt" style="left:100px;top:596px;font-size:290px">10h</p>
+
+    <div class="duo" style="left:80px;top:930px"><img src="assets/kevin.jpg" alt="Kevin Albertus" style="object-position:40% 25%"></div>
+    <div class="duo" style="left:200px;top:930px"><img src="assets/chloe.jpg" alt="Chloé Nandi" style="object-position:55% 22%"></div>
+    <p class="duo-names" style="left:390px;top:942px">Kevin Albertus &amp; Chloé Nandi<small>2 champions du monde · boxe française</small></p>
+
+    <div class="sticker" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+    <p class="chip" style="left:80px;top:1512px">Licenciés BF &amp; kick · tous clubs</p>
+  </div>
+  <script src="kit.js"></script>
+</body>
+</html>

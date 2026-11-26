@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Carrousel 4/4 · Infos pratiques</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=block">
+  <link rel="stylesheet" href="kit.css">
+  <style>
+    .rows { left: 80px; top: 330px; width: 920px; z-index: 6; }
+    .row { display: grid; grid-template-columns: 210px 1fr; align-items: baseline; gap: 20px; padding: 22px 0; border-top: 2px solid rgba(255,255,255,.12); }
+    .row:last-child { border-bottom: 2px solid rgba(255,255,255,.12); }
+    .row dt { font: 800 24px/1.2 var(--text); letter-spacing: .16em; color: var(--orange); text-transform: uppercase; }
+    .row dd { margin: 0; font: 400 54px/1 var(--title); text-transform: uppercase; transform: skewX(-7deg); transform-origin: 0 100%; }
+    .row dd.small { font: 700 32px/1.3 var(--text); text-transform: none; transform: none; color: #ededed; }
+    .row dd .ph { display: inline-block; padding: 4px 12px 2px; }
+    .cta { left: 52px; top: 1040px; width: 976px; height: 132px; z-index: 6; }
+    .cta-txt { left: 90px; top: 1060px; z-index: 7; font: 400 76px/1 var(--title); text-transform: uppercase; color: var(--black); transform: skewX(-7deg); white-space: nowrap; }
+    .cta-txt span { background: var(--black); color: var(--orange); padding: 0 12px; border-radius: 6px; }
+    .duo { z-index: 7; width: 132px; height: 132px; border-radius: 50%; overflow: hidden; border: 4px solid var(--orange); box-shadow: 0 12px 30px -10px rgba(0,0,0,.9); }
+    .duo img { width: 100%; height: 100%; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <p class="brand" style="left:80px;top:72px">BOXE ACADÉMIE BRIVE</p>
+    <h2 class="t" style="left:80px;top:150px;font-size:150px">Les <span class="o">infos</span></h2>
+    <div class="duo" style="right:212px;top:156px"><img src="assets/kevin.jpg" alt="Kevin Albertus" style="object-position:40% 25%"></div>
+    <div class="duo" style="right:80px;top:156px"><img src="assets/chloe.jpg" alt="Chloé Nandi" style="object-position:55% 22%"></div>
+
+    <dl class="rows">
+      <div class="row"><dt>Quand</dt><dd>Samedi 28 novembre 2026</dd></div>
+      <div class="row"><dt>Horaires</dt><dd>10h - 12h</dd></div>
+      <div class="row"><dt>Où</dt><dd><span data-info="LIEU"></span></dd></div>
+      <div class="row"><dt>Tarif</dt><dd><span data-info="TARIF"></span></dd></div>
+      <div class="row"><dt>Pour qui</dt><dd class="small">Licenciés boxe française et kick-boxing, tous clubs confondus</dd></div>
+    </dl>
+
+    <span class="band cta"></span>
+    <p class="cta-txt">Inscris-toi : <span data-info="INSCRIPTION"></span></p>
+
+    <p class="page" style="right:80px;bottom:72px">4<span>/4</span></p>
+  </div>
+  <script src="kit.js"></script>
+  <script src="infos.js"></script>
+</body>
+</html>
