@@ -4,6 +4,12 @@ Mini-jeu web de Noël : 15 secondes pour frapper le sac le plus de fois possible
 (1 mois d'abonnement offert, tirage le 24 décembre 2026).
 Site statique en HTML, CSS et JavaScript (sans framework), environ 350 Ko avec les polices. Hébergé sur Netlify et formulaire géré par Netlify Forms.
 
+## En ligne
+**https://defi-noel-boxe-academie.netlify.app** (site Netlify `defi-noel-boxe-academie`, mis en ligne par envoi direct du dossier).
+Le site n'est pas relié à GitHub : une modification de `config.js` sur GitHub ne le met pas à jour toute seule.
+Il faut le redéployer : redemande-le à Claude, ou fais un glisser-déposer du dossier dans Netlify → Deploys.
+Pour une mise à jour automatique, relie le site au dépôt : Site configuration → Build & deploy → Link repository, avec les réglages de l'étape 1 ci-dessous.
+
 ## Les fichiers
 | Fichier | Rôle |
 |---|---|
