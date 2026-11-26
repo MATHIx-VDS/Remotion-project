@@ -56,8 +56,9 @@ def lufs(x):
 mus = load(MUS)
 ph = beat_phase(mus)
 skip = (ph - CUTS[0]) % BEAT  # on saute ce bout de musique : ses temps tombent alors à 1,0 s + k × 0,6 s
-seg = mus[int(skip * SR): int((skip + DUR) * SR)]
-seg = np.pad(seg, ((0, int(DUR * SR) - len(seg)), (0, 0)))
+N = int(DUR * SR)
+seg = mus[int(skip * SR):][:N]
+seg = np.pad(seg, ((0, N - len(seg)), (0, 0)))
 fade = int(0.8 * SR)
 seg[-fade:] *= np.linspace(1, 0, fade)[:, None] ** 1.5
 seg[:int(0.03 * SR)] *= np.linspace(0, 1, int(0.03 * SR))[:, None]
