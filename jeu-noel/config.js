@@ -17,14 +17,16 @@ window.CONFIG = {
   CLUB_EMAIL: '[E-MAIL DU CLUB]',                 // ex. 'contact@boxeacademiebrive.fr'
   CLUB_ADDRESS: '[ADRESSE DU CLUB]',              // ex. '12 rue …, 19100 Brive-la-Gaillarde'
   CLUB_STATUS: '[STATUT JURIDIQUE]',              // ex. 'association loi 1901, SIRET …'
-  SHOP_URL: '[URL DE L\'E-SHOP À COMPLÉTER]',     // ex. 'https://boutique.boxeacademiebrive.fr'
+  SHOP_URL: 'https://www.boxe-academie.fr/eshop.html', // boutique du club (commande via HelloAsso)
 
   // Adresse publique du jeu, une fois en ligne (sert au lien de partage).
   // Laisse vide : le jeu utilise automatiquement l'adresse de la page.
   SITE_URL: '',
 
   // --- Le jeu-concours ------------------------------------------------
-  LAUNCH_DATE: '[DATE DE LANCEMENT]',             // texte affiché, ex. '1er décembre 2026'
+  // Début du jeu (par défaut : le jour de la mise en ligne). Format AAAA-MM-JJ.
+  // Le règlement affiche la période complète : « du 26 novembre 2026 au 23 décembre 2026 à minuit ».
+  START_DATE: '2026-11-26',
   END_DATE_TEXT: '23 décembre 2026 à minuit',
   // Fin des participations (heure de Paris). Après cette date, le formulaire est fermé.
   END_DATETIME: '2026-12-23T23:59:59+01:00',

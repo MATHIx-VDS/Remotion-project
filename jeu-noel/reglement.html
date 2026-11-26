@@ -37,13 +37,13 @@
   <main class="doc">
     <a class="back" href="./">← Retour au jeu</a>
     <h1>Règlement du jeu <span>« Le Défi du Sac de Noël »</span></h1>
-    <p class="lead">Jeu-concours gratuit et sans obligation d'achat.</p>
+    <p class="lead">Jeu-concours gratuit et sans obligation d'achat, du <span data-r="START_DATE"></span> au <span data-r="END_DATE_TEXT">23 décembre 2026 à minuit</span>.</p>
 
     <h2>Article 1 · Organisateur</h2>
     <p>Le jeu est organisé par <b data-r="CLUB_NAME">Boxe Académie Brive</b>, <span data-r="CLUB_STATUS"></span>, dont le siège est situé <span data-r="CLUB_ADDRESS"></span> (ci-après « l'Organisateur »). Contact : <span data-r="CLUB_EMAIL" data-mail></span>.</p>
 
     <h2>Article 2 · Durée</h2>
-    <p>Le jeu est ouvert du <span data-r="LAUNCH_DATE"></span> au <span data-r="END_DATE_TEXT">23 décembre 2026 à minuit</span> (heure de Paris). Les participations enregistrées après cette date ne sont pas prises en compte.</p>
+    <p>Le jeu est ouvert du <span data-r="START_DATE"></span> au <span data-r="END_DATE_TEXT">23 décembre 2026 à minuit</span> (heure de Paris). Les participations enregistrées après cette date ne sont pas prises en compte.</p>
 
     <h2>Article 3 · Qui peut participer ?</h2>
     <p>Le jeu est ouvert à toute personne physique, sans obligation d'achat ni d'adhésion au club. Les mineurs participent sous la responsabilité et avec l'accord de leur représentant légal, qui pourra être demandé lors de la remise du lot. Les membres du bureau de l'Organisateur ne peuvent pas participer.</p>
@@ -83,6 +83,11 @@
         var k = el.getAttribute('data-r');
         var v = C[k];
         v = v === undefined || v === null ? '' : String(v);
+        // date de début : '2026-11-26' → '26 novembre 2026'
+        if (k === 'START_DATE' && /^\d{4}-\d{2}-\d{2}$/.test(v)) {
+          var d = new Date(v + 'T12:00:00');
+          v = d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).replace(/^1 /, '1er ');
+        }
         if (!v.trim() || /\[[^\]]*\]/.test(v)) {
           el.textContent = v.trim() || '[' + k + ' À COMPLÉTER]';
           el.className = 'todo';

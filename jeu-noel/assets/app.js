@@ -435,9 +435,18 @@
     const end = Date.parse(C.END_DATETIME || '');
     return !isNaN(end) && Date.now() > end;
   };
+  // avant la date de début (heure de Paris) : le formulaire n'est pas encore ouvert
+  const notStarted = () => {
+    const start = Date.parse((C.START_DATE || '') + 'T00:00:00+01:00');
+    return !isNaN(start) && Date.now() < start;
+  };
 
   function setupDrawCard() {
-    const isClosed = closed();
+    const isClosed = closed() || notStarted();
+    if (notStarted()) {
+      const d = new Date(C.START_DATE + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' });
+      $('#drawClosed').innerHTML = `<p class="done-big">Bientôt !</p><p>Les participations ouvrent le ${d}.</p>`;
+    }
     const done = store.get(EMAILS_KEY, []).length > 0 && !form.dataset.another;
     form.hidden = isClosed || done;
     $('#drawSub').hidden = isClosed;
@@ -475,7 +484,7 @@
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (closed()) { setupDrawCard(); return; }
+    if (closed() || notStarted()) { setupDrawCard(); return; }
     if (!validate()) return;
     const email = $('#fEmail').value.trim().toLowerCase();
     const known = store.get(EMAILS_KEY, []);
@@ -526,6 +535,6 @@
   photosReady.then((p) => { startSlideshow(p); buildGallery(p); });
   updateHomeBest();
 
-  const missing = ['SHOP_URL', 'CLUB_EMAIL', 'LAUNCH_DATE', 'CLUB_ADDRESS', 'PRIZE_VALUE'].filter((k) => !isSet(C[k]));
+  const missing = ['SHOP_URL', 'CLUB_EMAIL', 'CLUB_ADDRESS', 'CLUB_STATUS', 'PRIZE_VALUE'].filter((k) => !isSet(C[k]));
   if (missing.length) console.info('[Défi du Sac] À compléter dans config.js :', missing.join(', '));
 })();

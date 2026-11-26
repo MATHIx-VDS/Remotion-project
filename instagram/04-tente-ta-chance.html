@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>04 · Tente ta chance</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Noto+Color+Emoji&display=block">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .card {
+      left: 110px; top: 545px; width: 860px; height: 430px; z-index: 5; overflow: hidden;
+      border-radius: 34px; transform: rotate(-3deg);
+      background:
+        radial-gradient(70% 90% at 85% 15%, rgba(240,138,36,.45), transparent 60%),
+        repeating-linear-gradient(180deg, rgba(240,138,36,.16) 0 12px, transparent 12px 28px),
+        linear-gradient(135deg, #1d1d1d, #0b0b0b);
+      border: 2px solid #3a3a3a;
+      box-shadow: 0 50px 90px -30px rgba(0,0,0,.95), 0 0 100px -20px rgba(240,138,36,.55);
+    }
+    .card > * { position: absolute; }
+    .card .kind { left: 50px; top: 46px; font: 800 24px/1 var(--text); letter-spacing: .24em; color: var(--orange); }
+    .card .prize { left: 50px; top: 96px; width: 560px; font: 400 90px/.88 var(--title); text-transform: uppercase; color: var(--white); }
+    .card .prize em { font-style: normal; color: var(--orange); }
+    .card .club { left: 50px; bottom: 38px; font: 600 24px/1 var(--text); color: #cfcfcf; letter-spacing: .04em; }
+    .card .chip { right: 54px; bottom: 44px; width: 92px; height: 70px; border-radius: 12px; background: linear-gradient(135deg, #f3c27a, #c98a2e); }
+    .card .ribbon { right: 190px; top: 0; bottom: 0; width: 46px; background: linear-gradient(90deg, #c96a12, #F08A24 45%, #ffb066 60%, #c96a12); opacity: .95; }
+    .card .bag { right: 70px; top: -20px; width: 150px; height: 352px; }
+    .luck {
+      left: 80px; top: 1040px; width: 920px; z-index: 6;
+      padding: 30px 36px; border-radius: 22px; background: var(--orange); color: var(--bg);
+      font: 800 40px/1.2 var(--text); box-shadow: 0 20px 50px -18px rgba(240,138,36,.9);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" data-page="4" data-arrow>
+    <div class="stripes"></div>
+    <div class="glow" style="left:120px;top:420px;width:860px;height:700px"></div>
+
+    <h2 class="t z" style="left:80px;top:140px;width:920px;font-size:140px">Tente <em>ta chance</em></h2>
+    <p class="lead z" style="left:80px;top:290px;width:920px;font-size:36px">Laisse ton <b>prénom</b>, ton <b>nom</b> et ton <b>e-mail</b> à la fin de ta partie.<br>Tirage au sort le <b class="o">24 décembre</b> parmi tous les participants.</p>
+
+    <div class="card">
+      <span class="ribbon"></span>
+      <p class="kind">CARTE CADEAU</p>
+      <p class="prize">1 mois d'abonnement <em>offert</em></p>
+      <p class="club">Boxe Académie Brive</p>
+      <div class="bag" data-bag></div>
+    </div>
+
+    <p class="luck">Ton score ne compte pas : tout le monde a sa chance&nbsp;!</p>
+  </div>
+  <script src="common.js"></script>
+</body>
+</html>

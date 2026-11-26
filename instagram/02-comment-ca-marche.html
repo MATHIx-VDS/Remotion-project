@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>02 · Comment ça marche</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Noto+Color+Emoji&display=block">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .steps { left: 80px; top: 430px; width: 480px; z-index: 5; display: flex; flex-direction: column; gap: 58px; }
+    .step { display: flex; gap: 26px; align-items: flex-start; }
+    .num {
+      flex: 0 0 88px; height: 88px; border-radius: 50%;
+      display: grid; place-items: center; background: var(--orange); color: var(--bg);
+      font: 400 60px/1 var(--title); padding-top: 6px;
+      box-shadow: 0 10px 30px -10px rgba(240,138,36,.8);
+    }
+    .step p { font-size: 37px; line-height: 1.22; font-weight: 600; color: #f2f2f2; padding-top: 10px; }
+    .step p b { color: var(--orange); font-weight: 800; }
+    .rail { left: 123px; top: 520px; width: 3px; height: 430px; z-index: 4; background: linear-gradient(var(--orange), rgba(240,138,36,.15)); }
+    .phone {
+      left: 625px; top: 400px; width: 370px; height: 786px; z-index: 5;
+      border-radius: 62px; padding: 14px; background: #1b1b1b;
+      box-shadow: 0 0 0 3px #3a3a3a, 0 40px 80px -20px rgba(0,0,0,.9), 0 0 90px -10px rgba(240,138,36,.45);
+      transform: rotate(3deg);
+    }
+    .phone img { display: block; width: 100%; height: 100%; border-radius: 50px; object-fit: cover; }
+    .phone::before { content: ''; position: absolute; left: 50%; top: 26px; width: 110px; height: 30px; margin-left: -55px; border-radius: 20px; background: #000; z-index: 2; }
+    .tag {
+      left: 80px; top: 1060px; z-index: 6; transform: rotate(-4deg);
+      padding: 14px 26px 10px; border-radius: 14px; background: var(--white); color: var(--bg);
+      font: 400 46px/1 var(--title); letter-spacing: .03em; box-shadow: 0 16px 30px -10px rgba(0,0,0,.8);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" data-page="2" data-arrow>
+    <div class="stripes"></div>
+    <div class="glow" style="left:470px;top:300px;width:700px;height:900px"></div>
+
+    <h2 class="t z" style="left:80px;top:140px;width:920px;font-size:128px">Comment ça <em>marche&nbsp;?</em></h2>
+
+    <span class="rail"></span>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><p>Ouvre le <b>lien en bio</b></p></div>
+      <div class="step"><span class="num">2</span><p>Clique sur <b>«&nbsp;Entrer sur le&nbsp;ring&nbsp;»</b></p></div>
+      <div class="step"><span class="num">3</span><p>Frappe le sac <b>le plus vite possible</b> pendant 15&nbsp;s</p></div>
+    </div>
+
+    <div class="phone"><img src="assets/capture-jeu.png" alt="Capture du jeu"></div>
+    <p class="tag">Capture réelle du jeu →</p>
+  </div>
+  <script src="common.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Story</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Noto+Color+Emoji&display=block">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    /* zones masquées par Instagram : 250 px en haut et en bas, laissées sans texte */
+    .story .brand { top: 290px; }
+    .kick { left: 80px; top: 350px; z-index: 5; font: 800 30px/1 var(--text); letter-spacing: .2em; color: var(--orange); }
+    .hint { left: 0; right: 0; top: 1372px; z-index: 5; text-align: center; font: 400 52px/1 var(--title); letter-spacing: .08em; color: var(--white); }
+    .hint span { color: var(--orange); }
+    /* zone vide pour les stickers Lien + Sondage : 600×200, au milieu en bas (ne rien mettre dedans) */
+    .stickers { left: 240px; top: 1440px; width: 600px; height: 200px; }
+    .emoji { font-family: 'Noto Color Emoji', sans-serif; font-size: .78em; vertical-align: .06em; }
+  </style>
+</head>
+<body>
+  <div class="slide story">
+    <div class="stripes"></div>
+    <div class="glow" style="left:120px;top:820px;width:840px;height:700px"></div>
+
+    <p class="kick">Le défi du sac de Noël</p>
+    <h1 class="t z" style="left:80px;top:410px;width:920px;font-size:196px">15 secondes<br>pour gagner<br><em>1 mois</em> <span class="emoji">🥊</span></h1>
+
+    <div class="bag" data-bag style="left:430px;top:905px;width:200px;height:470px;transform:rotate(5deg);transform-origin:50% 0"></div>
+    <span class="ring" style="left:368px;top:1140px;width:130px;height:130px"></span>
+    <span class="spark" style="left:350px;top:1120px;transform:rotate(-40deg)"></span>
+    <span class="spark" style="left:330px;top:1210px;transform:rotate(-95deg)"></span>
+    <div class="burst" style="left:80px;top:1010px;width:330px;height:236px;transform:rotate(-10deg)">
+      <svg viewBox="0 0 400 300"><polygon points="200,17 221,72 271,23 261,83 323,60 296,103 390,92 322,132 400,150 309,166 377,204 294,196 326,243 260,216 269,272 225,242 200,299 176,240 123,287 139,218 71,245 100,199 16,206 76,168 -4,150 94,134 21,95 99,100 65,51 139,82 128,21 179,72" fill="#F08A24" stroke="#0d0d0d" stroke-width="6" stroke-linejoin="round"/></svg>
+      <b style="font-size:118px">BAM !</b>
+    </div>
+    <p class="t" style="right:80px;top:1080px;width:330px;font-size:64px;text-align:right;z-index:5">1 mois<br><em>offert</em><br>à gagner</p>
+
+    <p class="hint">Touche le lien <span>↓</span></p>
+    <div class="stickers" aria-hidden="true"></div>
+  </div>
+  <script src="common.js"></script>
+</body>
+</html>

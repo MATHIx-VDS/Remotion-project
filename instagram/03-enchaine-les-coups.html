@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>03 · Enchaîne les coups</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Noto+Color+Emoji&display=block">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .stairs { left: 80px; bottom: 170px; width: 920px; z-index: 5; display: flex; align-items: flex-end; gap: 16px; }
+    .stair {
+      flex: 1; display: flex; flex-direction: column; justify-content: flex-start;
+      padding: 26px 22px; border-radius: 18px 18px 6px 6px;
+      background: linear-gradient(#1f1f1f, #141414); border: 2px solid #333; border-top: 6px solid var(--orange);
+    }
+    .stair .lv { font: 400 30px/1 var(--title); letter-spacing: .12em; color: var(--muted); }
+    .stair h3 { margin: 10px 0 8px; font: 400 58px/.92 var(--title); text-transform: uppercase; color: var(--white); }
+    .stair p { font-size: 26px; line-height: 1.25; color: #d6d6d6; font-weight: 600; }
+    .s1 { height: 250px; border-top-color: rgba(240,138,36,.45); }
+    .s2 { height: 360px; }
+    .s3 { height: 470px; background: linear-gradient(#ff9d3a, #F08A24 45%, #c96a12); border-color: #ffb066; box-shadow: 0 0 80px -10px rgba(240,138,36,.8); }
+    .s3 .lv, .s3 h3, .s3 p { color: var(--bg); }
+    .s3 h3 { font-size: 64px; }
+    .arrows { left: 80px; bottom: 120px; width: 920px; z-index: 5; display: flex; justify-content: space-between; font: 400 30px/1 var(--title); letter-spacing: .1em; color: var(--muted); }
+    .combo { left: 450px; top: 520px; z-index: 6; font: 400 150px/.9 var(--title); color: var(--white); text-shadow: 0 0 40px rgba(240,138,36,.95); transform: rotate(-4deg); }
+    .combo em { font-style: normal; color: var(--orange); }
+    .combo-sub { left: 456px; top: 668px; z-index: 6; font-size: 28px; font-weight: 600; color: #e8e8e8; }
+  </style>
+</head>
+<body>
+  <div class="slide" data-page="3" data-arrow>
+    <div class="stripes"></div>
+    <div class="glow" style="left:-60px;top:380px;width:640px;height:700px"></div>
+
+    <h2 class="t z" style="left:80px;top:140px;width:920px;font-size:132px">Enchaîne <em>les coups</em></h2>
+    <p class="lead z" style="left:80px;top:300px;width:920px;font-size:38px">Plus tu frappes vite, plus tu déclenches le <b class="o">combo&nbsp;x2</b>.</p>
+
+    <div class="bag" data-bag style="left:150px;top:440px;width:200px;height:470px;transform:rotate(-5deg);transform-origin:50% 0"></div>
+    <span class="spark" style="left:380px;top:640px;transform:rotate(60deg)"></span>
+    <span class="spark" style="left:395px;top:720px;transform:rotate(95deg)"></span>
+    <span class="spark" style="left:120px;top:690px;transform:rotate(-70deg)"></span>
+    <p class="combo">Combo <em>x2</em></p>
+    <p class="combo-sub">Dès 6 coups par seconde.</p>
+
+    <div class="stairs">
+      <div class="stair s1"><span class="lv">Palier 1</span><h3>Échauffement</h3><p>Moins de 30&nbsp;coups</p></div>
+      <div class="stair s2"><span class="lv">Palier 2</span><h3>Guerrier</h3><p>60 à 89&nbsp;coups</p></div>
+      <div class="stair s3"><span class="lv">Palier 3</span><h3>Champion du ring</h3><p>90&nbsp;coups et&nbsp;+</p></div>
+    </div>
+  </div>
+  <script src="common.js"></script>
+</body>
+</html>

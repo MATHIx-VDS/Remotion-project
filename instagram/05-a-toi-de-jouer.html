@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>05 · À toi de jouer</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;800&family=Noto+Color+Emoji&display=block">
+  <link rel="stylesheet" href="common.css">
+  <style>
+    .chips { left: 80px; top: 640px; width: 920px; z-index: 5; display: flex; flex-wrap: wrap; gap: 16px; }
+    .chips span {
+      display: inline-flex; align-items: center; gap: 12px; padding: 15px 22px 13px; border-radius: 999px;
+      background: rgba(13,13,13,.75); border: 2px solid rgba(255,255,255,.35);
+      font: 800 27px/1 var(--text); letter-spacing: .05em; text-transform: uppercase;
+    }
+    .chips span::before { content: '✓'; color: var(--orange); font-weight: 800; }
+    .cta {
+      left: 80px; top: 800px; width: 680px; height: 170px; z-index: 6;
+      display: flex; align-items: center; justify-content: center; gap: 26px;
+      border-radius: 999px; background: var(--orange); color: var(--bg);
+      font: 400 108px/1 var(--title); letter-spacing: .04em; padding-top: 10px;
+      box-shadow: 0 26px 60px -18px rgba(240,138,36,.95), 0 0 0 10px rgba(240,138,36,.18);
+    }
+    .cta svg { width: 70px; height: 70px; margin-top: -10px; }
+    .end { left: 80px; top: 1030px; width: 700px; z-index: 5; font-size: 38px; font-weight: 600; color: #f0f0f0; }
+    .end b { color: var(--orange); font-weight: 800; }
+    .rules { left: 80px; bottom: 84px; z-index: 5; font-size: 24px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="slide" data-page="5">
+    <div class="photo"><img src="assets/club-02.jpg" alt=""></div>
+    <div class="glow" style="left:560px;top:-80px;width:640px;height:820px"></div>
+
+    <div class="bag" data-bag style="left:760px;top:-30px;width:230px;height:540px;transform:rotate(-4deg);transform-origin:50% 0"></div>
+
+    <h2 class="t z" style="left:80px;top:150px;width:640px;font-size:200px">À toi<br><em>de jouer</em></h2>
+
+    <div class="chips"><span>Gratuit</span><span>Sans achat</span><span>Ouvert à tous</span></div>
+
+    <p class="cta">
+      Lien en bio
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V5M5 11l7-7 7 7" fill="none" stroke="#0d0d0d" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </p>
+    <p class="end">Fin du jeu le <b>23 décembre à minuit</b></p>
+    <p class="rules">Règlement complet sur le site</p>
+  </div>
+  <script src="common.js"></script>
+</body>
+</html>
