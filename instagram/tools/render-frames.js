@@ -1,11 +1,11 @@
-// Rend chaque visuel animé image par image à 60 i/s (motion/motion.js) dans un dossier de frames JPEG.
+// Rend chaque visuel animé image par image à 120 i/s (motion/motion.js) dans un dossier de frames JPEG.
 // node tools/render-frames.js <dossier_frames> [01 02 … story]
 const { chromium } = require('playwright');
 const path = require('path');
 const fs = require('fs');
 
 const DIR = path.resolve(__dirname, '..');
-const FPS = 60;
+const FPS = 120;
 const TR = 0.28; // durée des transitions (le visuel sortant continue de jouer pendant ce temps)
 // [fichier, hauteur, durée à l'écran en s]
 const SHOTS = [

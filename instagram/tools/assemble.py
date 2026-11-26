@@ -3,7 +3,7 @@
 python assemble.py <dossier_frames> <dossier_sortie>
 
 - Carrousel : 5 visuels enchaînés par des « whip pans » de 0,28 s avec flou de mouvement horizontal.
-- Rendu interne à 60 i/s, sortie à 30 i/s en fusionnant 2 images : flou de mouvement naturel, sans saccade.
+- Rendu interne à 120 i/s, sortie à 30 i/s en fusionnant 4 images : flou de mouvement naturel, sans saccade.
 - Habillage sonore synthétisé (whooshs, impacts, pops), à -16 LUFS. H.264 + AAC, compatible Photos et Instagram.
 """
 import os
@@ -18,7 +18,7 @@ from scipy import signal
 
 FR, OUT = sys.argv[1], sys.argv[2]
 os.makedirs(OUT, exist_ok=True)
-FPS_IN, FPS_OUT, W = 60, 30, 1080
+FPS_IN, FPS_OUT, W = 120, 30, 1080
 TR = 0.28
 SLIDES = ['01-couverture', '02-comment-ca-marche', '03-enchaine-les-coups', '04-tente-ta-chance', '05-a-toi-de-jouer']
 DUR = [2.9, 3.1, 3.0, 3.0, 3.4]
@@ -49,14 +49,14 @@ def carousel_frame(g):
     prev = frame(SLIDES[i - 1], round((t - START[i - 1]) * FPS_IN))
     p = local / TR
     off = -W * ease(p)
-    v = W * abs(ease(p + 0.5 / (TR * FPS_IN)) - ease(p - 0.5 / (TR * FPS_IN)))  # px par image à 60 i/s
+    v = W * abs(ease(p + 0.5 / (TR * FPS_IN)) - ease(p - 0.5 / (TR * FPS_IN)))  # px par image à 120 i/s
     o = int(round(off))
     img = np.empty_like(cur)
     # le visuel sortant part à gauche, l'entrant arrive de la droite, collés l'un à l'autre
     if o > -W:
         img[:, :W + o] = prev[:, -o:]
     img[:, W + o:] = cur[:, :-o] if o < 0 else cur[:, :0]
-    L = int(v * 1.6)
+    L = int(v * 3.2)
     if L > 2:
         img = cv2.blur(img, (L, 1))
     return img
@@ -70,8 +70,9 @@ def encode(get, n60, h, wav, path):
            '-color_primaries', 'bt709', '-color_trc', 'bt709', '-colorspace', 'bt709',
            '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', path]
     pr = subprocess.Popen(cmd, stdin=subprocess.PIPE)
-    for g in range(0, n60 - 1, 2):
-        img = (get(g) + get(g + 1)) * 0.5  # obturateur : 2 images à 60 i/s → 1 image à 30 i/s
+    r = FPS_IN // FPS_OUT
+    for g in range(0, n60 - r + 1, r):
+        img = sum(get(g + j) for j in range(r)) / r  # obturateur : 4 images à 120 i/s → 1 image à 30 i/s
         pr.stdin.write(np.clip(img + 0.5, 0, 255).astype(np.uint8).tobytes())
     pr.stdin.close()
     pr.wait()
